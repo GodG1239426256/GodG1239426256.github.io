@@ -1,51 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>零基础入门nlp-新闻文本分类实战</title>
-    <url>/2020/07/20/%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E5%AE%9E%E6%88%98/</url>
-    <content><![CDATA[<h2 align = "center">零基础入门NLP - 新闻文本分类实战</h2>
-
-<h3 id="1-赛题理解"><a href="#1-赛题理解" class="headerlink" title="1 赛题理解"></a>1 赛题理解</h3><p>&emsp;&emsp;首先要理解赛题的背景及描述——赛题以新闻数据为赛题数据，数据集报名后可见并可下载。赛题数据为新闻文本，并按照字符级别进行匿名处理。整合划分出14个候选分类类别：财经、彩票、房产、股票、家居、教育、科技、社会、时尚、时政、体育、星座、游戏、娱乐的文本数据。通过描述，我们可以知道这道题是要==通过给定的一段文本来判断是属于哪一种类别的==。</p>
-<a id="more"></a>
-<p>&emsp;&emsp;赛题数据由以下几个部分构成：训练集20w条样本，测试集A包括5w条样本，测试集B包括5w条样本。为了预防选手人工标注测试集的情况，我们将比赛数据的文本按照字符级别进行了匿名处理。处理后的赛题训练数据如下：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">label</th>
-<th style="text-align:center">text</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">6</td>
-<td style="text-align:center">57 44 66 56 2 3 3 37 5 41 9 57 44 47 45 33 13 63 58 31 17 47 0 1 1 69 26 60 62 15 21 12 49 18 38 20 50 23 57 44 45 33 25 28 47 22 52 35 30 14 24 69 54 7 48 19 11 51 16 43 26 34 53 27 64 8 4 42 36 46 65 69 29 39 15 37 57 44 45 33 69 54 7 25 40 35 30 66 56 47 55 69 61 10 60 42 36 46 65 37 5 41 32 67 6 59 47 0 1 1 68</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>标签的对应关系为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#39;科技&#39;: 0, &#39;股票&#39;: 1, &#39;体育&#39;: 2, &#39;娱乐&#39;: 3, &#39;时政&#39;: 4, &#39;社会&#39;: 5, &#39;教育&#39;: 6, &#39;财经&#39;: 7, &#39;家居&#39;: 8, &#39;游戏&#39;: 9, &#39;房产&#39;: 10, &#39;时尚&#39;: 11, &#39;彩票&#39;: 12, &#39;星座&#39;: 13&#125;</span><br></pre></td></tr></table></figure>
-<p>在接触赛题初时，对于这次比赛的评判标准要很清楚！！！</p>
-<script type="math/tex; mode=display">
-计算公式：2\times \frac{precision \times recall}{precision + recall}</script><p>上述公式也就是F1_score,是统计学中用来衡量二分类模型精确度的一种指标。它同时兼顾了分类模型的<strong>精确(precision)</strong>和<strong>召回率(recall)</strong>。F1分数可以看作是模型精确率和召回率的一种调和平均，它的最大值是1，最小值是0。这里提到了精确率和召回率，要想理解这两个还得先知道<strong>TP、FP、TN、FN</strong>这四个概念</p>
-<ul>
-<li>TP：True Positive ：做出Positive的判定，而且判定是正确的</li>
-<li>FP：False Positive ：做出Positive的判定，而且判定是错误的</li>
-<li>TN：True Negative ：做出Negative的判定，而且判定是正确的</li>
-<li>FN：False Negative：错误的Negative判定，而且判断是错误的</li>
-</ul>
-<script type="math/tex; mode=display">
-precision = \frac{TP}{TP+FP} \\
-recall = \frac{TP}{TP+FN}</script>]]></content>
-      <categories>
-        <category>nlp</category>
-      </categories>
-      <tags>
-        <tag>nlp，入门，datawhale</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python-变量、运算符、数据类型及位运算</title>
     <url>/2020/07/20/python-%E5%8F%98%E9%87%8F%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6%E3%80%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%8F%8A%E4%BD%8D%E8%BF%90%E7%AE%97/</url>
     <content><![CDATA[<h3 id="1-1-Python简介"><a href="#1-1-Python简介" class="headerlink" title="1.1 Python简介"></a>1.1 Python简介</h3><p>&emsp;&emsp;Python 是由 Guido van Rossum 在八十年代末和九十年代初，在荷兰国家数学和计算机科学研究所设计出来的。Python 本身也是由诸多其他语言发展而来的,这包括 ABC、Modula-3、C、C++、Algol-68、SmallTalk、Unix shell 和其他的脚本语言等等。像 Perl 语言一样，Python 源代码同样遵循 GPL(GNU General Public License)协议。现在 Python 是由一个核心开发团队在维护，Guido van Rossum 仍然占据着至关重要的作用，指导其进展。Python 2.7 被确定为最后一个 Python 2.x 版本，它除了支持 Python 2.x 语法外，还支持部分 Python 3.1 语法。</p>
@@ -438,6 +393,51 @@ recall = \frac{TP}{TP+FN}</script>]]></content>
       </categories>
       <tags>
         <tag>学习笔记，python入门</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>零基础入门nlp-新闻文本分类实战</title>
+    <url>/2020/07/20/%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E5%AE%9E%E6%88%98/</url>
+    <content><![CDATA[<h2 align = "center">零基础入门NLP - 新闻文本分类实战</h2>
+
+<h3 id="1-赛题理解"><a href="#1-赛题理解" class="headerlink" title="1 赛题理解"></a>1 赛题理解</h3><p>&emsp;&emsp;首先要理解赛题的背景及描述——赛题以新闻数据为赛题数据，数据集报名后可见并可下载。赛题数据为新闻文本，并按照字符级别进行匿名处理。整合划分出14个候选分类类别：财经、彩票、房产、股票、家居、教育、科技、社会、时尚、时政、体育、星座、游戏、娱乐的文本数据。通过描述，我们可以知道这道题是要==通过给定的一段文本来判断是属于哪一种类别的==。</p>
+<a id="more"></a>
+<p>&emsp;&emsp;赛题数据由以下几个部分构成：训练集20w条样本，测试集A包括5w条样本，测试集B包括5w条样本。为了预防选手人工标注测试集的情况，我们将比赛数据的文本按照字符级别进行了匿名处理。处理后的赛题训练数据如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">label</th>
+<th style="text-align:center">text</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">57 44 66 56 2 3 3 37 5 41 9 57 44 47 45 33 13 63 58 31 17 47 0 1 1 69 26 60 62 15 21 12 49 18 38 20 50 23 57 44 45 33 25 28 47 22 52 35 30 14 24 69 54 7 48 19 11 51 16 43 26 34 53 27 64 8 4 42 36 46 65 69 29 39 15 37 57 44 45 33 69 54 7 25 40 35 30 66 56 47 55 69 61 10 60 42 36 46 65 37 5 41 32 67 6 59 47 0 1 1 68</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>标签的对应关系为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#39;科技&#39;: 0, &#39;股票&#39;: 1, &#39;体育&#39;: 2, &#39;娱乐&#39;: 3, &#39;时政&#39;: 4, &#39;社会&#39;: 5, &#39;教育&#39;: 6, &#39;财经&#39;: 7, &#39;家居&#39;: 8, &#39;游戏&#39;: 9, &#39;房产&#39;: 10, &#39;时尚&#39;: 11, &#39;彩票&#39;: 12, &#39;星座&#39;: 13&#125;</span><br></pre></td></tr></table></figure>
+<p>在接触赛题初时，对于这次比赛的评判标准要很清楚！！！</p>
+<script type="math/tex; mode=display">
+计算公式：2\times \frac{precision \times recall}{precision + recall}</script><p>上述公式也就是F1_score,是统计学中用来衡量二分类模型精确度的一种指标。它同时兼顾了分类模型的<strong>精确(precision)</strong>和<strong>召回率(recall)</strong>。F1分数可以看作是模型精确率和召回率的一种调和平均，它的最大值是1，最小值是0。这里提到了精确率和召回率，要想理解这两个还得先知道<strong>TP、FP、TN、FN</strong>这四个概念</p>
+<ul>
+<li>TP：True Positive ：做出Positive的判定，而且判定是正确的</li>
+<li>FP：False Positive ：做出Positive的判定，而且判定是错误的</li>
+<li>TN：True Negative ：做出Negative的判定，而且判定是正确的</li>
+<li>FN：False Negative：错误的Negative判定，而且判断是错误的</li>
+</ul>
+<script type="math/tex; mode=display">
+precision = \frac{TP}{TP+FP} \\
+recall = \frac{TP}{TP+FN}</script>]]></content>
+      <categories>
+        <category>nlp</category>
+      </categories>
+      <tags>
+        <tag>nlp，入门，datawhale</tag>
       </tags>
   </entry>
 </search>
