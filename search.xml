@@ -1,6 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>零基础入门nlp-新闻文本分类实战</title>
+    <url>/2020/07/20/%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E5%AE%9E%E6%88%98/</url>
+    <content><![CDATA[<h2 align = "center">零基础入门NLP - 新闻文本分类实战</h2>
+
+<h3 id="赛题理解"><a href="#赛题理解" class="headerlink" title="赛题理解"></a>赛题理解</h3><p>&emsp;&emsp;首先要理解赛题的背景及描述——赛题以新闻数据为赛题数据，数据集报名后可见并可下载。赛题数据为新闻文本，并按照字符级别进行匿名处理。整合划分出14个候选分类类别：财经、彩票、房产、股票、家居、教育、科技、社会、时尚、时政、体育、星座、游戏、娱乐的文本数据。通过描述，我们可以知道这道题是要==通过给定的一段文本来判断是属于哪一种类别的==。</p>
+<a id="more"></a>
+<p>&emsp;&emsp;赛题数据由以下几个部分构成：训练集20w条样本，测试集A包括5w条样本，测试集B包括5w条样本。为了预防选手人工标注测试集的情况，我们将比赛数据的文本按照字符级别进行了匿名处理。处理后的赛题训练数据如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">label</th>
+<th style="text-align:center">text</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">57 44 66 56 2 3 3 37 5 41 9 57 44 47 45 33 13 63 58 31 17 47 0 1 1 69 26 60 62 15 21 12 49 18 38 20 50 23 57 44 45 33 25 28 47 22 52 35 30 14 24 69 54 7 48 19 11 51 16 43 26 34 53 27 64 8 4 42 36 46 65 69 29 39 15 37 57 44 45 33 69 54 7 25 40 35 30 66 56 47 55 69 61 10 60 42 36 46 65 37 5 41 32 67 6 59 47 0 1 1 68</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>标签的对应关系为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#39;科技&#39;: 0, &#39;股票&#39;: 1, &#39;体育&#39;: 2, &#39;娱乐&#39;: 3, &#39;时政&#39;: 4, &#39;社会&#39;: 5, &#39;教育&#39;: 6, &#39;财经&#39;: 7, &#39;家居&#39;: 8, &#39;游戏&#39;: 9, &#39;房产&#39;: 10, &#39;时尚&#39;: 11, &#39;彩票&#39;: 12, &#39;星座&#39;: 13&#125;</span><br></pre></td></tr></table></figure>
+<p>在接触赛题初时，对于这次比赛的评判标准要很清楚！！！</p>
+<script type="math/tex; mode=display">
+计算公式：2\times \frac{precision \times recall}{precision + recall}</script><p>上述公式也就是F1_score,是统计学中用来衡量二分类模型精确度的一种指标。它同时兼顾了分类模型的<strong>精确(precision)</strong>和<strong>召回率(recall)</strong>。F1分数可以看作是模型精确率和召回率的一种调和平均，它的最大值是1，最小值是0。这里提到了精确率和召回率，要想理解这两个还得先知道<strong>TP、FP、TN、FN</strong>这四个概念</p>
+<ul>
+<li>TP：True Positive ：做出Positive的判定，而且判定是正确的</li>
+<li>FP：False Positive ：做出Positive的判定，而且判定是错误的</li>
+<li>TN：True Negative ：做出Negative的判定，而且判定是正确的</li>
+<li>FN：False Negative：错误的Negative判定，而且判断是错误的</li>
+</ul>
+<script type="math/tex; mode=display">
+precision = \frac{TP}{TP+FP} \\
+recall = \frac{TP}{TP+FN}</script><h3 id="数据读取"><a href="#数据读取" class="headerlink" title="数据读取"></a>数据读取</h3><p>出题者提到数据集文件用<code>&#39;\t&#39;</code>分割，因此这样读取数据集。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">train_df = pd.read_csv(<span class="string">'../input/train_set.csv'</span>, sep=<span class="string">'\t'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\12394\AppData\Roaming\Typora\typora-user-images\image-20200722105215770.png" alt="image-20200722105215770"></p>
+<p>上面图中显示的数据，进行了脱敏处理的。</p>
+<h3 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h3><p>我们希望通过训练集的数据，通过数据分析得出下列的结论：</p>
+<ul>
+<li>赛题数据中，新闻文本的长度是多少？</li>
+<li>赛题数据的类别分布是怎么样的，哪些类别比较多？</li>
+<li>赛题数据中，字符分布是怎么样的？</li>
+</ul>
+<h4 id="句子长度分析"><a href="#句子长度分析" class="headerlink" title="句子长度分析"></a>句子长度分析</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%pylab inline</span><br><span class="line">train_df[<span class="string">'text_len'</span>] = train_df[<span class="string">'text'</span>].apply(<span class="keyword">lambda</span> x: len(x.split(<span class="string">' '</span>)))</span><br><span class="line">print(train_df[<span class="string">'text_len'</span>].describe())</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Populating the interactive namespace <span class="keyword">from</span> numpy <span class="keyword">and</span> matplotlib</span><br><span class="line">count    <span class="number">200000.000000</span></span><br><span class="line">mean        <span class="number">907.207110</span></span><br><span class="line">std         <span class="number">996.029036</span></span><br><span class="line">min           <span class="number">2.000000</span></span><br><span class="line"><span class="number">25</span>%         <span class="number">374.000000</span></span><br><span class="line"><span class="number">50</span>%         <span class="number">676.000000</span></span><br><span class="line"><span class="number">75</span>%        <span class="number">1131.000000</span></span><br><span class="line">max       <span class="number">57921.000000</span></span><br><span class="line">Name: text_len, dtype: float64</span><br></pre></td></tr></table></figure>
+<p>通过上面的结果，可以看出200000个句子，每个句子平局由907个字符组成，最短的由两个字符组成，最长的达到57921个字符。</p>
+<p>下图将句子长度绘制了直方图，可见大部分句子的长度都几种在2000以内。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">_ = plt.hist(train_df[<span class="string">'text_len'</span>], bins=<span class="number">200</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Text char count'</span>)</span><br><span class="line">plt.title(<span class="string">"Histogram of char count"</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200714203836905.png" alt="task2_char_hist" style="zoom:50%;" /></p>
+<h4 id="新闻类别分布"><a href="#新闻类别分布" class="headerlink" title="新闻类别分布"></a>新闻类别分布</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_df[<span class="string">'label'</span>].value_counts().plot(kind=<span class="string">'bar'</span>)</span><br><span class="line">plt.title(<span class="string">'News class count'</span>)</span><br><span class="line">plt.xlabel(<span class="string">"category"</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200714203929296.png" alt="task2_class_hist" style="zoom:50%;" /></p>
+<p>在数据集中标签的对应的关系如下：{‘科技’: 0, ‘股票’: 1, ‘体育’: 2, ‘娱乐’: 3, ‘时政’: 4, ‘社会’: 5, ‘教育’: 6, ‘财经’: 7, ‘家居’: 8, ‘游戏’: 9, ‘房产’: 10, ‘时尚’: 11, ‘彩票’: 12, ‘星座’: 13}</p>
+<p>从统计结果可以看出，赛题的数据集类别分布存在较为不均匀的情况。在训练集中科技类新闻最多，其次是股票类新闻，最少的新闻是星座新闻。</p>
+<h4 id="字符分布统计"><a href="#字符分布统计" class="headerlink" title="字符分布统计"></a>字符分布统计</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line">all_lines = <span class="string">' '</span>.join(list(train_df[<span class="string">'text'</span>]))</span><br><span class="line">word_count = Counter(all_lines.split(<span class="string">" "</span>))</span><br><span class="line">word_count = sorted(word_count.items(), key=<span class="keyword">lambda</span> d:d[<span class="number">1</span>], reverse = <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">print(len(word_count))</span><br><span class="line"><span class="comment"># 6869</span></span><br><span class="line"></span><br><span class="line">print(word_count[<span class="number">0</span>])</span><br><span class="line"><span class="comment"># ('3750', 7482224)</span></span><br><span class="line"></span><br><span class="line">print(word_count[<span class="number">-1</span>])</span><br><span class="line"><span class="comment"># ('3133', 1)</span></span><br></pre></td></tr></table></figure>
+<p>从统计结果中可以看出，在训练集中总共包括6869个字，其中编号3750的字出现的次数最多，编号3133的字出现的次数最少。</p>
+<p>这里还可以根据字在每个句子的出现情况，反推出标点符号。下面代码统计了不同字符在句子中出现的次数，其中字符3750，字符900和字符648在20w新闻的覆盖率接近99%，很有可能是标点符号。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_df[<span class="string">'text_unique'</span>] = train_df[<span class="string">'text'</span>].apply(<span class="keyword">lambda</span> x: <span class="string">' '</span>.join(list(set(x.split(<span class="string">' '</span>)))))</span><br><span class="line">all_lines = <span class="string">' '</span>.join(list(train_df[<span class="string">'text_unique'</span>]))</span><br><span class="line">word_count = Counter(all_lines.split(<span class="string">" "</span>))</span><br><span class="line">word_count = sorted(word_count.items(), key=<span class="keyword">lambda</span> d:int(d[<span class="number">1</span>]), reverse = <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">print(word_count[<span class="number">0</span>])</span><br><span class="line"><span class="comment"># ('3750', 197997)</span></span><br><span class="line"></span><br><span class="line">print(word_count[<span class="number">1</span>])</span><br><span class="line"><span class="comment"># ('900', 197653)</span></span><br><span class="line"></span><br><span class="line">print(word_count[<span class="number">2</span>])</span><br><span class="line"><span class="comment"># ('648', 191975)</span></span><br></pre></td></tr></table></figure>
+<p>通过上述分析的总结：</p>
+<ol>
+<li>赛题中每个新闻包含的字符个数平均为900个，还有一些新闻字符较长；</li>
+<li>赛题中新闻类别分布不均匀，科技类新闻样本量接近4w，星座类新闻样本量不到1k；</li>
+<li>赛题总共包括7000左右个字符；</li>
+</ol>
+<p>因此得出的结论：</p>
+<ol>
+<li><p>每个新闻平均字符个数较多，可能需要截断；</p>
+</li>
+<li><p>由于类别不均衡，会严重影响模型的精度；</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>nlp</category>
+      </categories>
+      <tags>
+        <tag>nlp，入门，datawhale</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python-变量、运算符、数据类型及位运算</title>
     <url>/2020/07/20/python-%E5%8F%98%E9%87%8F%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6%E3%80%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%8F%8A%E4%BD%8D%E8%BF%90%E7%AE%97/</url>
     <content><![CDATA[<h3 id="1-1-Python简介"><a href="#1-1-Python简介" class="headerlink" title="1.1 Python简介"></a>1.1 Python简介</h3><p>&emsp;&emsp;Python 是由 Guido van Rossum 在八十年代末和九十年代初，在荷兰国家数学和计算机科学研究所设计出来的。Python 本身也是由诸多其他语言发展而来的,这包括 ABC、Modula-3、C、C++、Algol-68、SmallTalk、Unix shell 和其他的脚本语言等等。像 Perl 语言一样，Python 源代码同样遵循 GPL(GNU General Public License)协议。现在 Python 是由一个核心开发团队在维护，Guido van Rossum 仍然占据着至关重要的作用，指导其进展。Python 2.7 被确定为最后一个 Python 2.x 版本，它除了支持 Python 2.x 语法外，还支持部分 Python 3.1 语法。</p>
@@ -396,51 +479,6 @@
       </tags>
   </entry>
   <entry>
-    <title>零基础入门nlp-新闻文本分类实战</title>
-    <url>/2020/07/20/%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E5%AE%9E%E6%88%98/</url>
-    <content><![CDATA[<h2 align = "center">零基础入门NLP - 新闻文本分类实战</h2>
-
-<h3 id="1-赛题理解"><a href="#1-赛题理解" class="headerlink" title="1 赛题理解"></a>1 赛题理解</h3><p>&emsp;&emsp;首先要理解赛题的背景及描述——赛题以新闻数据为赛题数据，数据集报名后可见并可下载。赛题数据为新闻文本，并按照字符级别进行匿名处理。整合划分出14个候选分类类别：财经、彩票、房产、股票、家居、教育、科技、社会、时尚、时政、体育、星座、游戏、娱乐的文本数据。通过描述，我们可以知道这道题是要==通过给定的一段文本来判断是属于哪一种类别的==。</p>
-<a id="more"></a>
-<p>&emsp;&emsp;赛题数据由以下几个部分构成：训练集20w条样本，测试集A包括5w条样本，测试集B包括5w条样本。为了预防选手人工标注测试集的情况，我们将比赛数据的文本按照字符级别进行了匿名处理。处理后的赛题训练数据如下：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">label</th>
-<th style="text-align:center">text</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">6</td>
-<td style="text-align:center">57 44 66 56 2 3 3 37 5 41 9 57 44 47 45 33 13 63 58 31 17 47 0 1 1 69 26 60 62 15 21 12 49 18 38 20 50 23 57 44 45 33 25 28 47 22 52 35 30 14 24 69 54 7 48 19 11 51 16 43 26 34 53 27 64 8 4 42 36 46 65 69 29 39 15 37 57 44 45 33 69 54 7 25 40 35 30 66 56 47 55 69 61 10 60 42 36 46 65 37 5 41 32 67 6 59 47 0 1 1 68</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>标签的对应关系为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#39;科技&#39;: 0, &#39;股票&#39;: 1, &#39;体育&#39;: 2, &#39;娱乐&#39;: 3, &#39;时政&#39;: 4, &#39;社会&#39;: 5, &#39;教育&#39;: 6, &#39;财经&#39;: 7, &#39;家居&#39;: 8, &#39;游戏&#39;: 9, &#39;房产&#39;: 10, &#39;时尚&#39;: 11, &#39;彩票&#39;: 12, &#39;星座&#39;: 13&#125;</span><br></pre></td></tr></table></figure>
-<p>在接触赛题初时，对于这次比赛的评判标准要很清楚！！！</p>
-<script type="math/tex; mode=display">
-计算公式：2\times \frac{precision \times recall}{precision + recall}</script><p>上述公式也就是F1_score,是统计学中用来衡量二分类模型精确度的一种指标。它同时兼顾了分类模型的<strong>精确(precision)</strong>和<strong>召回率(recall)</strong>。F1分数可以看作是模型精确率和召回率的一种调和平均，它的最大值是1，最小值是0。这里提到了精确率和召回率，要想理解这两个还得先知道<strong>TP、FP、TN、FN</strong>这四个概念</p>
-<ul>
-<li>TP：True Positive ：做出Positive的判定，而且判定是正确的</li>
-<li>FP：False Positive ：做出Positive的判定，而且判定是错误的</li>
-<li>TN：True Negative ：做出Negative的判定，而且判定是正确的</li>
-<li>FN：False Negative：错误的Negative判定，而且判断是错误的</li>
-</ul>
-<script type="math/tex; mode=display">
-precision = \frac{TP}{TP+FP} \\
-recall = \frac{TP}{TP+FN}</script>]]></content>
-      <categories>
-        <category>nlp</category>
-      </categories>
-      <tags>
-        <tag>nlp，入门，datawhale</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>条件循环结构</title>
     <url>/2020/07/21/%E6%9D%A1%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[<p><h2 align='center'>条件循环结构<h2/></p>
@@ -519,6 +557,30 @@ recall = \frac{TP}{TP+FN}</script>]]></content>
       </categories>
       <tags>
         <tag>python，datawhale</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>贪心学院nlp学习笔记</title>
+    <url>/2020/07/21/%E8%B4%AA%E5%BF%83%E5%AD%A6%E9%99%A2nlp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p><h1 align="center">贪心学院nlp学习笔记<h1/></p>
+<h2 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h2><p><img src="C:\Users\12394\AppData\Roaming\Typora\typora-user-images\image-20200721235219371.png" alt="image-20200721235219371"></p>
+<h2 id="Word-Segmentation-分词"><a href="#Word-Segmentation-分词" class="headerlink" title="Word Segmentation(分词)"></a>Word Segmentation(分词)</h2><h3 id="Word-Segmentation-Tools"><a href="#Word-Segmentation-Tools" class="headerlink" title="Word Segmentation Tools"></a>Word Segmentation Tools</h3><ul>
+<li><a href="https://github.com/fxsjy/jieba" target="_blank" rel="noopener">Jieba分词</a></li>
+<li><a href="https://github.com/isnowfy/snownlp" target="_blank" rel="noopener">SnowNLP</a></li>
+<li><a href="http://www.ltp-cloud.com/" target="_blank" rel="noopener">LTP</a></li>
+<li><a href="https://github.com/hankcs/HanLP/" target="_blank" rel="noopener">HanNLP</a></li>
+</ul>
+<h3 id="Segmentation-Methon-1-Max-Matching-最大匹配"><a href="#Segmentation-Methon-1-Max-Matching-最大匹配" class="headerlink" title="Segmentation Methon 1: Max Matching(最大匹配)"></a>Segmentation Methon 1: Max Matching(最大匹配)</h3><p>前向最大匹配(forward-max matching)</p>
+<p><img src="C:\Users\12394\AppData\Roaming\Typora\typora-user-images\image-20200722000213107.png" alt="image-20200722000213107"></p>
+<p>后向最大匹配(backward-max matching)</p>
+<p><img src="C:\Users\12394\AppData\Roaming\Typora\typora-user-images\image-20200722000250067.png" alt="image-20200722000250067"></p>
+<p>不过最大匹配的缺点就是——<strong>时间复杂度高(计算量大)</strong></p>
+<h3 id="Segmentation-Methon-2：Incorporate-Semantic-考虑语义"><a href="#Segmentation-Methon-2：Incorporate-Semantic-考虑语义" class="headerlink" title="Segmentation Methon 2：Incorporate Semantic(考虑语义)"></a>Segmentation Methon 2：Incorporate Semantic(考虑语义)</h3>]]></content>
+      <categories>
+        <category>nlp</category>
+      </categories>
+      <tags>
+        <tag>学习笔记，nlp</tag>
       </tags>
   </entry>
 </search>
