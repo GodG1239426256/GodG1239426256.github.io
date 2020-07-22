@@ -39,7 +39,7 @@
 precision = \frac{TP}{TP+FP} \\
 recall = \frac{TP}{TP+FN}</script><h3 id="数据读取"><a href="#数据读取" class="headerlink" title="数据读取"></a>数据读取</h3><p>出题者提到数据集文件用<code>&#39;\t&#39;</code>分割，因此这样读取数据集。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">train_df = pd.read_csv(<span class="string">'../input/train_set.csv'</span>, sep=<span class="string">'\t'</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="C:\Users\12394\AppData\Roaming\Typora\typora-user-images\image-20200722105215770.png" alt="image-20200722105215770"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200722113005932.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2OTYxMA==,size_16,color_FFFFFF,t_70" alt="img"></p>
 <p>上面图中显示的数据，进行了脱敏处理的。</p>
 <h3 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h3><p>我们希望通过训练集的数据，通过数据分析得出下列的结论：</p>
 <ul>
@@ -557,30 +557,6 @@ recall = \frac{TP}{TP+FN}</script><h3 id="数据读取"><a href="#数据读取" 
       </categories>
       <tags>
         <tag>python，datawhale</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>贪心学院nlp学习笔记</title>
-    <url>/2020/07/21/%E8%B4%AA%E5%BF%83%E5%AD%A6%E9%99%A2nlp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p><h1 align="center">贪心学院nlp学习笔记<h1/></p>
-<h2 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h2><p><img src="C:\Users\12394\AppData\Roaming\Typora\typora-user-images\image-20200721235219371.png" alt="image-20200721235219371"></p>
-<h2 id="Word-Segmentation-分词"><a href="#Word-Segmentation-分词" class="headerlink" title="Word Segmentation(分词)"></a>Word Segmentation(分词)</h2><h3 id="Word-Segmentation-Tools"><a href="#Word-Segmentation-Tools" class="headerlink" title="Word Segmentation Tools"></a>Word Segmentation Tools</h3><ul>
-<li><a href="https://github.com/fxsjy/jieba" target="_blank" rel="noopener">Jieba分词</a></li>
-<li><a href="https://github.com/isnowfy/snownlp" target="_blank" rel="noopener">SnowNLP</a></li>
-<li><a href="http://www.ltp-cloud.com/" target="_blank" rel="noopener">LTP</a></li>
-<li><a href="https://github.com/hankcs/HanLP/" target="_blank" rel="noopener">HanNLP</a></li>
-</ul>
-<h3 id="Segmentation-Methon-1-Max-Matching-最大匹配"><a href="#Segmentation-Methon-1-Max-Matching-最大匹配" class="headerlink" title="Segmentation Methon 1: Max Matching(最大匹配)"></a>Segmentation Methon 1: Max Matching(最大匹配)</h3><p>前向最大匹配(forward-max matching)</p>
-<p><img src="C:\Users\12394\AppData\Roaming\Typora\typora-user-images\image-20200722000213107.png" alt="image-20200722000213107"></p>
-<p>后向最大匹配(backward-max matching)</p>
-<p><img src="C:\Users\12394\AppData\Roaming\Typora\typora-user-images\image-20200722000250067.png" alt="image-20200722000250067"></p>
-<p>不过最大匹配的缺点就是——<strong>时间复杂度高(计算量大)</strong></p>
-<h3 id="Segmentation-Methon-2：Incorporate-Semantic-考虑语义"><a href="#Segmentation-Methon-2：Incorporate-Semantic-考虑语义" class="headerlink" title="Segmentation Methon 2：Incorporate Semantic(考虑语义)"></a>Segmentation Methon 2：Incorporate Semantic(考虑语义)</h3>]]></content>
-      <categories>
-        <category>nlp</category>
-      </categories>
-      <tags>
-        <tag>学习笔记，nlp</tag>
       </tags>
   </entry>
 </search>
