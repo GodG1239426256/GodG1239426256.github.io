@@ -4,7 +4,7 @@
     <title>Python-字符串</title>
     <url>/2020/07/23/Python-%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
     <content><![CDATA[<h3 id="字符串的定义"><a href="#字符串的定义" class="headerlink" title="字符串的定义"></a>字符串的定义</h3><ul>
-<li>Python支持使用成对的单引号<code>&#39;&#39;</code>或者双引号<code>&quot;&quot;</code> </li>
+<li>Python支持使用成对的单引号<code>&#39;&#39;</code>或者双引号<code>&quot;&quot;</code> <a id="more"></a></li>
 </ul>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">t1 = <span class="string">'I love Python!'</span></span><br><span class="line">print(t1, type(t1))</span><br><span class="line"><span class="comment"># I love Python! &lt;class 'str'&gt;</span></span><br><span class="line"></span><br><span class="line">t2 = <span class="string">"I love Python!"</span></span><br><span class="line">print(t2, type(t2))</span><br><span class="line"><span class="comment"># I love Python! &lt;class 'str'&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
