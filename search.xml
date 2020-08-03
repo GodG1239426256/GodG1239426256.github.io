@@ -855,7 +855,8 @@
   <entry>
     <title>类与对象</title>
     <url>/2020/08/03/python-%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/</url>
-    <content><![CDATA[<h1 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h1><h2 id="1-对象-属性-方法"><a href="#1-对象-属性-方法" class="headerlink" title="1. 对象 = 属性 + 方法"></a>1. 对象 = 属性 + 方法</h2><p>对象是类的实例。换句话说，类主要定义对象的结构，然后我们以类为模板创建对象。类不但包含方法定义，而且还包含所有实例共享的数据。</p>
+    <content><![CDATA[<h1 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h1><a id="more"></a>
+<h2 id="1-对象-属性-方法"><a href="#1-对象-属性-方法" class="headerlink" title="1. 对象 = 属性 + 方法"></a>1. 对象 = 属性 + 方法</h2><p>对象是类的实例。换句话说，类主要定义对象的结构，然后我们以类为模板创建对象。类不但包含方法定义，而且还包含所有实例共享的数据。</p>
 <ul>
 <li>封装：信息隐蔽技术</li>
 </ul>
