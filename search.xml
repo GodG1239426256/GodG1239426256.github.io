@@ -1,160 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>python-函数与Lambda表达式</title>
-    <url>/2020/07/31/python-%E5%87%BD%E6%95%B0%E4%B8%8ELambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-    <content><![CDATA[<h3 id="1、函数"><a href="#1、函数" class="headerlink" title="1、函数"></a>1、函数</h3><a id="more"></a>
-<p>Python 的函数具有非常灵活多样的参数形态，既可以实现简单的调用，又可以传入非常复杂的参数。从简到繁的参数形态如下：</p>
-<ul>
-<li>位置参数 (positional argument)</li>
-<li>默认参数 (default argument)</li>
-<li>可变参数 (variable argument)</li>
-<li>关键字参数 (keyword argument)</li>
-<li>命名关键字参数 (name keyword argument)</li>
-<li>参数组合</li>
-</ul>
-<p><strong>1. 位置参数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionname</span><span class="params">(arg1)</span>:</span></span><br><span class="line">    <span class="string">"函数_文档字符串"</span></span><br><span class="line">    function_suite</span><br><span class="line">    <span class="keyword">return</span> [expression]</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>arg1</code> - 位置参数 ，这些参数在调用函数 (call function) 时位置要固定。</li>
-</ul>
-<p><strong>2. 默认参数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionname</span><span class="params">(arg1, arg2=v)</span>:</span></span><br><span class="line">    <span class="string">"函数_文档字符串"</span></span><br><span class="line">    function_suite</span><br><span class="line">    <span class="keyword">return</span> [expression]</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>arg2 = v</code> - 默认参数 = 默认值，调用函数时，默认参数的值如果没有传入，则被认为是默认值。</li>
-<li>默认参数一定要放在位置参数 <b>后面</b>，不然程序会报错。</li>
-</ul>
-<p>【例子】</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">(name, age=<span class="number">8</span>)</span>:</span></span><br><span class="line">    print(<span class="string">'Name:&#123;0&#125;,Age:&#123;1&#125;'</span>.format(name, age))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">printinfo(<span class="string">'小马'</span>)  <span class="comment"># Name:小马,Age:8</span></span><br><span class="line">printinfo(<span class="string">'小马'</span>, <span class="number">10</span>)  <span class="comment"># Name:小马,Age:10</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>Python 允许函数调用时参数的顺序与声明时不一致，因为 Python 解释器能够用参数名匹配参数值。</li>
-</ul>
-<p>【例子】</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">(name, age)</span>:</span></span><br><span class="line">    print(<span class="string">'Name:&#123;0&#125;,Age:&#123;1&#125;'</span>.format(name, age))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">printinfo(age=<span class="number">8</span>, name=<span class="string">'小马'</span>)  <span class="comment"># Name:小马,Age:8</span></span><br></pre></td></tr></table></figure>
-<p><strong>3. 可变参数</strong></p>
-<p>顾名思义，可变参数就是传入的参数个数是可变的，可以是 0, 1, 2 到任意个，是不定长的参数。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionname</span><span class="params">(arg1, arg2=v, *args)</span>:</span></span><br><span class="line">    <span class="string">"函数_文档字符串"</span></span><br><span class="line">    function_suite</span><br><span class="line">    <span class="keyword">return</span> [expression]</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>*args</code> - 可变参数，可以是从零个到任意个，自动组装成元组。</li>
-<li>加了星号（*）的变量名会存放所有未命名的变量参数。</li>
-</ul>
-<p>【例子】</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">(arg1, *args)</span>:</span></span><br><span class="line">    print(arg1)</span><br><span class="line">    <span class="keyword">for</span> var <span class="keyword">in</span> args:</span><br><span class="line">        print(var)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">printinfo(<span class="number">10</span>)  <span class="comment"># 10</span></span><br><span class="line">printinfo(<span class="number">70</span>, <span class="number">60</span>, <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 70</span></span><br><span class="line"><span class="comment"># 60</span></span><br><span class="line"><span class="comment"># 50</span></span><br></pre></td></tr></table></figure>
-<p><strong>4. 关键字参数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionname</span><span class="params">(arg1, arg2=v, *args, **kw)</span>:</span></span><br><span class="line">    <span class="string">"函数_文档字符串"</span></span><br><span class="line">    function_suite</span><br><span class="line">    <span class="keyword">return</span> [expression]</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>**kw</code> - 关键字参数，可以是从零个到任意个，自动组装成字典。</li>
-</ul>
-<p>【例子】</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">(arg1, *args, **kwargs)</span>:</span></span><br><span class="line">    print(arg1)</span><br><span class="line">    print(args)</span><br><span class="line">    print(kwargs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">printinfo(<span class="number">70</span>, <span class="number">60</span>, <span class="number">50</span>)</span><br><span class="line"><span class="comment"># 70</span></span><br><span class="line"><span class="comment"># (60, 50)</span></span><br><span class="line"><span class="comment"># &#123;&#125;</span></span><br><span class="line">printinfo(<span class="number">70</span>, <span class="number">60</span>, <span class="number">50</span>, a=<span class="number">1</span>, b=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 70</span></span><br><span class="line"><span class="comment"># (60, 50)</span></span><br><span class="line"><span class="comment"># &#123;'a': 1, 'b': 2&#125;</span></span><br></pre></td></tr></table></figure>
-<p>「可变参数」和「关键字参数」的同异总结如下：</p>
-<ul>
-<li>可变参数允许传入零个到任意个参数，它们在函数调用时自动组装为一个元组 (tuple)。</li>
-<li>关键字参数允许传入零个到任意个参数，它们在函数内部自动组装为一个字典 (dict)。</li>
-</ul>
-<p><strong>5. 命名关键字参数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionname</span><span class="params">(arg1, arg2=v, *args, *, nkw, **kw)</span>:</span></span><br><span class="line">    <span class="string">"函数_文档字符串"</span></span><br><span class="line">    function_suite</span><br><span class="line">    <span class="keyword">return</span> [expression]</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>*, nkw</code> - 命名关键字参数，用户想要输入的关键字参数，定义方式是在nkw 前面加个分隔符 *。</li>
-<li>如果要限制关键字参数的名字，就可以用「命名关键字参数」</li>
-<li>使用命名关键字参数时，要特别注意不能缺少参数名。</li>
-</ul>
-<p>【例子】</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">(arg1, *, nkw, **kwargs)</span>:</span></span><br><span class="line">    print(arg1)</span><br><span class="line">    print(nkw)</span><br><span class="line">    print(kwargs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">printinfo(<span class="number">70</span>, nkw=<span class="number">10</span>, a=<span class="number">1</span>, b=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 70</span></span><br><span class="line"><span class="comment"># 10</span></span><br><span class="line"><span class="comment"># &#123;'a': 1, 'b': 2&#125;</span></span><br><span class="line"></span><br><span class="line">printinfo(<span class="number">70</span>, <span class="number">10</span>, a=<span class="number">1</span>, b=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># TypeError: printinfo() takes 1 positional argument but 2 were given</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>没有写参数名<code>nwk</code>，因此 10 被当成「位置参数」，而原函数只有 1 个位置函数，现在调用了 2 个，因此程序会报错。</li>
-</ul>
-<p><strong>变量作用域</strong></p>
-<ul>
-<li>Python 中，程序的变量并不是在哪个位置都可以访问的，访问权限决定于这个变量是在哪里赋值的。</li>
-<li>定义在函数内部的变量拥有局部作用域，该变量称为局部变量。</li>
-<li>定义在函数外部的变量拥有全局作用域，该变量称为全局变量。</li>
-<li>局部变量只能在其被声明的函数内部访问，而全局变量可以在整个程序范围内访问。</li>
-</ul>
-<p>【例子】</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">discounts</span><span class="params">(price, rate)</span>:</span></span><br><span class="line">    final_price = price * rate</span><br><span class="line">    <span class="keyword">return</span> final_price</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">old_price = float(input(<span class="string">'请输入原价:'</span>))  <span class="comment"># 98</span></span><br><span class="line">rate = float(input(<span class="string">'请输入折扣率:'</span>))  <span class="comment"># 0.9</span></span><br><span class="line">new_price = discounts(old_price, rate)</span><br><span class="line">print(<span class="string">'打折后价格是:%.2f'</span> % new_price)  <span class="comment"># 88.20</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>当内部作用域想修改外部作用域的变量时，就要用到<code>global</code>和<code>nonlocal</code>关键字了。</li>
-</ul>
-<p>【例子】</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">num = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun1</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> num  <span class="comment"># 需要使用 global 关键字声明</span></span><br><span class="line">    print(num)  <span class="comment"># 1</span></span><br><span class="line">    num = <span class="number">123</span></span><br><span class="line">    print(num)  <span class="comment"># 123</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fun1()</span><br><span class="line">print(num)  <span class="comment"># 123</span></span><br></pre></td></tr></table></figure>
-<p><strong>内嵌函数</strong></p>
-<p>【例子】</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'outer函数在这被调用'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">'inner函数在这被调用'</span>)</span><br><span class="line"></span><br><span class="line">    inner()  <span class="comment"># 该函数只能在outer函数内部被调用</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">outer()</span><br><span class="line"><span class="comment"># outer函数在这被调用</span></span><br><span class="line"><span class="comment"># inner函数在这被调用</span></span><br></pre></td></tr></table></figure>
-<p><strong>闭包</strong></p>
-<ul>
-<li>是函数式编程的一个重要的语法结构，是一种特殊的内嵌函数。</li>
-<li>如果在一个内部函数里对外层非全局作用域的变量进行引用，那么内部函数就被认为是闭包。</li>
-<li>通过闭包可以访问外层非全局作用域的变量，这个作用域称为 <b>闭包作用域</b>。</li>
-</ul>
-<p>【例子】</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">funX</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">funY</span><span class="params">(y)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> x * y</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> funY</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">i = funX(<span class="number">8</span>)</span><br><span class="line">print(type(i))  <span class="comment"># &lt;class 'function'&gt;</span></span><br><span class="line">print(i(<span class="number">5</span>))  <span class="comment"># 40</span></span><br></pre></td></tr></table></figure>
-<p>【例子】闭包的返回值通常是函数。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_counter</span><span class="params">(init)</span>:</span></span><br><span class="line">    counter = [init]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inc</span><span class="params">()</span>:</span> counter[<span class="number">0</span>] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dec</span><span class="params">()</span>:</span> counter[<span class="number">0</span>] -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">()</span>:</span> <span class="keyword">return</span> counter[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reset</span><span class="params">()</span>:</span> counter[<span class="number">0</span>] = init</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> inc, dec, get, reset</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">inc, dec, get, reset = make_counter(<span class="number">0</span>)</span><br><span class="line">inc()</span><br><span class="line">inc()</span><br><span class="line">inc()</span><br><span class="line">print(get())  <span class="comment"># 3</span></span><br><span class="line">dec()</span><br><span class="line">print(get())  <span class="comment"># 2</span></span><br><span class="line">reset()</span><br><span class="line">print(get())  <span class="comment"># 0</span></span><br></pre></td></tr></table></figure>
-<p>【例子】 如果要修改闭包作用域中的变量则需要 <code>nonlocal</code> 关键字</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></span><br><span class="line">    num = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">nonlocal</span> num  <span class="comment"># nonlocal关键字声明</span></span><br><span class="line">        num = <span class="number">100</span></span><br><span class="line">        print(num)</span><br><span class="line"></span><br><span class="line">    inner()</span><br><span class="line">    print(num)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">outer()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 100</span></span><br><span class="line"><span class="comment"># 100</span></span><br></pre></td></tr></table></figure>
-<h3 id="2、Lambda表达式"><a href="#2、Lambda表达式" class="headerlink" title="2、Lambda表达式"></a>2、Lambda表达式</h3><p><strong>匿名函数的定义</strong></p>
-<p>在 Python 里有两类函数：</p>
-<ul>
-<li>第一类：用 <code>def</code> 关键词定义的正规函数</li>
-<li>第二类：用 <code>lambda</code> 关键词定义的匿名函数</li>
-</ul>
-<p>python 使用 <code>lambda</code> 关键词来创建匿名函数，而非<code>def</code>关键词，它没有函数名，其语法结构如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">lambda</span> argument_list: expression</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>lambda</code> - 定义匿名函数的关键词。</li>
-<li><code>argument_list</code> - 函数参数，它们可以是位置参数、默认参数、关键字参数，和正规函数里的参数类型一样。</li>
-<li><code>:</code>- 冒号，在函数参数和表达式中间要加个冒号。</li>
-<li><code>expression</code> - 只是一个表达式，输入函数参数，输出一些值。</li>
-</ul>
-<p>注意：</p>
-<ul>
-<li><code>expression</code> 中没有 return 语句，因为 lambda 不需要它来返回，表达式本身结果就是返回值。</li>
-<li>匿名函数拥有自己的命名空间，且不能访问自己参数列表之外或全局命名空间里的参数。</li>
-</ul>
-<p>【例子】</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sqr</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x ** <span class="number">2</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(sqr)</span><br><span class="line"><span class="comment"># &lt;function sqr at 0x000000BABD3A4400&gt;</span></span><br><span class="line"></span><br><span class="line">y = [sqr(x) <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">print(y)</span><br><span class="line"><span class="comment"># [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</span></span><br><span class="line"></span><br><span class="line">lbd_sqr = <span class="keyword">lambda</span> x: x ** <span class="number">2</span></span><br><span class="line">print(lbd_sqr)</span><br><span class="line"><span class="comment"># &lt;function &lt;lambda&gt; at 0x000000BABB6AC1E0&gt;</span></span><br><span class="line"></span><br><span class="line">y = [lbd_sqr(x) <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">print(y)</span><br><span class="line"><span class="comment"># [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sumary = <span class="keyword">lambda</span> arg1, arg2: arg1 + arg2</span><br><span class="line">print(sumary(<span class="number">10</span>, <span class="number">20</span>))  <span class="comment"># 30</span></span><br><span class="line"></span><br><span class="line">func = <span class="keyword">lambda</span> *args: sum(args)</span><br><span class="line">print(func(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>))  <span class="comment"># 15</span></span><br></pre></td></tr></table></figure>
-<p><strong>匿名函数的应用</strong></p>
-<p>函数式编程 是指代码中每一块都是不可变的，都由纯函数的形式组成。这里的纯函数，是指函数本身相互独立、互不影响，对于相同的输入，总会有相同的输出，没有任何副作用。</p>
-<p>【例子】非函数式编程</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(x)):</span><br><span class="line">        x[i] += <span class="number">10</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">x = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">f(x)</span><br><span class="line">print(x)</span><br><span class="line"><span class="comment"># [11, 12, 13]</span></span><br></pre></td></tr></table></figure>
-<p>【例子】函数式编程</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    y = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> x:</span><br><span class="line">        y.append(item + <span class="number">10</span>)</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">x = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">f(x)</span><br><span class="line">print(x)</span><br><span class="line"><span class="comment"># [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
-<p>匿名函数 常常应用于函数式编程的高阶函数 (high-order function)中，主要有两种形式：</p>
-<ul>
-<li>参数是函数 (filter, map)</li>
-<li>返回值是函数 (closure)</li>
-</ul>
-<p>如，在 <code>filter</code>和<code>map</code>函数中的应用：</p>
-<ul>
-<li><code>filter(function, iterable)</code> 过滤序列，过滤掉不符合条件的元素，返回一个迭代器对象，如果要转换为列表，可以使用 <code>list()</code> 来转换。</li>
-</ul>
-<p>【例子】</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">odd = <span class="keyword">lambda</span> x: x % <span class="number">2</span> == <span class="number">1</span></span><br><span class="line">templist = filter(odd, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>])</span><br><span class="line">print(list(templist))  <span class="comment"># [1, 3, 5, 7, 9]</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>map(function, *iterables)</code> 根据提供的函数对指定序列做映射。</li>
-</ul>
-<p>【例子】</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">m1 = map(<span class="keyword">lambda</span> x: x ** <span class="number">2</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">print(list(m1))  </span><br><span class="line"><span class="comment"># [1, 4, 9, 16, 25]</span></span><br><span class="line"></span><br><span class="line">m2 = map(<span class="keyword">lambda</span> x, y: x + y, [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>], [<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>])</span><br><span class="line">print(list(m2))  </span><br><span class="line"><span class="comment"># [3, 7, 11, 15, 19]</span></span><br></pre></td></tr></table></figure>
-<p>除了 Python 这些内置函数，我们也可以自己定义高阶函数。</p>
-<p>【例子】</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">apply_to_list</span><span class="params">(fun, some_list)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> fun(some_list)</span><br><span class="line"></span><br><span class="line">lst = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">print(apply_to_list(sum, lst))</span><br><span class="line"><span class="comment"># 15</span></span><br><span class="line"></span><br><span class="line">print(apply_to_list(len, lst))</span><br><span class="line"><span class="comment"># 5</span></span><br><span class="line"></span><br><span class="line">print(apply_to_list(<span class="keyword">lambda</span> x: sum(x) / len(x), lst))</span><br><span class="line"><span class="comment"># 3.0</span></span><br></pre></td></tr></table></figure>
-<h3 id="3、汉诺塔问题"><a href="#3、汉诺塔问题" class="headerlink" title="3、汉诺塔问题"></a>3、汉诺塔问题</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">move</span><span class="params">(n,a,b,c)</span>:</span>   <span class="comment">#n为圆盘数，a代表初始位圆柱，b代表过渡位圆柱，c代表目标位圆柱</span></span><br><span class="line">	<span class="keyword">if</span> n==<span class="number">1</span>:</span><br><span class="line">		print(a,<span class="string">'--&gt;'</span>,c)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		move(n<span class="number">-1</span>,a,c,b)   <span class="comment">#将初始位的n-1个圆盘移动到过渡位，此时初始位为a，上一级函数的过渡位b即为本级的目标位，上级的目标位c为本级的过渡位</span></span><br><span class="line">		print(a,<span class="string">'--&gt;'</span>,c)</span><br><span class="line"> </span><br><span class="line">		move(n<span class="number">-1</span>,b,a,c)   <span class="comment">#将过渡位的n-1个圆盘移动到目标位，此时初始位为b，上一级函数的目标位c即为本级的目标位，上级的初始位a为本级的过渡位</span></span><br></pre></td></tr></table></figure>
-<p><strong>参考文献</strong>：</p>
-<ul>
-<li><a href="https://www.runoob.com/python3/python3-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/python3/python3-tutorial.html</a></li>
-<li><a href="https://www.bilibili.com/video/av4050443" target="_blank" rel="noopener">https://www.bilibili.com/video/av4050443</a></li>
-<li><a href="https://mp.weixin.qq.com/s/gKhXS8JVU8dZBHJF7sIFsw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/gKhXS8JVU8dZBHJF7sIFsw</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python，datawhale</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>datime模块</title>
     <url>/2020/08/04/python-datime%E6%A8%A1%E5%9D%97/</url>
     <content><![CDATA[<p>datetime 是 Python 中处理日期的标准模块，它提供了 4 种对日期和时间进行处理的类：<strong>datetime</strong>、<strong>date</strong>、<strong>time</strong> 和 <strong>timedelta</strong>。</p>
@@ -952,6 +798,160 @@
       </tags>
   </entry>
   <entry>
+    <title>python-函数与Lambda表达式</title>
+    <url>/2020/07/31/python-%E5%87%BD%E6%95%B0%E4%B8%8ELambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<h3 id="1、函数"><a href="#1、函数" class="headerlink" title="1、函数"></a>1、函数</h3><a id="more"></a>
+<p>Python 的函数具有非常灵活多样的参数形态，既可以实现简单的调用，又可以传入非常复杂的参数。从简到繁的参数形态如下：</p>
+<ul>
+<li>位置参数 (positional argument)</li>
+<li>默认参数 (default argument)</li>
+<li>可变参数 (variable argument)</li>
+<li>关键字参数 (keyword argument)</li>
+<li>命名关键字参数 (name keyword argument)</li>
+<li>参数组合</li>
+</ul>
+<p><strong>1. 位置参数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionname</span><span class="params">(arg1)</span>:</span></span><br><span class="line">    <span class="string">"函数_文档字符串"</span></span><br><span class="line">    function_suite</span><br><span class="line">    <span class="keyword">return</span> [expression]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>arg1</code> - 位置参数 ，这些参数在调用函数 (call function) 时位置要固定。</li>
+</ul>
+<p><strong>2. 默认参数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionname</span><span class="params">(arg1, arg2=v)</span>:</span></span><br><span class="line">    <span class="string">"函数_文档字符串"</span></span><br><span class="line">    function_suite</span><br><span class="line">    <span class="keyword">return</span> [expression]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>arg2 = v</code> - 默认参数 = 默认值，调用函数时，默认参数的值如果没有传入，则被认为是默认值。</li>
+<li>默认参数一定要放在位置参数 <b>后面</b>，不然程序会报错。</li>
+</ul>
+<p>【例子】</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">(name, age=<span class="number">8</span>)</span>:</span></span><br><span class="line">    print(<span class="string">'Name:&#123;0&#125;,Age:&#123;1&#125;'</span>.format(name, age))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">printinfo(<span class="string">'小马'</span>)  <span class="comment"># Name:小马,Age:8</span></span><br><span class="line">printinfo(<span class="string">'小马'</span>, <span class="number">10</span>)  <span class="comment"># Name:小马,Age:10</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Python 允许函数调用时参数的顺序与声明时不一致，因为 Python 解释器能够用参数名匹配参数值。</li>
+</ul>
+<p>【例子】</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">(name, age)</span>:</span></span><br><span class="line">    print(<span class="string">'Name:&#123;0&#125;,Age:&#123;1&#125;'</span>.format(name, age))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">printinfo(age=<span class="number">8</span>, name=<span class="string">'小马'</span>)  <span class="comment"># Name:小马,Age:8</span></span><br></pre></td></tr></table></figure>
+<p><strong>3. 可变参数</strong></p>
+<p>顾名思义，可变参数就是传入的参数个数是可变的，可以是 0, 1, 2 到任意个，是不定长的参数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionname</span><span class="params">(arg1, arg2=v, *args)</span>:</span></span><br><span class="line">    <span class="string">"函数_文档字符串"</span></span><br><span class="line">    function_suite</span><br><span class="line">    <span class="keyword">return</span> [expression]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>*args</code> - 可变参数，可以是从零个到任意个，自动组装成元组。</li>
+<li>加了星号（*）的变量名会存放所有未命名的变量参数。</li>
+</ul>
+<p>【例子】</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">(arg1, *args)</span>:</span></span><br><span class="line">    print(arg1)</span><br><span class="line">    <span class="keyword">for</span> var <span class="keyword">in</span> args:</span><br><span class="line">        print(var)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">printinfo(<span class="number">10</span>)  <span class="comment"># 10</span></span><br><span class="line">printinfo(<span class="number">70</span>, <span class="number">60</span>, <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 70</span></span><br><span class="line"><span class="comment"># 60</span></span><br><span class="line"><span class="comment"># 50</span></span><br></pre></td></tr></table></figure>
+<p><strong>4. 关键字参数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionname</span><span class="params">(arg1, arg2=v, *args, **kw)</span>:</span></span><br><span class="line">    <span class="string">"函数_文档字符串"</span></span><br><span class="line">    function_suite</span><br><span class="line">    <span class="keyword">return</span> [expression]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>**kw</code> - 关键字参数，可以是从零个到任意个，自动组装成字典。</li>
+</ul>
+<p>【例子】</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">(arg1, *args, **kwargs)</span>:</span></span><br><span class="line">    print(arg1)</span><br><span class="line">    print(args)</span><br><span class="line">    print(kwargs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">printinfo(<span class="number">70</span>, <span class="number">60</span>, <span class="number">50</span>)</span><br><span class="line"><span class="comment"># 70</span></span><br><span class="line"><span class="comment"># (60, 50)</span></span><br><span class="line"><span class="comment"># &#123;&#125;</span></span><br><span class="line">printinfo(<span class="number">70</span>, <span class="number">60</span>, <span class="number">50</span>, a=<span class="number">1</span>, b=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 70</span></span><br><span class="line"><span class="comment"># (60, 50)</span></span><br><span class="line"><span class="comment"># &#123;'a': 1, 'b': 2&#125;</span></span><br></pre></td></tr></table></figure>
+<p>「可变参数」和「关键字参数」的同异总结如下：</p>
+<ul>
+<li>可变参数允许传入零个到任意个参数，它们在函数调用时自动组装为一个元组 (tuple)。</li>
+<li>关键字参数允许传入零个到任意个参数，它们在函数内部自动组装为一个字典 (dict)。</li>
+</ul>
+<p><strong>5. 命名关键字参数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">functionname</span><span class="params">(arg1, arg2=v, *args, *, nkw, **kw)</span>:</span></span><br><span class="line">    <span class="string">"函数_文档字符串"</span></span><br><span class="line">    function_suite</span><br><span class="line">    <span class="keyword">return</span> [expression]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>*, nkw</code> - 命名关键字参数，用户想要输入的关键字参数，定义方式是在nkw 前面加个分隔符 *。</li>
+<li>如果要限制关键字参数的名字，就可以用「命名关键字参数」</li>
+<li>使用命名关键字参数时，要特别注意不能缺少参数名。</li>
+</ul>
+<p>【例子】</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printinfo</span><span class="params">(arg1, *, nkw, **kwargs)</span>:</span></span><br><span class="line">    print(arg1)</span><br><span class="line">    print(nkw)</span><br><span class="line">    print(kwargs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">printinfo(<span class="number">70</span>, nkw=<span class="number">10</span>, a=<span class="number">1</span>, b=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 70</span></span><br><span class="line"><span class="comment"># 10</span></span><br><span class="line"><span class="comment"># &#123;'a': 1, 'b': 2&#125;</span></span><br><span class="line"></span><br><span class="line">printinfo(<span class="number">70</span>, <span class="number">10</span>, a=<span class="number">1</span>, b=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># TypeError: printinfo() takes 1 positional argument but 2 were given</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>没有写参数名<code>nwk</code>，因此 10 被当成「位置参数」，而原函数只有 1 个位置函数，现在调用了 2 个，因此程序会报错。</li>
+</ul>
+<p><strong>变量作用域</strong></p>
+<ul>
+<li>Python 中，程序的变量并不是在哪个位置都可以访问的，访问权限决定于这个变量是在哪里赋值的。</li>
+<li>定义在函数内部的变量拥有局部作用域，该变量称为局部变量。</li>
+<li>定义在函数外部的变量拥有全局作用域，该变量称为全局变量。</li>
+<li>局部变量只能在其被声明的函数内部访问，而全局变量可以在整个程序范围内访问。</li>
+</ul>
+<p>【例子】</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">discounts</span><span class="params">(price, rate)</span>:</span></span><br><span class="line">    final_price = price * rate</span><br><span class="line">    <span class="keyword">return</span> final_price</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">old_price = float(input(<span class="string">'请输入原价:'</span>))  <span class="comment"># 98</span></span><br><span class="line">rate = float(input(<span class="string">'请输入折扣率:'</span>))  <span class="comment"># 0.9</span></span><br><span class="line">new_price = discounts(old_price, rate)</span><br><span class="line">print(<span class="string">'打折后价格是:%.2f'</span> % new_price)  <span class="comment"># 88.20</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>当内部作用域想修改外部作用域的变量时，就要用到<code>global</code>和<code>nonlocal</code>关键字了。</li>
+</ul>
+<p>【例子】</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">num = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun1</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> num  <span class="comment"># 需要使用 global 关键字声明</span></span><br><span class="line">    print(num)  <span class="comment"># 1</span></span><br><span class="line">    num = <span class="number">123</span></span><br><span class="line">    print(num)  <span class="comment"># 123</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fun1()</span><br><span class="line">print(num)  <span class="comment"># 123</span></span><br></pre></td></tr></table></figure>
+<p><strong>内嵌函数</strong></p>
+<p>【例子】</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'outer函数在这被调用'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">'inner函数在这被调用'</span>)</span><br><span class="line"></span><br><span class="line">    inner()  <span class="comment"># 该函数只能在outer函数内部被调用</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">outer()</span><br><span class="line"><span class="comment"># outer函数在这被调用</span></span><br><span class="line"><span class="comment"># inner函数在这被调用</span></span><br></pre></td></tr></table></figure>
+<p><strong>闭包</strong></p>
+<ul>
+<li>是函数式编程的一个重要的语法结构，是一种特殊的内嵌函数。</li>
+<li>如果在一个内部函数里对外层非全局作用域的变量进行引用，那么内部函数就被认为是闭包。</li>
+<li>通过闭包可以访问外层非全局作用域的变量，这个作用域称为 <b>闭包作用域</b>。</li>
+</ul>
+<p>【例子】</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">funX</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">funY</span><span class="params">(y)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> x * y</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> funY</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">i = funX(<span class="number">8</span>)</span><br><span class="line">print(type(i))  <span class="comment"># &lt;class 'function'&gt;</span></span><br><span class="line">print(i(<span class="number">5</span>))  <span class="comment"># 40</span></span><br></pre></td></tr></table></figure>
+<p>【例子】闭包的返回值通常是函数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_counter</span><span class="params">(init)</span>:</span></span><br><span class="line">    counter = [init]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inc</span><span class="params">()</span>:</span> counter[<span class="number">0</span>] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dec</span><span class="params">()</span>:</span> counter[<span class="number">0</span>] -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">()</span>:</span> <span class="keyword">return</span> counter[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reset</span><span class="params">()</span>:</span> counter[<span class="number">0</span>] = init</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> inc, dec, get, reset</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">inc, dec, get, reset = make_counter(<span class="number">0</span>)</span><br><span class="line">inc()</span><br><span class="line">inc()</span><br><span class="line">inc()</span><br><span class="line">print(get())  <span class="comment"># 3</span></span><br><span class="line">dec()</span><br><span class="line">print(get())  <span class="comment"># 2</span></span><br><span class="line">reset()</span><br><span class="line">print(get())  <span class="comment"># 0</span></span><br></pre></td></tr></table></figure>
+<p>【例子】 如果要修改闭包作用域中的变量则需要 <code>nonlocal</code> 关键字</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></span><br><span class="line">    num = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">nonlocal</span> num  <span class="comment"># nonlocal关键字声明</span></span><br><span class="line">        num = <span class="number">100</span></span><br><span class="line">        print(num)</span><br><span class="line"></span><br><span class="line">    inner()</span><br><span class="line">    print(num)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">outer()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 100</span></span><br><span class="line"><span class="comment"># 100</span></span><br></pre></td></tr></table></figure>
+<h3 id="2、Lambda表达式"><a href="#2、Lambda表达式" class="headerlink" title="2、Lambda表达式"></a>2、Lambda表达式</h3><p><strong>匿名函数的定义</strong></p>
+<p>在 Python 里有两类函数：</p>
+<ul>
+<li>第一类：用 <code>def</code> 关键词定义的正规函数</li>
+<li>第二类：用 <code>lambda</code> 关键词定义的匿名函数</li>
+</ul>
+<p>python 使用 <code>lambda</code> 关键词来创建匿名函数，而非<code>def</code>关键词，它没有函数名，其语法结构如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">lambda</span> argument_list: expression</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>lambda</code> - 定义匿名函数的关键词。</li>
+<li><code>argument_list</code> - 函数参数，它们可以是位置参数、默认参数、关键字参数，和正规函数里的参数类型一样。</li>
+<li><code>:</code>- 冒号，在函数参数和表达式中间要加个冒号。</li>
+<li><code>expression</code> - 只是一个表达式，输入函数参数，输出一些值。</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li><code>expression</code> 中没有 return 语句，因为 lambda 不需要它来返回，表达式本身结果就是返回值。</li>
+<li>匿名函数拥有自己的命名空间，且不能访问自己参数列表之外或全局命名空间里的参数。</li>
+</ul>
+<p>【例子】</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sqr</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x ** <span class="number">2</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(sqr)</span><br><span class="line"><span class="comment"># &lt;function sqr at 0x000000BABD3A4400&gt;</span></span><br><span class="line"></span><br><span class="line">y = [sqr(x) <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">print(y)</span><br><span class="line"><span class="comment"># [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</span></span><br><span class="line"></span><br><span class="line">lbd_sqr = <span class="keyword">lambda</span> x: x ** <span class="number">2</span></span><br><span class="line">print(lbd_sqr)</span><br><span class="line"><span class="comment"># &lt;function &lt;lambda&gt; at 0x000000BABB6AC1E0&gt;</span></span><br><span class="line"></span><br><span class="line">y = [lbd_sqr(x) <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">print(y)</span><br><span class="line"><span class="comment"># [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sumary = <span class="keyword">lambda</span> arg1, arg2: arg1 + arg2</span><br><span class="line">print(sumary(<span class="number">10</span>, <span class="number">20</span>))  <span class="comment"># 30</span></span><br><span class="line"></span><br><span class="line">func = <span class="keyword">lambda</span> *args: sum(args)</span><br><span class="line">print(func(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>))  <span class="comment"># 15</span></span><br></pre></td></tr></table></figure>
+<p><strong>匿名函数的应用</strong></p>
+<p>函数式编程 是指代码中每一块都是不可变的，都由纯函数的形式组成。这里的纯函数，是指函数本身相互独立、互不影响，对于相同的输入，总会有相同的输出，没有任何副作用。</p>
+<p>【例子】非函数式编程</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(x)):</span><br><span class="line">        x[i] += <span class="number">10</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">x = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">f(x)</span><br><span class="line">print(x)</span><br><span class="line"><span class="comment"># [11, 12, 13]</span></span><br></pre></td></tr></table></figure>
+<p>【例子】函数式编程</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    y = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> x:</span><br><span class="line">        y.append(item + <span class="number">10</span>)</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">x = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">f(x)</span><br><span class="line">print(x)</span><br><span class="line"><span class="comment"># [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+<p>匿名函数 常常应用于函数式编程的高阶函数 (high-order function)中，主要有两种形式：</p>
+<ul>
+<li>参数是函数 (filter, map)</li>
+<li>返回值是函数 (closure)</li>
+</ul>
+<p>如，在 <code>filter</code>和<code>map</code>函数中的应用：</p>
+<ul>
+<li><code>filter(function, iterable)</code> 过滤序列，过滤掉不符合条件的元素，返回一个迭代器对象，如果要转换为列表，可以使用 <code>list()</code> 来转换。</li>
+</ul>
+<p>【例子】</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">odd = <span class="keyword">lambda</span> x: x % <span class="number">2</span> == <span class="number">1</span></span><br><span class="line">templist = filter(odd, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>])</span><br><span class="line">print(list(templist))  <span class="comment"># [1, 3, 5, 7, 9]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>map(function, *iterables)</code> 根据提供的函数对指定序列做映射。</li>
+</ul>
+<p>【例子】</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">m1 = map(<span class="keyword">lambda</span> x: x ** <span class="number">2</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">print(list(m1))  </span><br><span class="line"><span class="comment"># [1, 4, 9, 16, 25]</span></span><br><span class="line"></span><br><span class="line">m2 = map(<span class="keyword">lambda</span> x, y: x + y, [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>], [<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>])</span><br><span class="line">print(list(m2))  </span><br><span class="line"><span class="comment"># [3, 7, 11, 15, 19]</span></span><br></pre></td></tr></table></figure>
+<p>除了 Python 这些内置函数，我们也可以自己定义高阶函数。</p>
+<p>【例子】</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">apply_to_list</span><span class="params">(fun, some_list)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> fun(some_list)</span><br><span class="line"></span><br><span class="line">lst = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">print(apply_to_list(sum, lst))</span><br><span class="line"><span class="comment"># 15</span></span><br><span class="line"></span><br><span class="line">print(apply_to_list(len, lst))</span><br><span class="line"><span class="comment"># 5</span></span><br><span class="line"></span><br><span class="line">print(apply_to_list(<span class="keyword">lambda</span> x: sum(x) / len(x), lst))</span><br><span class="line"><span class="comment"># 3.0</span></span><br></pre></td></tr></table></figure>
+<h3 id="3、汉诺塔问题"><a href="#3、汉诺塔问题" class="headerlink" title="3、汉诺塔问题"></a>3、汉诺塔问题</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">move</span><span class="params">(n,a,b,c)</span>:</span>   <span class="comment">#n为圆盘数，a代表初始位圆柱，b代表过渡位圆柱，c代表目标位圆柱</span></span><br><span class="line">	<span class="keyword">if</span> n==<span class="number">1</span>:</span><br><span class="line">		print(a,<span class="string">'--&gt;'</span>,c)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		move(n<span class="number">-1</span>,a,c,b)   <span class="comment">#将初始位的n-1个圆盘移动到过渡位，此时初始位为a，上一级函数的过渡位b即为本级的目标位，上级的目标位c为本级的过渡位</span></span><br><span class="line">		print(a,<span class="string">'--&gt;'</span>,c)</span><br><span class="line"> </span><br><span class="line">		move(n<span class="number">-1</span>,b,a,c)   <span class="comment">#将过渡位的n-1个圆盘移动到目标位，此时初始位为b，上一级函数的目标位c即为本级的目标位，上级的初始位a为本级的过渡位</span></span><br></pre></td></tr></table></figure>
+<p><strong>参考文献</strong>：</p>
+<ul>
+<li><a href="https://www.runoob.com/python3/python3-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/python3/python3-tutorial.html</a></li>
+<li><a href="https://www.bilibili.com/video/av4050443" target="_blank" rel="noopener">https://www.bilibili.com/video/av4050443</a></li>
+<li><a href="https://mp.weixin.qq.com/s/gKhXS8JVU8dZBHJF7sIFsw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/gKhXS8JVU8dZBHJF7sIFsw</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python，datawhale</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python-字典、集合和序列</title>
     <url>/2020/07/28/python-%E5%AD%97%E5%85%B8%E3%80%81%E9%9B%86%E5%90%88%E5%92%8C%E5%BA%8F%E5%88%97/</url>
     <content><![CDATA[<h2 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h2><a id="more"></a>
@@ -1297,129 +1297,6 @@
       </tags>
   </entry>
   <entry>
-    <title>图像插值算法</title>
-    <url>/2020/08/10/%E5%9B%BE%E5%83%8F%E6%8F%92%E5%80%BC%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>&emsp;在图像处理中，平移变换、旋转变换以及放缩变换是一些基础且常用的操作。<a id="more"></a>这些几何变换并不改变图象的象素值，只是在图象平面上进行象素的重新排列。在一幅输入图象$[u，v]$中，灰度值仅在整数位置上有定义。然而，输出图象[x，y]的灰度值一般由处在非整数坐标上的$（u，v）$值来决定。这就需要插值算法来进行处理，常见的插值算法有最近邻插值、双线性插值和三次样条插值。</p>
-<h3 id="1、最近邻插值算法原理"><a href="#1、最近邻插值算法原理" class="headerlink" title="1、最近邻插值算法原理"></a>1、最近邻插值算法原理</h3><p>最近邻插值，是指将目标图像中的点，对应到源图像中后，找到最相邻的整数点，作为插值后的输出。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200412101740312.png" alt="img" style="zoom: 25%;" /></p>
-<p>&emsp;如上图所示，目标图像中的某点投影到原图像中的位置为点P,此时易知，$f(P) = f(Q11)$.</p>
-<p><strong>一个例子：</strong></p>
-<p>&emsp;&emsp;如下图所示，将一幅3X3的图像放大到4X4，用$f(x, y)$表示目标图像，$h(x, y)$表示原图像，我们有如下公式：</p>
-<script type="math/tex; mode=display">
-\begin{array}{c}
-f(dst_{X}, dst_{Y}) = h(\frac{dst_{X}src_{Width}}  {dst_{Width}}, \frac{dst_{Y}src_{Height}} {dst_{Height}})
-\end{array}</script><script type="math/tex; mode=display">
-\begin{array}{c}
-f(0,0)=h(0,0) \\
-f(0,1)=h(0,0.75)=h(0,1) \\
-f(0,2)=h(0,1.50)=h(0,2) \\
-f(0,3)=h(0,2.25)=h(0,2) \\
-...\\
-\end{array}</script><p><img src="https://img-blog.csdnimg.cn/20200412101854853.png" alt="img" style="zoom:25%;" /></p>
-<p><strong>缺点：</strong><br>用该方法作放大处理时，在图象中可能出现明显的块状效应</p>
-<div align=center><img width="150" height="150" src="https://img-blog.csdnimg.cn/20200412102932888.png#pic_center"/></div>
-
-<h3 id="2、双线性插值"><a href="#2、双线性插值" class="headerlink" title="2、双线性插值"></a>2、双线性插值</h3><p>&emsp;在讲双线性插值之前先看以一下线性插值，线性插值多项式为：</p>
-<script type="math/tex; mode=display">
-f(x)=a_{1} x+a_{0}</script><p><img src="https://img-blog.csdnimg.cn/20200412103208674.png" alt="img" style="zoom:15%;" /></p>
-<script type="math/tex; mode=display">
-y=y_{0}+\left(x-x_{0}\right) \frac{y_{1}-y_{0}}{x_{1}-x_{0}}=y_{0}+\frac{\left(x-x_{0}\right) y_{1}-\left(x-x_{0}\right) y_{0}}{x_{1}-x_{0}}</script><p>&emsp;&emsp;双线性插值就是线性插值在二维时的推广,在两个方向上做三次线性插值，具体操作如下图所示：</p>
-<p><img src="https://img-blog.csdnimg.cn/2020041210201784.png" alt="img" style="zoom:15%;" /></p>
-<p>&emsp;&emsp;令$f(x，y)$为两个变量的函数，其在单位正方形顶点的值已知。假设我们希望通过插值得到正方形内任意点的函数值。则可由双线性方程:</p>
-<script type="math/tex; mode=display">
-f(x, y)=a x+b y+c x y+d</script><p>&emsp;&emsp;来定义的一个双曲抛物面与四个已知点拟合。</p>
-<p>&emsp;&emsp;首先对上端的两个顶点进行线性插值得：</p>
-<script type="math/tex; mode=display">
-f(x, 0)=f(0,0)+x[f(1,0)-f(0,0)]</script><p>&emsp;&emsp;类似地，再对底端的两个顶点进行线性插值有：</p>
-<script type="math/tex; mode=display">
-f(x, 1)=f(0,1)+x[f(1,1)-f(0,1)]</script><p>&emsp;&emsp;最后，做垂直方向的线性插值，以确定：</p>
-<script type="math/tex; mode=display">
-f(x, y)=f(x, 0)+y[f(x, 1)-f(x, 0)]</script><p>&emsp;&emsp;整理得：</p>
-<script type="math/tex; mode=display">
-\begin{array}{l}
-f(x, y)=[f(1,0)-f(0,0)] x+[f(0,1)-f(0,0)] y \\
-+[f(1,1)+f(0,0)-f(0,1)-f(1,0)] x y+f(0,0)
-\end{array}</script><h3 id="3、基于opencv的实现"><a href="#3、基于opencv的实现" class="headerlink" title="3、基于opencv的实现"></a>3、基于opencv的实现</h3><p><code>cv2.resize(src, dsize[, dst[, fx[, fy[, interpolation]]]])</code></p>
-<p><strong>参数：</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>src</td>
-<td>【必需】原图像</td>
-</tr>
-<tr>
-<td>dsize</td>
-<td>【必需】输出图像所需大小</td>
-</tr>
-<tr>
-<td>fx</td>
-<td>【可选】沿水平轴的比例因子</td>
-</tr>
-<tr>
-<td>fy</td>
-<td>【可选】沿垂直轴的比例因子</td>
-</tr>
-<tr>
-<td>interpolation</td>
-<td>【可选】插值方式</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><strong>插值方式：</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>cv.INTER_NEAREST</td>
-<td>最近邻插值</td>
-</tr>
-<tr>
-<td>cv.INTER_LINEAR</td>
-<td>双线性插值</td>
-</tr>
-<tr>
-<td>cv.INTER_CUBIC</td>
-<td>基于4x4像素邻域的3次插值法</td>
-</tr>
-<tr>
-<td>cv.INTER_AREA</td>
-<td>基于局部像素的重采样</td>
-</tr>
-</tbody>
-</table>
-</div>
-<blockquote>
-<p>通常，缩小使用cv.INTER_AREA，放缩使用cv.INTER_CUBIC(较慢)和cv.INTER_LINEAR(较快效果也不错)。默认情况下，所有的放缩都使用cv.INTER_LINEAR。</p>
-</blockquote>
-<p>使用python实现了最近邻插值算法</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nearest_resize</span><span class="params">(img, src_size)</span>:</span></span><br><span class="line">    h, w, c = img.shape</span><br><span class="line">    src = np.zeros((src_size[<span class="number">0</span>], src_size[<span class="number">1</span>], <span class="number">3</span>), dtype=np.uint8)</span><br><span class="line">    <span class="keyword">if</span> h == src_size[<span class="number">0</span>] <span class="keyword">and</span> w == src_size[<span class="number">1</span>]:</span><br><span class="line">        <span class="keyword">return</span> img</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(src_size[<span class="number">0</span>]):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(src_size[<span class="number">1</span>]):</span><br><span class="line">            <span class="comment"># round()四舍五入的函数</span></span><br><span class="line">            src_x = round(i * (h / src_size[<span class="number">0</span>]))</span><br><span class="line">            src_y = round(j * (w / src_size[<span class="number">1</span>]))</span><br><span class="line">            src[i, j] = img[src_x, src_y]</span><br><span class="line">    <span class="keyword">return</span> src</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    img = cv2.imread(<span class="string">'F:/DataWhale/cv/imgs/4.jpeg'</span>)</span><br><span class="line">    cv2.imshow(<span class="string">"img"</span>, img)</span><br><span class="line">    src = nearest_resize(img, (<span class="number">270</span>, <span class="number">480</span>))</span><br><span class="line">    cv2.imshow(<span class="string">"resize_img"</span>, src)</span><br><span class="line">    cv2.waitKey()</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200810131553441.png" alt="image-20200810131553441" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200810131445377.png" alt="image-20200810131445377" style="zoom:50%;" /></p>
-<p>用自带的resize()实践</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    img = cv2.imread(<span class="string">'D:/image/yuner.jpg'</span>, cv2.IMREAD_UNCHANGED)</span><br><span class="line">    </span><br><span class="line">    print(<span class="string">'Original Dimensions : '</span>,img.shape)</span><br><span class="line">    </span><br><span class="line">    scale_percent = <span class="number">30</span>       <span class="comment"># percent of original size</span></span><br><span class="line">    width = int(img.shape[<span class="number">1</span>] * scale_percent / <span class="number">100</span>)</span><br><span class="line">    height = int(img.shape[<span class="number">0</span>] * scale_percent / <span class="number">100</span>)</span><br><span class="line">    dim = (width, height)</span><br><span class="line">    <span class="comment"># resize image</span></span><br><span class="line">    resized = cv2.resize(img, dim, interpolation = cv2.INTER_LINEAR)</span><br><span class="line"></span><br><span class="line">    fx = <span class="number">1.5</span></span><br><span class="line">    fy = <span class="number">1.5</span></span><br><span class="line"></span><br><span class="line">    resized1 = cv2.resize(resized, dsize=<span class="literal">None</span>, fx=fx, fy=fy, interpolation = cv2.INTER_NEAREST)</span><br><span class="line">    </span><br><span class="line">    resized2 = cv2.resize(resized, dsize=<span class="literal">None</span>, fx=fx, fy=fy, interpolation = cv2.INTER_LINEAR)</span><br><span class="line">    print(<span class="string">'Resized Dimensions : '</span>,resized.shape)</span><br><span class="line">    </span><br><span class="line">    cv2.imshow(<span class="string">"Resized image"</span>, resized)</span><br><span class="line">    cv2.imshow(<span class="string">"INTER_NEAREST image"</span>, resized1)</span><br><span class="line">    cv2.imshow(<span class="string">"INTER_LINEAR image"</span>, resized2)</span><br><span class="line">    cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">    cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>cv</category>
-      </categories>
-      <tags>
-        <tag>cv，datawhale</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>条件循环结构</title>
     <url>/2020/07/21/python-%E6%9D%A1%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[<h3 id="1-1-if语句"><a href="#1-1-if语句" class="headerlink" title="1.1 if语句"></a>1.1 <code>if</code>语句</h3><a id="more"></a>
@@ -1661,6 +1538,181 @@ f(x, y)=[f(1,0)-f(0,0)] x+[f(0,1)-f(0,0)] y \\
       </categories>
       <tags>
         <tag>python，datawhale</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>（一）数据加载及探索性数据分析</title>
+    <url>/2020/08/16/%EF%BC%88%E4%B8%80%EF%BC%89%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD%E5%8F%8A%E6%8E%A2%E7%B4%A2%E6%80%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h4 id="导入numpy和pandas"><a href="#导入numpy和pandas" class="headerlink" title="导入numpy和pandas"></a>导入numpy和pandas</h4><a id="more"></a>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 如果没安装这两个库可以通过</span></span><br><span class="line"><span class="comment"># conda install numpy 或者 pip install numpy</span></span><br><span class="line"><span class="comment"># conda install pandas 或者 pip install pandas</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+<h4 id="载入数据"><a href="#载入数据" class="headerlink" title="载入数据"></a>载入数据</h4><p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200816110515081.png" alt="image-20200816110515081" style="zoom: 67%;" /></p>
+<p>虽然有上面那么多种用法，不过用的最多的还是<code>read_csv</code>和<code>read_table</code>这两个。</p>
+<p>这次学习使用的是泰坦尼克号的数据，kaggle链接——<a href="https://www.kaggle.com/c/titanic/overview" target="_blank" rel="noopener">https://www.kaggle.com/c/titanic/overview</a>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#写入代码</span></span><br><span class="line">df_relative = pd.read_csv(<span class="string">'train.csv'</span>)</span><br><span class="line">df_relative.head()</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200816111116875.png" alt="image-20200816111116875"></p>
+<p>这些特征的含义出题者也是给出了解释。</p>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200816113903794.png" alt="image-20200816113903794" style="zoom:67%;" /></p>
+<p>当相对路径报错的时候，可以尝试使用绝对路径。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="comment">#os.getcwd()查看当前目录</span></span><br><span class="line">os.getcwd() + <span class="string">'train.csv'</span> <span class="comment"># 绝对路径</span></span><br></pre></td></tr></table></figure>
+<h4 id="逐块读取"><a href="#逐块读取" class="headerlink" title="逐块读取"></a>逐块读取</h4><p>当一个csv文件比较大的时候，如果直接读取整个csv，服务器的内存是吃不消的，因此需要用chunksize去分块处理。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">  df=pd.read_csv(<span class="string">'data.csv'</span>, chunksize=<span class="number">1000</span>) <span class="comment"># chunksize自己设置</span></span><br><span class="line">  <span class="keyword">for</span> chunk <span class="keyword">in</span> df:</span><br><span class="line">print(chunk)</span><br></pre></td></tr></table></figure>
+<h4 id="将表头英文换成中文，并且将乘客ID设置成索引"><a href="#将表头英文换成中文，并且将乘客ID设置成索引" class="headerlink" title="将表头英文换成中文，并且将乘客ID设置成索引"></a>将表头英文换成中文，并且将乘客ID设置成索引</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 方法1 在读取文件的时候就设置</span></span><br><span class="line">df = pd.read_csv(<span class="string">'train.csv'</span>, names=[<span class="string">'乘客ID'</span>,<span class="string">'是否幸存'</span>,<span class="string">'仓位等级'</span>,<span class="string">'姓名'</span>,<span class="string">'性别'</span>,<span class="string">'年龄'</span>,<span class="string">'兄弟姐妹个数'</span>,<span class="string">'父母子女个数'</span>,<span class="string">'船票信息'</span>,<span class="string">'票价'</span>,<span class="string">'客舱'</span>,<span class="string">'登船港口'</span>],index_col=<span class="string">'乘客ID'</span>,header=<span class="number">0</span>)</span><br><span class="line">df.head()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 方法2 读取文件还是一样读取，在后面设置</span></span><br><span class="line">d = &#123;<span class="string">'PassengerId'</span>:<span class="string">'乘客ID'</span>, <span class="string">'Survived'</span>:<span class="string">'是否幸存'</span>, <span class="string">'Pclass'</span>:<span class="string">'仓位等级'</span>, <span class="string">'Name'</span>:<span class="string">'姓名'</span>, <span class="string">'Sex'</span>:<span class="string">'性别'</span>, 	 <span class="string">'Age'</span>:<span class="string">'年龄'</span>,<span class="string">'SibSp'</span>:<span class="string">'兄弟姐妹个数'</span>, <span class="string">'Parch'</span>:<span class="string">'父母子女个数'</span>, <span class="string">'Ticket'</span>:<span class="string">'船票信息'</span>, <span class="string">'Fare'</span>:<span class="string">'票价'</span>,     	   <span class="string">'Cabin'</span>:<span class="string">'客舱'</span>, <span class="string">'Embarked'</span>:<span class="string">'登船港口'</span>&#125;</span><br><span class="line">df_table.rename(columns=d, inplace=<span class="literal">True</span>) <span class="comment"># 更换名字</span></span><br><span class="line">df_table.set_index(<span class="string">'乘客ID'</span>, inplace=<span class="literal">True</span>) <span class="comment"># 设置索引</span></span><br><span class="line">df_table.head()</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200816114650488.png" alt="image-20200816114650488"></p>
+<h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df.info() </span><br><span class="line">df.head() <span class="comment"># 前五行</span></span><br><span class="line">df.tail() <span class="comment"># 后五行</span></span><br><span class="line">df.isnull() <span class="comment"># 判断数据是否为空，空的地方是True</span></span><br><span class="line">df.to_csv(<span class="string">'train_chinese.csv'</span>) <span class="comment"># 将DataFrame导出为csv文件</span></span><br></pre></td></tr></table></figure>
+<h4 id="删除多余的列"><a href="#删除多余的列" class="headerlink" title="删除多余的列"></a>删除多余的列</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">del</span> df[a] <span class="comment"># a是列的名称</span></span><br><span class="line">df(<span class="string">'a'</span>, axis=<span class="number">1</span>, inplace=<span class="literal">True</span>) <span class="comment"># 跟上面的效果一样</span></span><br></pre></td></tr></table></figure>
+<h4 id="筛选"><a href="#筛选" class="headerlink" title="筛选"></a>筛选</h4><p>例子： 以”Age”为条件，将年龄在10岁以上和50岁以下的乘客信息显示出来，并将这个数据命名为midage</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">midage = df[(df[<span class="string">"Age"</span>]&gt;<span class="number">10</span>)&amp; (df[<span class="string">"Age"</span>]&lt;<span class="number">50</span>)]</span><br><span class="line">midage.head(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200816115236212.png" alt="image-20200816115236212"></p>
+<p>例子：将midage的数据中第100行的”Pclass”和”Sex”的数据显示出来</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">midage.loc[[<span class="number">100</span>],[<span class="string">'Pclass'</span>,<span class="string">'Sex'</span>]]</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200816115417706.png" alt="image-20200816115417706" style="zoom:67%;" /></p>
+<p>例子：使用loc方法将midage的数据中第100，105，108行的”Pclass”，”Name”和”Sex”的数据显示出来</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">midage.loc[[<span class="number">100</span>,<span class="number">105</span>,<span class="number">108</span>],[<span class="string">'Pclass'</span>,<span class="string">'Name'</span>,<span class="string">'Sex'</span>]]</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200816115509038.png" alt="image-20200816115509038" style="zoom:67%;" /></p>
+<p>例子：使用iloc方法将midage的数据中第100，105，108行的”Pclass”，”Name”和”Sex”的数据显示出来</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">midage.iloc[[<span class="number">100</span>,<span class="number">105</span>,<span class="number">108</span>],[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]]</span><br></pre></td></tr></table></figure>
+<p>​    <img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200816115541392.png" alt="image-20200816115541392" style="zoom:67%;" /></p>
+<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p>原始数据为：<img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200816115749253.png" alt="image-20200816115749253" style="zoom:67%;" /></p>
+<p>例子1：让行索引升序排序</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df_table.sort_index(axis=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200816115846642.png" alt="image-20200816115846642" style="zoom:67%;" /></p>
+<p>例子2：让列索引升序排序</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df_table.sort_index(axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200816115930866.png" alt="image-20200816115930866" style="zoom:67%;" /></p>
+<p>例子3：任选两列数据同时降序排序</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df_table.sort_values([<span class="string">'d'</span>, <span class="string">'b'</span>], ascending=[<span class="literal">False</span>, <span class="literal">False</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200816120006619.png" alt="image-20200816120006619" style="zoom:67%;" /></p>
+<p>小总结：如果是要按<strong>行索引</strong>或者<strong>列索引</strong>则使用<code>sort_index()</code>，如果要按值排序则使用<code>sort_value()</code></p>
+]]></content>
+      <categories>
+        <category>数据分析</category>
+      </categories>
+      <tags>
+        <tag>数据分析，datawhale</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图像插值算法</title>
+    <url>/2020/08/10/%E5%9B%BE%E5%83%8F%E6%8F%92%E5%80%BC%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>&emsp;在图像处理中，平移变换、旋转变换以及放缩变换是一些基础且常用的操作。<a id="more"></a>这些几何变换并不改变图象的象素值，只是在图象平面上进行象素的重新排列。在一幅输入图象$[u，v]$中，灰度值仅在整数位置上有定义。然而，输出图象[x，y]的灰度值一般由处在非整数坐标上的$（u，v）$值来决定。这就需要插值算法来进行处理，常见的插值算法有最近邻插值、双线性插值和三次样条插值。</p>
+<h3 id="1、最近邻插值算法原理"><a href="#1、最近邻插值算法原理" class="headerlink" title="1、最近邻插值算法原理"></a>1、最近邻插值算法原理</h3><p>最近邻插值，是指将目标图像中的点，对应到源图像中后，找到最相邻的整数点，作为插值后的输出。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200412101740312.png" alt="img" style="zoom: 25%;" /></p>
+<p>&emsp;如上图所示，目标图像中的某点投影到原图像中的位置为点P,此时易知，$f(P) = f(Q11)$.</p>
+<p><strong>一个例子：</strong></p>
+<p>&emsp;&emsp;如下图所示，将一幅3X3的图像放大到4X4，用$f(x, y)$表示目标图像，$h(x, y)$表示原图像，我们有如下公式：</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+f(dst_{X}, dst_{Y}) = h(\frac{dst_{X}src_{Width}}  {dst_{Width}}, \frac{dst_{Y}src_{Height}} {dst_{Height}})
+\end{array}</script><script type="math/tex; mode=display">
+\begin{array}{c}
+f(0,0)=h(0,0) \\
+f(0,1)=h(0,0.75)=h(0,1) \\
+f(0,2)=h(0,1.50)=h(0,2) \\
+f(0,3)=h(0,2.25)=h(0,2) \\
+...\\
+\end{array}</script><p><img src="https://img-blog.csdnimg.cn/20200412101854853.png" alt="img" style="zoom:25%;" /></p>
+<p><strong>缺点：</strong><br>用该方法作放大处理时，在图象中可能出现明显的块状效应</p>
+<div align=center><img width="150" height="150" src="https://img-blog.csdnimg.cn/20200412102932888.png#pic_center"/></div>
+
+<h3 id="2、双线性插值"><a href="#2、双线性插值" class="headerlink" title="2、双线性插值"></a>2、双线性插值</h3><p>&emsp;在讲双线性插值之前先看以一下线性插值，线性插值多项式为：</p>
+<script type="math/tex; mode=display">
+f(x)=a_{1} x+a_{0}</script><p><img src="https://img-blog.csdnimg.cn/20200412103208674.png" alt="img" style="zoom:15%;" /></p>
+<script type="math/tex; mode=display">
+y=y_{0}+\left(x-x_{0}\right) \frac{y_{1}-y_{0}}{x_{1}-x_{0}}=y_{0}+\frac{\left(x-x_{0}\right) y_{1}-\left(x-x_{0}\right) y_{0}}{x_{1}-x_{0}}</script><p>&emsp;&emsp;双线性插值就是线性插值在二维时的推广,在两个方向上做三次线性插值，具体操作如下图所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/2020041210201784.png" alt="img" style="zoom:15%;" /></p>
+<p>&emsp;&emsp;令$f(x，y)$为两个变量的函数，其在单位正方形顶点的值已知。假设我们希望通过插值得到正方形内任意点的函数值。则可由双线性方程:</p>
+<script type="math/tex; mode=display">
+f(x, y)=a x+b y+c x y+d</script><p>&emsp;&emsp;来定义的一个双曲抛物面与四个已知点拟合。</p>
+<p>&emsp;&emsp;首先对上端的两个顶点进行线性插值得：</p>
+<script type="math/tex; mode=display">
+f(x, 0)=f(0,0)+x[f(1,0)-f(0,0)]</script><p>&emsp;&emsp;类似地，再对底端的两个顶点进行线性插值有：</p>
+<script type="math/tex; mode=display">
+f(x, 1)=f(0,1)+x[f(1,1)-f(0,1)]</script><p>&emsp;&emsp;最后，做垂直方向的线性插值，以确定：</p>
+<script type="math/tex; mode=display">
+f(x, y)=f(x, 0)+y[f(x, 1)-f(x, 0)]</script><p>&emsp;&emsp;整理得：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+f(x, y)=[f(1,0)-f(0,0)] x+[f(0,1)-f(0,0)] y \\
++[f(1,1)+f(0,0)-f(0,1)-f(1,0)] x y+f(0,0)
+\end{array}</script><h3 id="3、基于opencv的实现"><a href="#3、基于opencv的实现" class="headerlink" title="3、基于opencv的实现"></a>3、基于opencv的实现</h3><p><code>cv2.resize(src, dsize[, dst[, fx[, fy[, interpolation]]]])</code></p>
+<p><strong>参数：</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>src</td>
+<td>【必需】原图像</td>
+</tr>
+<tr>
+<td>dsize</td>
+<td>【必需】输出图像所需大小</td>
+</tr>
+<tr>
+<td>fx</td>
+<td>【可选】沿水平轴的比例因子</td>
+</tr>
+<tr>
+<td>fy</td>
+<td>【可选】沿垂直轴的比例因子</td>
+</tr>
+<tr>
+<td>interpolation</td>
+<td>【可选】插值方式</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>插值方式：</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cv.INTER_NEAREST</td>
+<td>最近邻插值</td>
+</tr>
+<tr>
+<td>cv.INTER_LINEAR</td>
+<td>双线性插值</td>
+</tr>
+<tr>
+<td>cv.INTER_CUBIC</td>
+<td>基于4x4像素邻域的3次插值法</td>
+</tr>
+<tr>
+<td>cv.INTER_AREA</td>
+<td>基于局部像素的重采样</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>通常，缩小使用cv.INTER_AREA，放缩使用cv.INTER_CUBIC(较慢)和cv.INTER_LINEAR(较快效果也不错)。默认情况下，所有的放缩都使用cv.INTER_LINEAR。</p>
+</blockquote>
+<p>使用python实现了最近邻插值算法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nearest_resize</span><span class="params">(img, src_size)</span>:</span></span><br><span class="line">    h, w, c = img.shape</span><br><span class="line">    src = np.zeros((src_size[<span class="number">0</span>], src_size[<span class="number">1</span>], <span class="number">3</span>), dtype=np.uint8)</span><br><span class="line">    <span class="keyword">if</span> h == src_size[<span class="number">0</span>] <span class="keyword">and</span> w == src_size[<span class="number">1</span>]:</span><br><span class="line">        <span class="keyword">return</span> img</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(src_size[<span class="number">0</span>]):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(src_size[<span class="number">1</span>]):</span><br><span class="line">            <span class="comment"># round()四舍五入的函数</span></span><br><span class="line">            src_x = round(i * (h / src_size[<span class="number">0</span>]))</span><br><span class="line">            src_y = round(j * (w / src_size[<span class="number">1</span>]))</span><br><span class="line">            src[i, j] = img[src_x, src_y]</span><br><span class="line">    <span class="keyword">return</span> src</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    img = cv2.imread(<span class="string">'F:/DataWhale/cv/imgs/4.jpeg'</span>)</span><br><span class="line">    cv2.imshow(<span class="string">"img"</span>, img)</span><br><span class="line">    src = nearest_resize(img, (<span class="number">270</span>, <span class="number">480</span>))</span><br><span class="line">    cv2.imshow(<span class="string">"resize_img"</span>, src)</span><br><span class="line">    cv2.waitKey()</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200810131553441.png" alt="image-20200810131553441" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200810131445377.png" alt="image-20200810131445377" style="zoom:50%;" /></p>
+<p>用自带的resize()实践</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    img = cv2.imread(<span class="string">'D:/image/yuner.jpg'</span>, cv2.IMREAD_UNCHANGED)</span><br><span class="line">    </span><br><span class="line">    print(<span class="string">'Original Dimensions : '</span>,img.shape)</span><br><span class="line">    </span><br><span class="line">    scale_percent = <span class="number">30</span>       <span class="comment"># percent of original size</span></span><br><span class="line">    width = int(img.shape[<span class="number">1</span>] * scale_percent / <span class="number">100</span>)</span><br><span class="line">    height = int(img.shape[<span class="number">0</span>] * scale_percent / <span class="number">100</span>)</span><br><span class="line">    dim = (width, height)</span><br><span class="line">    <span class="comment"># resize image</span></span><br><span class="line">    resized = cv2.resize(img, dim, interpolation = cv2.INTER_LINEAR)</span><br><span class="line"></span><br><span class="line">    fx = <span class="number">1.5</span></span><br><span class="line">    fy = <span class="number">1.5</span></span><br><span class="line"></span><br><span class="line">    resized1 = cv2.resize(resized, dsize=<span class="literal">None</span>, fx=fx, fy=fy, interpolation = cv2.INTER_NEAREST)</span><br><span class="line">    </span><br><span class="line">    resized2 = cv2.resize(resized, dsize=<span class="literal">None</span>, fx=fx, fy=fy, interpolation = cv2.INTER_LINEAR)</span><br><span class="line">    print(<span class="string">'Resized Dimensions : '</span>,resized.shape)</span><br><span class="line">    </span><br><span class="line">    cv2.imshow(<span class="string">"Resized image"</span>, resized)</span><br><span class="line">    cv2.imshow(<span class="string">"INTER_NEAREST image"</span>, resized1)</span><br><span class="line">    cv2.imshow(<span class="string">"INTER_LINEAR image"</span>, resized2)</span><br><span class="line">    cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">    cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>cv</category>
+      </categories>
+      <tags>
+        <tag>cv，datawhale</tag>
       </tags>
   </entry>
   <entry>
