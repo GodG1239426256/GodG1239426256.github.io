@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-08-18 15:48:19 / 修改时间：16:48:37" itemprop="dateCreated datePublished" datetime="2020-08-18T15:48:19+08:00">2020-08-18</time>
+              <time title="创建时间：2020-08-18 15:48:19 / 修改时间：16:53:22" itemprop="dateCreated datePublished" datetime="2020-08-18T15:48:19+08:00">2020-08-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -249,118 +249,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="一、数据探索与分析"><a href="#一、数据探索与分析" class="headerlink" title="一、数据探索与分析"></a>一、数据探索与分析</h3><p>首先来看看<code>seaborn</code>这个库的用法，因为我们在作分析的时候，会频繁的使用这个库。</p>
-<p>Seaborn是一种基于matplotlib的图形可视化python libraty。它提供了一种<strong>高度交互式界面</strong>，便于用户能够做出各种有吸引力的统计图表。</p>
-<p>Seaborn其实是在matplotlib的基础上进行了更高级的API封装，从而使得<strong>作图更加容易</strong>，在大多数情况下使用seaborn就能做出很具有吸引力的图，而使用matplotlib就能制作具有更多特色的图。应该把Seaborn视为matplotlib的补充，而不是替代物。同时它能高度兼容<strong>numpy</strong>与<strong>pandas</strong>数据结构以及<strong>scipy</strong>与<strong>statsmodels</strong>等统计模式。掌握seaborn能很大程度帮助我们更高效的观察数据与图表，并且更加深入了解它们。</p>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818160001866.png" alt="image-20200818160001866" style="zoom:67%;" /></p>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818160014476.png" alt="image-20200818160014476" style="zoom:67%;" /></p>
-<p>安装seaborn</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> seaborn</span><br><span class="line"><span class="comment"># anaconda 环境中</span></span><br><span class="line">conda <span class="keyword">install</span> seaborn</span><br></pre></td></tr></table></figure>
-<p><strong>boxplot</strong> ：箱型图又称为盒须图、盒式图或箱线图，是一种用作显示一组数据分散情况资料的统计图。它能显示出一组数据的<strong>最大值</strong>、<strong>最小值</strong>、<strong>中位数</strong>及<strong>上下四分位数</strong>。因形状如箱子而得名。在各种领域也经常被使用，常见于品质管理。图解如下：</p>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818161401562.png" alt="image-20200818161401562" style="zoom:50%;" /></p>
-<p>先来介绍下箱型图的一些统计学的意义：</p>
-<ol>
-<li>IQR = Q3-Q1，即上四分位数与下四分位数之间的差，也就是盒子的长度。</li>
-<li>最小观测值为min = Q1 - 1.5*IQR，如果存在离群点小于最小观测值，则胡须下限为最小观测值，离群点单独以点汇出。如果没有比最小观测值小的数，则胡须下限为最小值。</li>
-<li>最大观测值为max = Q3 +1.5*IQR，如果存在离群点大于最大观测值，则胡须上限为最大观测值，离群点单独以点汇出。如果没有比最大观测值大的数，则胡须上限为最大值。</li>
-</ol>
-<p>接下来我们介绍Seaborn中的箱型图的具体实现方法，这是boxplot的API：</p>
-<p><code>seaborn.``boxplot</code><strong>(*</strong>x=None<strong>*,</strong> <em>y=None**</em>,<strong> <em>hue=None</em></strong>,<strong> <em>data=None</em></strong>,<strong> <em>order=None</em></strong>,<strong> <em>hue_order=None</em></strong>,<strong> <em>orient=None</em></strong>,<strong> <em>color=None</em></strong>,<strong> <em>palette=None</em></strong>,<strong> <em>saturation=0.75</em></strong>,<strong> <em>width=0.8</em></strong>,<strong> <em>dodge=True</em></strong>,<strong> <em>fliersize=5</em></strong>,<strong> <em>linewidth=None</em></strong>,<strong> <em>whis=1.5</em></strong>,<strong> <em>ax=None</em></strong>,<strong> *</strong>kwargs<strong>*)</strong></p>
-<ul>
-<li><p><strong>x，y：</strong>dataframe中的<strong>列名（str）</strong>或者<strong>矢量数据</strong></p>
-</li>
-<li><p><strong>data：dataframe</strong>或者<strong>数组</strong></p>
-</li>
-<li><p><strong>palette：</strong>调色板，控制图像的色调</p>
-</li>
-<li><p>```python<br>plt.subplot(1, 2, 1)<br>sns.boxplot(x=”catagory”,y=”pw”,data=data) #左图<br>plt.subplot(1, 2, 2)<br>sns.boxplot(x=”catagory”,y=”pw”,data=data,palette=”Set3”) #右图</p>
-<h1 id="这边使用的是鸢尾花数据集，category代表的是分类，pw则是其中的一个特征。"><a href="#这边使用的是鸢尾花数据集，category代表的是分类，pw则是其中的一个特征。" class="headerlink" title="这边使用的是鸢尾花数据集，category代表的是分类，pw则是其中的一个特征。"></a>这边使用的是鸢尾花数据集，category代表的是分类，pw则是其中的一个特征。</h1><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  &lt;img src=<span class="string">"https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818160504730.png"</span> alt=<span class="string">"image-20200818160504730"</span> style=<span class="string">"zoom: 50%;"</span> /&gt;</span><br><span class="line"></span><br><span class="line">- **order, hue_order (lists of strings)：用于控制条形图的顺序**</span><br><span class="line"></span><br><span class="line">  ```python</span><br><span class="line">  sns.boxplot(x=<span class="string">"catagory"</span>,y=<span class="string">"pw"</span>,data=data,palette=<span class="string">"Set3"</span>,order=[<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818161053463.png" alt="image-20200818161053463" style="zoom:50%;" /></p>
-</li>
-<li><p><strong>orient：</strong>“v”|”h” 用于控制图像使水平还是竖直显示（这通常是从输入变量的dtype推断出来的，此参数一般当<strong>不传入x、y，只传入data的时候</strong>使用）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">sns.boxplot(data=data,orient=<span class="string">"v"</span>,palette=<span class="string">"Set3"</span>)  <span class="comment">#竖直显示</span></span><br><span class="line">plt.subolot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">sns.boxplot(data=data,orient=<span class="string">"h"</span>,palette=<span class="string">"Set3"</span>)  <span class="comment">#水平显示</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818161228812.png" alt="image-20200818161228812" style="zoom:50%;" /></p>
-</li>
-</ul>
-<p><strong>violinplot </strong>小提琴图，violinplot与boxplot扮演类似的角色，它显示了定量数据在一个（或多个）分类变量的多个层次上的分布，这些分布可以进行比较。不像箱形图中所有绘图组件都对应于<strong>实际数据点</strong>，小提琴绘图以基础分布的<strong>核密度估计</strong>为特征。具体用法如下：</p>
-<p><img src="https://img2018.cnblogs.com/blog/1503464/201908/1503464-20190813102438161-852073569.png" alt="img" style="zoom:50%;" /></p>
-<p><code>seaborn.``violinplot</code><strong>(*</strong>x=None<strong>*,</strong> <em>y=None**</em>,<strong> <em>hue=None</em></strong>,<strong> <em>data=None</em></strong>,<strong> <em>order=None</em></strong>,<strong> <em>hue_order=None</em></strong>,<strong> <em>bw=’scott’</em></strong>,<strong> <em>cut=2</em></strong>,<strong> <em>scale=’area’</em></strong>,<strong> <em>scale_hue=True</em></strong>,<strong> <em>gridsize=100</em></strong>,<strong> <em>width=0.8</em></strong>,<strong> <em>inner=’box’</em></strong>,<strong> <em>split=False</em></strong>,<strong> <em>dodge=True</em></strong>,<strong> <em>orient=None</em></strong>,<strong> <em>linewidth=None</em></strong>,<strong> <em>color=None</em></strong>,<strong> <em>palette=None</em></strong>,<strong> <em>saturation=0.75</em></strong>,<strong> <em>ax=None</em></strong>,<strong> *</strong>kwargs<strong>*)</strong></p>
-<ul>
-<li>bw：‘scott’, ‘silverman’, float，控制拟合程度。在计算内核带宽时，可以引用规则的名称（‘scott’, ‘silverman’）或者使用比例（float）。实际内核大小将通过将比例乘以每个bin内数据的标准差来确定；</li>
-<li>cut：空值外壳的延伸超过极值点的密度，float；</li>
-<li>scale：“area”, “count”, “width”，用来缩放每把小提琴的宽度的方法；</li>
-<li>scale_hue：当使用hue分类后，设置为True时，此参数确定是否在主分组变量进行缩放；</li>
-<li>gridsize：设置小提琴图的平滑度，越高越平滑；</li>
-<li>inner：“box”, “quartile”, “point”, “stick”, None,小提琴内部数据点的表示。分别表示：箱子，四分位，点，数据线和不表示；</li>
-<li>split：是否拆分，当设置为True时，绘制经hue分类的每个级别画出一半的小提琴；</li>
-</ul>
-<p><strong>barplot</strong> 条形图</p>
-<p>条形图因为平时见得比较多，也很容易理解，这边就不细说了，直接看看api文档：</p>
-<p><code>seaborn.``barplot</code><strong>(*</strong>x=None<strong>*,</strong> <em>y=None**</em>,<strong> <em>hue=None</em></strong>,<strong> <em>data=None</em></strong>,<strong> <em>order=None</em></strong>,<strong> <em>hue_order=None</em></strong>,<strong> <em>estimator=<function mean at 0x105c7d9e0></em></strong>,<strong> <em>ci=95</em></strong>,<strong> <em>n_boot=1000</em></strong>,<strong> <em>units=None</em></strong>,<strong> <em>seed=None</em></strong>,<strong> <em>orient=None</em></strong>,<strong> <em>color=None</em></strong>,<strong> <em>palette=None</em></strong>,<strong> <em>saturation=0.75</em></strong>,<strong> <em>errcolor=’.26’</em></strong>,<strong> <em>errwidth=None</em></strong>,<strong> <em>capsize=None</em></strong>,<strong> <em>dodge=True</em></strong>,<strong> <em>ax=None</em></strong>,<strong> *</strong>kwargs<strong>*)</strong></p>
-<p><strong>heatmap</strong> 热力图。将数据绘制为颜色方格（编码矩阵）</p>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818163311474.png" alt="image-20200818163311474" style="zoom:50%;" /></p>
-<p><code>seaborn.``heatmap</code><strong>(*</strong>data<strong>*,</strong> <em>vmin=None**</em>,<strong> <em>vmax=None</em></strong>,<strong> <em>cmap=None</em></strong>,<strong> <em>center=None</em></strong>,<strong> <em>robust=False</em></strong>,<strong> <em>annot=None</em></strong>,<strong> <em>fmt=’.2g’</em></strong>,<strong> <em>annot_kws=None</em></strong>,<strong> <em>linewidths=0</em></strong>,<strong> <em>linecolor=’white’</em></strong>,<strong> <em>cbar=True</em></strong>,<strong> <em>cbar_kws=None</em></strong>,<strong> <em>cbar_ax=None</em></strong>,<strong> <em>square=False</em></strong>,<strong> <em>xticklabels=’auto’</em></strong>,<strong> <em>yticklabels=’auto’</em></strong>,<strong> <em>mask=None</em></strong>,<strong> <em>ax=None</em></strong>,<strong> *</strong>kwargs<strong>*)</strong></p>
-<ul>
-<li><strong>data :</strong> <strong>要显示的数据</strong></li>
-<li><strong>vmin, vmax : 显示的数据值的最大和最小的范围</strong></li>
-<li><strong>cmap : matplotlib颜色表名称或对象，或颜色列表，可选从数据值到色彩空间的映射。如果没有提供，默认设置</strong></li>
-<li><strong>center :</strong> 指定色彩的中心值</li>
-<li><strong>linewidths :</strong> 划分每个单元格的线的宽度。</li>
-<li><strong>linecolor :</strong> 划分每个单元格的线的颜色。</li>
-</ul>
-<p><strong>kdeplot</strong>（核密度估计图）</p>
-<p>核密度估计(kernel density estimation)是在<strong>概率论</strong>中用来估计未知的<strong>密度函数</strong>，属于非参数检验方法之一。通过核密度估计图可以比较直观的看出数据样本本身的分布特征。具体用法如下：</p>
-<p><code>seaborn.``kdeplot</code><strong>(*</strong>data<strong>*,</strong> <em>data2=None**</em>,<strong> <em>shade=False</em></strong>,<strong> <em>vertical=False</em></strong>,<strong> <em>kernel=’gau’</em></strong>,<strong> <em>bw=’scott’</em></strong>,<strong> <em>gridsize=100</em></strong>,<strong> <em>cut=3</em></strong>,<strong> <em>clip=None</em></strong>,<strong> <em>legend=True</em></strong>,<strong> <em>cumulative=False</em></strong>,<strong> <em>shade_lowest=True</em></strong>,<strong> <em>cbar=False</em></strong>,<strong> <em>cbar_ax=None</em></strong>,<strong> <em>cbar_kws=None</em></strong>,<strong> <em>ax=None</em></strong>,<strong> *</strong>kwargs<strong>*)</strong></p>
-<p>绘制简单的一维kde图像</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x=np.random.randn(<span class="number">100</span>)  <span class="comment">#随机生成100个符合正态分布的数sns.kdeplot(x)</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818163538681.png" alt="image-20200818163538681" style="zoom: 67%;" /></p>
-<ul>
-<li><p><strong>cut：参数表示绘制的时候，切除带宽往数轴极限数值的多少(默认为3)</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.kdeplot(x,cut=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818163629675.png" alt="image-20200818163629675" style="zoom:67%;" /></p>
-<ul>
-<li><p><strong>cumulative ：是否绘制累积分布</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.kdeplot(x,cumulative=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818163753989.png" alt="image-20200818163753989" style="zoom:67%;" /></p>
-</li>
-<li><p><strong>shade：若为True，则在kde曲线下面的区域中进行阴影处理，color控制曲线及阴影的颜色</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.kdeplot(x,shade=<span class="literal">True</span>,color=<span class="string">"g"</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818163840718.png" alt="image-20200818163840718" style="zoom:67%;" /></p>
-</li>
-<li><p><strong>vertical：表示以X轴进行绘制还是以Y轴进行绘制</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.kdeplot(x,vertical=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818163916991.png" alt="image-20200818163916991" style="zoom:67%;" /></p>
-</li>
-</ul>
-<p><strong>displot</strong></p>
-<p>displot()集合了matplotlib的hist()与核函数估计kdeplot的功能，增加了rugplot分布观测条显示与利用scipy库fit拟合参数分布的新颖用途。具体用法如下：</p>
-<p><code>seaborn.``distplot</code><strong>(*</strong>a<strong>*,</strong> <em>bins=None**</em>,<strong> <em>hist=True</em></strong>,<strong> <em>kde=True</em></strong>,<strong> <em>rug=False</em></strong>,<strong> <em>fit=None</em></strong>,<strong> <em>hist_kws=None</em></strong>,<strong> <em>kde_kws=None</em></strong>,<strong> <em>rug_kws=None</em></strong>,<strong> <em>fit_kws=None</em></strong>,<strong> <em>color=None</em></strong>,<strong> <em>vertical=False</em></strong>,<strong> <em>norm_hist=False</em></strong>,<strong> <em>axlabel=None</em></strong>,<strong> <em>label=None</em></strong>,<strong> <em>ax=None</em></strong>)**</p>
-<p>先介绍一下直方图(Histograms)：</p>
-<p>直方图又称<strong>质量分布图</strong>，它是表示资料变化情况的一种主要工具。用直方图可以解析出资料的规则性，比较直观地看出产品质量特性的分布状态，对于资料分布状况一目了然，便于判断其总体质量分布情况。直方图表示通过沿数据范围<strong>形成分箱</strong>，然后绘制条以<strong>显示落入每个分箱的观测次数</strong>的数据分布。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.distplot(x,color=<span class="string">"g"</span>) <span class="comment"># 数据还是上面的数据</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818164146027.png" alt="image-20200818164146027" style="zoom:67%;" /></p>
-<p>通过<strong>hist</strong>和<strong>kde</strong>参数调节是否显示直方图及核密度估计(默认hist,kde均为True)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">3</span>,<span class="number">1</span>)</span><br><span class="line">sns.distplot(x) <span class="comment">#左图</span></span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line">sns.distplot(x,hist=<span class="literal">False</span>) <span class="comment">#中图</span></span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line">sns.distplot(x,kde=<span class="literal">False</span>) <span class="comment">#右图</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818164343792.png" alt="image-20200818164343792" style="zoom:67%;" /></p>
-<p><strong>bins：int或list，控制直方图的划分</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">sns.distplot(x,kde=<span class="literal">False</span>,bins=<span class="number">20</span>) <span class="comment">#左图：分成20个区间</span></span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">sns.distplot(x,kde=<span class="literal">False</span>,bins=[x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">4</span>)]) <span class="comment">#右图：以0,1,2,3为分割点，形成区间[0,1],[1,2],[2,3]，区间外的值不计入。</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818164451304.png" alt="image-20200818164451304" style="zoom:67%;" /></p>
-<p><strong>rag：控制是否生成观测数值的小细条</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">sns.distplot(x,rug=<span class="literal">True</span>) <span class="comment">#左图</span></span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">sns.distplot(x) <span class="comment">#右图</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818164600207.png" alt="image-20200818164600207" style="zoom:67%;" /></p>
-<p><strong>fit：控制拟合的参数分布图形，能够直观地评估它与观察数据的对应关系(黑色线条为确定的分布)</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> *</span><br><span class="line">sns.distplot(x,hist=<span class="literal">False</span>,fit=norm) <span class="comment">#拟合标准正态分布</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818164650557.png" alt="image-20200818164650557" style="zoom:67%;" /></p>
-<p><strong>norm_hist：若为True, 则直方图高度显示密度而非计数(含有kde图像中默认为True)</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">sns.distplot(x,norm_hist=<span class="literal">True</span>,kde=<span class="literal">False</span>) <span class="comment">#左图</span></span><br><span class="line">plt.subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">sns.distplot(x,kde=<span class="literal">False</span>) <span class="comment">#右图</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818164803349.png" alt="image-20200818164803349" style="zoom:67%;" /></p>
-<p>参考博客：</p>
-<p><a href="https://www.jianshu.com/p/96977b9869ac" target="_blank" rel="noopener">https://www.jianshu.com/p/96977b9869ac</a></p>
-<p><a href="https://www.cnblogs.com/tsingke/p/6565605.html" target="_blank" rel="noopener">https://www.cnblogs.com/tsingke/p/6565605.html</a></p>
-<p><a href="https://www.jianshu.com/p/844f66d00ac1" target="_blank" rel="noopener">https://www.jianshu.com/p/844f66d00ac1</a></p>
-
+          <h3 id="一、数据探索与分析"><a href="#一、数据探索与分析" class="headerlink" title="一、数据探索与分析"></a>一、数据探索与分析</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/18/%E8%B5%84%E9%87%91%E6%B5%81%E5%85%A5%E6%B5%81%E5%87%BA%E9%A2%84%E6%B5%8B%E5%AE%9E%E8%B7%B5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
