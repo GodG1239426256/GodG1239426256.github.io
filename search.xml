@@ -1701,7 +1701,7 @@ f(x, y)=[f(1,0)-f(0,0)] x+[f(0,1)-f(0,0)] y \\
 </li>
 </ul>
 <p><strong>violinplot </strong>小提琴图，violinplot与boxplot扮演类似的角色，它显示了定量数据在一个（或多个）分类变量的多个层次上的分布，这些分布可以进行比较。不像箱形图中所有绘图组件都对应于<strong>实际数据点</strong>，小提琴绘图以基础分布的<strong>核密度估计</strong>为特征。具体用法如下：</p>
-<p><img src="https://img2018.cnblogs.com/blog/1503464/201908/1503464-20190813102438161-852073569.png" alt="img" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818195136834.png" alt="image-20200818195136834" style="zoom:67%;" /></p>
 <p><code>seaborn.``violinplot</code><strong>(*</strong>x=None<strong>*,</strong> <em>y=None**</em>,<strong> <em>hue=None</em></strong>,<strong> <em>data=None</em></strong>,<strong> <em>order=None</em></strong>,<strong> <em>hue_order=None</em></strong>,<strong> <em>bw=’scott’</em></strong>,<strong> <em>cut=2</em></strong>,<strong> <em>scale=’area’</em></strong>,<strong> <em>scale_hue=True</em></strong>,<strong> <em>gridsize=100</em></strong>,<strong> <em>width=0.8</em></strong>,<strong> <em>inner=’box’</em></strong>,<strong> <em>split=False</em></strong>,<strong> <em>dodge=True</em></strong>,<strong> <em>orient=None</em></strong>,<strong> <em>linewidth=None</em></strong>,<strong> <em>color=None</em></strong>,<strong> <em>palette=None</em></strong>,<strong> <em>saturation=0.75</em></strong>,<strong> <em>ax=None</em></strong>,<strong> *</strong>kwargs<strong>*)</strong></p>
 <ul>
 <li>bw：‘scott’, ‘silverman’, float，控制拟合程度。在计算内核带宽时，可以引用规则的名称（‘scott’, ‘silverman’）或者使用比例（float）。实际内核大小将通过将比例乘以每个bin内数据的标准差来确定；</li>
