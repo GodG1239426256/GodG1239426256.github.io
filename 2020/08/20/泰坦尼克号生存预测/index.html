@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="泰坦尼克号生存预测">
+<meta property="og:type" content="article">
+<meta property="og:title" content="泰坦尼克号生存预测">
+<meta property="og:url" content="http://yoursite.com/2020/08/20/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E7%94%9F%E5%AD%98%E9%A2%84%E6%B5%8B/index.html">
+<meta property="og:site_name" content="Yakult">
+<meta property="og:description" content="泰坦尼克号生存预测">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820170750314.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820170950383.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820171408946.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820173257324.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820173638288.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820180456938.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820180018917.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820180703425.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820171408946.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820181911481.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820182510244.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820210343454.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820211514091.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820214323400.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820215404157.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820220218847.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200821002438273.png">
+<meta property="article:published_time" content="2020-08-20T08:53:17.000Z">
+<meta property="article:modified_time" content="2020-08-20T16:32:09.041Z">
+<meta property="article:author" content="养乐多">
+<meta property="article:tag" content="datawhale，数据分析">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820170750314.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/20/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E7%94%9F%E5%AD%98%E9%A2%84%E6%B5%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>泰坦尼克号生存预测 | Yakult</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Yakult</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录学习中的点点滴滴</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/20/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E7%94%9F%E5%AD%98%E9%A2%84%E6%B5%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="养乐多">
+      <meta itemprop="description" content="从现在开始">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yakult">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          泰坦尼克号生存预测
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-20 16:53:17" itemprop="dateCreated datePublished" datetime="2020-08-20T16:53:17+08:00">2020-08-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-21 00:32:09" itemprop="dateModified" datetime="2020-08-21T00:32:09+08:00">2020-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">数据分析</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><h1 align='center'>泰坦尼克号生存预测<h1/></p>
+<a id="more"></a>
+<p>这是kaggle上面比较入门的一个比赛。今天让我们来看看怎么做吧。<a href="https://www.kaggle.com/c/titanic" target="_blank" rel="noopener">kaggle传送门</a>。首先报名，下载数据集。</p>
+<h3 id="数据载入及概述"><a href="#数据载入及概述" class="headerlink" title="数据载入及概述"></a>数据载入及概述</h3><p>首先导入从Kaggle上面下载的数据集，在导入的过程中就需要先导入一些必备的包了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接着导入我们的训练数据</span></span><br><span class="line">filename = <span class="string">'titanic/train.csv'</span>  <span class="comment"># 这是我存放的文件路径，这边换成你们自己的</span></span><br><span class="line">train = pd.read_csv(filename)</span><br></pre></td></tr></table></figure>
+<p>然后来看看训练数据集长啥样。（每个列的名字的含义，在kaggle页面有介绍，这边就不说了。）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train.head()</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820170750314.png" alt="image-20200820170750314"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train.info()</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820170950383.png" alt="image-20200820170950383" style="zoom: 67%;" /></p>
+<p>通过<code>info()</code>这个函数我们可要知道，哪些特征的数值类型是什么。比如，上面PassengerId，Survived，Pclass，Age等是数值型数据，而Name，Sex，Ticket等是字符型数据。字符型数据肯定到后面是要转换的，可能转换成<code>one-hot</code>类型的。不过数值型数据也可能是需要转换的。后面会细说。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trian.isnull().sum()</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820171408946.png" alt="image-20200820171408946" style="zoom:67%;" /></p>
+<p>通过<code>isnull()</code>可以看出哪些列缺失了数据，缺失了多少行。只有对缺失数据的处理有很多种，比如说填充，或者删去。</p>
+<h3 id="数据可视化"><a href="#数据可视化" class="headerlink" title="数据可视化"></a>数据可视化</h3><h4 id="年龄与生存"><a href="#年龄与生存" class="headerlink" title="年龄与生存"></a>年龄与生存</h4><p>我们都知道，在危难来临之际，一般都会让孩子和老人先脱离危险，所以我们将年龄分成3个段[0,20],[20,60],[60,80]。画出存活的人数和年龄段的图。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">examine = train.copy() <span class="comment"># 这边将训练数据集备份一份</span></span><br><span class="line"><span class="comment">#将连续变量Age划分为[0,5) [5,15) [15,30) [30,50) [50,80)五个年龄段，并分别用类别变量12345表示</span></span><br><span class="line">examine[<span class="string">'AgeBand'</span>] = pd.cut(examine[<span class="string">'Age'</span>],[<span class="number">0</span>,<span class="number">20</span>,<span class="number">60</span>,<span class="number">80</span>],labels = [<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'3'</span>])</span><br><span class="line">sns.barplot(x=<span class="string">'AgeBand'</span>, y=<span class="string">'Survived'</span>, data=examine)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820173257324.png" alt="image-20200820173257324" style="zoom:67%;" /></p>
+<p>从上图，可以明显看出小孩的存活率偏高，那为什么老人存活率最低呢，是因为泰坦尼克号与一座冰山相撞，那么有冰山，必然说明那个地方的气候很寒冷，老人的身体不太好，所以存活率这么一解释，是不是也说得通。</p>
+<h4 id="性别与生存"><a href="#性别与生存" class="headerlink" title="性别与生存"></a>性别与生存</h4><p>前面说的小孩和老人优先，当然了还有一句是女士优先。所以我们来看看性别与存活的关系。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.barplot(x=<span class="string">"Sex"</span>, y=<span class="string">"Survived"</span>, data=examine)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820173638288.png" alt="image-20200820173638288" style="zoom:67%;" /></p>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820180456938.png" alt="image-20200820180456938" style="zoom:67%;" /></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提示：计算男女中死亡人数 1表示生存，0表示死亡</span></span><br><span class="line">examine.groupby([<span class="string">'Sex'</span>,<span class="string">'Survived'</span>])[<span class="string">'Survived'</span>].count().unstack().plot(kind=<span class="string">'bar'</span>,stacked=<span class="string">'True'</span>)</span><br><span class="line">plt.title(<span class="string">'survived_count'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'count'</span>)</span><br></pre></td></tr></table></figure>
+<p>从上面两个图，明显可以看出两者存活的几率是相差很大的。女性的存活率是明显高于男性。这也符合实际，在泰坦尼克号这部电影中，也是能够看出来。</p>
+<h4 id="社会地位与生存"><a href="#社会地位与生存" class="headerlink" title="社会地位与生存"></a>社会地位与生存</h4><p>可能有人看到社会地位就有点疑惑了，数据集里面哪有这个特征，其实不然。仓位等级和票价多多少少都能说明的。就好比几十年前，家里有车的人都是大户人家，地主官僚跟普通人的地位还是差别很大的。因此萌发一个想法，看这个特征跟存活率的关系如何。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sns.barplot(x=<span class="string">"Pclass"</span>, y=<span class="string">"Survived"</span>, data=examine)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820180018917.png" alt="image-20200820180018917" style="zoom:67%;" /></p>
+<p>从图中看出来，仓位等级跟生存关系还是很大的，这也比较符合现实。懂得都懂。</p>
+<h4 id="泰坦尼克号数据集中不同仓位等级的人年龄分布情况"><a href="#泰坦尼克号数据集中不同仓位等级的人年龄分布情况" class="headerlink" title="泰坦尼克号数据集中不同仓位等级的人年龄分布情况"></a>泰坦尼克号数据集中不同仓位等级的人年龄分布情况</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">examine.Age[examine.Pclass == <span class="number">1</span>].plot(kind=<span class="string">'kde'</span>)</span><br><span class="line">examine.Age[examine.Pclass == <span class="number">2</span>].plot(kind=<span class="string">'kde'</span>)</span><br><span class="line">examine.Age[examine.Pclass == <span class="number">3</span>].plot(kind=<span class="string">'kde'</span>)</span><br><span class="line">plt.xlabel(<span class="string">"age"</span>)</span><br><span class="line">plt.legend((<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>),loc=<span class="string">"best"</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820180703425.png" alt="image-20200820180703425" style="zoom:67%;" /></p>
+<p>不过这个图好像跟生存关系不大。</p>
+<h3 id="数据清洗及特征处理"><a href="#数据清洗及特征处理" class="headerlink" title="数据清洗及特征处理"></a>数据清洗及特征处理</h3><h4 id="缺失值的处理"><a href="#缺失值的处理" class="headerlink" title="缺失值的处理"></a>缺失值的处理</h4><p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820171408946.png" alt="image-20200820171408946" style="zoom:67%;" /></p>
+<p>前面分析过，<code>&#39;Cabin&#39;</code>这列缺失了687个数据，总共才891个数据。而且这列确实跟生存与否没什么关系，因此就直接删除掉这列。还有<code>&#39;Name&#39;</code>，<code>&#39;Ticket &#39;</code>跟生存也没什么关系，一并删除了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train.drop([<span class="string">'Cabin'</span>, <span class="string">'Name'</span>, <span class="string">'Ticket'</span>], inplace=<span class="literal">True</span>, axis=<span class="number">1</span>)</span><br><span class="line">train.head()</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820181911481.png" alt="image-20200820181911481" style="zoom: 80%;" /></p>
+<p>然后来看<code>&#39;Age&#39;</code>这列的缺失值，这列缺失了100多条数据，因此我们采用填充的方式，不过填充的方式有很多，这边使用均值填充。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train[<span class="string">"Age"</span>] = train[<span class="string">"Age"</span>].fillna(train[<span class="string">"Age"</span>].mean())</span><br><span class="line">trian.isnull().sum()</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820182510244.png" alt="image-20200820182510244" style="zoom:67%;" /></p>
+<p>现在看到只有<code>&#39;Embarked&#39;</code>这列还剩下2个缺失值，2个缺失值好办，我们直接删掉就好了，对结果没什么影响。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train = train.dropna()</span><br></pre></td></tr></table></figure>
+<p>删掉这两条数据之后，总得数据就变成了889条了。缺失值的处理就到这里差不多结束了。</p>
+<h4 id="分类变量的处理"><a href="#分类变量的处理" class="headerlink" title="分类变量的处理"></a>分类变量的处理</h4><p>首先将二分类变量<code>&#39;Sex&#39;</code>转换成0和1。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train[<span class="string">'Sex'</span>] = (train[<span class="string">'Sex'</span>] == <span class="string">'male'</span>).astype(np.int64)</span><br></pre></td></tr></table></figure>
+<p>然后将三分类变量<code>&#39;Embarked&#39;</code>转换成0、1、2。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">labels = train[<span class="string">'Embarked'</span>].unique().tolist()</span><br><span class="line">train[<span class="string">'Embarked'</span>] = train[<span class="string">'Embarked'</span>].apply(<span class="keyword">lambda</span> x : labels.index(x))</span><br></pre></td></tr></table></figure>
+<p>当然，将分类变量转换成数值型的方式又很多，我只是写了其中的一种。</p>
+<h4 id="将数据中的训练变量和标签分开"><a href="#将数据中的训练变量和标签分开" class="headerlink" title="将数据中的训练变量和标签分开"></a>将数据中的训练变量和标签分开</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">X = train.iloc[:, train.columns != <span class="string">'Survived'</span>]</span><br><span class="line">y = train.iloc[:, train.columns == <span class="string">'Survived'</span>]</span><br><span class="line">X.shape, y.shape</span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line"><span class="comment"># (889, 8), (889, 1)</span></span><br></pre></td></tr></table></figure>
+<p>接下来，要将训练集拆分为训练集和验证集。并且训练集和验证集的比列为3：1。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">Xtrain, Xtest, Ytrain, Ytest = train_test_split(X,y,test_size=<span class="number">0.25</span>)</span><br><span class="line">Xtrain.shape, Xtest.shape</span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line"><span class="comment"># (666, 8), (223, 8)</span></span><br></pre></td></tr></table></figure>
+<p>还有最后一步，我们要重新设置下索引。至于为什么需要，看下面这张图就可以了。</p>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820210343454.png" alt="image-20200820210343454" style="zoom: 67%;" /></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [Xtrain, Xtest, Ytrain, Ytest]:</span><br><span class="line">    i.reset_index(drop=<span class="literal">True</span>, inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>到这里，数据的清洗，特征处理的工作基本完成了。接下来就是建模了。</p>
+<h3 id="数据建模及模型评估"><a href="#数据建模及模型评估" class="headerlink" title="数据建模及模型评估"></a>数据建模及模型评估</h3><p>先导入一些后面会用到的库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> GridSearchCV</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_score</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure>
+<h4 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">clf = DecisionTreeClassifier(random_state=<span class="number">0</span>)</span><br><span class="line">clf.fit(Xtrain, Ytrain)</span><br><span class="line"><span class="comment"># 查看验证集score值</span></span><br><span class="line">print(<span class="string">"Testing set score: &#123;:.2f&#125;"</span>.format(clf.score(Xtest, Ytest)))</span><br><span class="line"><span class="comment"># Testing set score: 0.74</span></span><br></pre></td></tr></table></figure>
+<p>使用10折交叉验证来评估，并且取平均。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">score = cross_val_score(clf,X,y,cv=<span class="number">10</span>).mean()</span><br><span class="line"><span class="comment"># 0.757</span></span><br></pre></td></tr></table></figure>
+<p>接下来优化下这个模型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">tr = []</span><br><span class="line">te = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">11</span>):</span><br><span class="line">    clf = DecisionTreeClassifier(random_state=<span class="number">0</span>,max_depth=i,criterion=<span class="string">"entropy"</span>)</span><br><span class="line">    clf = clf.fit(Xtrain, Ytrain)</span><br><span class="line">    score_tr = clf.score(Xtrain,Ytrain)</span><br><span class="line">    score_te = cross_val_score(clf,X,y,cv=<span class="number">10</span>).mean()</span><br><span class="line">    tr.append(score_tr)</span><br><span class="line">    te.append(score_te)</span><br><span class="line">print(max(te))</span><br><span class="line">plt.plot(range(<span class="number">1</span>,<span class="number">11</span>),tr,color=<span class="string">"red"</span>,label=<span class="string">"train"</span>)</span><br><span class="line">plt.plot(range(<span class="number">1</span>,<span class="number">11</span>),te,color=<span class="string">"blue"</span>,label=<span class="string">"test"</span>)</span><br><span class="line">plt.xticks(range(<span class="number">1</span>,<span class="number">11</span>))</span><br><span class="line">plt.legend()</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820211514091.png" alt="image-20200820211514091" style="zoom:67%;" /></p>
+<p>可以看出，最大深度为3的时候，得分最高为<code>0.8166624106230849</code>。</p>
+<h4 id="逻辑回归"><a href="#逻辑回归" class="headerlink" title="逻辑回归"></a>逻辑回归</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认参数逻辑回归模型</span></span><br><span class="line">lr = LogisticRegression()</span><br><span class="line">lr.fit(Xtrain, Ytrain)</span><br><span class="line">print(<span class="string">"Testing set score: &#123;:.2f&#125;"</span>.format(lr.score(Xtest, Ytest)))</span><br><span class="line"><span class="comment"># Testing set score: 0.80</span></span><br></pre></td></tr></table></figure>
+<p>使用10折交叉验证来评估，并且取平均。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">score = cross_val_score(lr,X,y,cv=<span class="number">10</span>).mean()</span><br><span class="line"><span class="comment"># 0.795</span></span><br></pre></td></tr></table></figure>
+<h4 id="随机森林"><a href="#随机森林" class="headerlink" title="随机森林"></a>随机森林</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">test = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">11</span>):</span><br><span class="line">    rfc = RandomForestClassifier(n_estimators=<span class="number">100</span>, max_depth=i, random_state=<span class="number">20</span>)</span><br><span class="line">    score = cross_val_score(rfc, X, y, cv=<span class="number">10</span>)</span><br><span class="line">    test.append(score.mean())</span><br><span class="line">plt.plot(range(<span class="number">1</span>, <span class="number">11</span>), test)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820214323400.png" alt="image-20200820214323400" style="zoom:67%;" /></p>
+<p>可以，发现当最大深度为6的时候，模型的得分最高。接近0.83，我们可以使用网格搜索来获取最优的参数，但是网格搜索比较耗时，这边就不写出来了。</p>
+<h4 id="Bagging"><a href="#Bagging" class="headerlink" title="Bagging"></a>Bagging</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> BaggingClassifier</span><br><span class="line">test = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>, <span class="number">50</span>, <span class="number">5</span>):</span><br><span class="line">    clf = BaggingClassifier(n_estimators=i)</span><br><span class="line">    score = cross_val_score(clf, X, y, cv=<span class="number">10</span>)</span><br><span class="line">    test.append(score.mean())</span><br><span class="line">    </span><br><span class="line">plt.plot(range(<span class="number">10</span>, <span class="number">50</span>, <span class="number">5</span>), test)</span><br><span class="line">plt.ylabel(<span class="string">'score'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'n_estimators'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820215404157.png" alt="image-20200820215404157" style="zoom:67%;" /></p>
+<p>从上图看出，最高应该在0.82左右。</p>
+<h4 id="LGBClassifier"><a href="#LGBClassifier" class="headerlink" title="LGBClassifier"></a>LGBClassifier</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lightgbm <span class="keyword">import</span> LGBMClassifier</span><br><span class="line">test = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>, <span class="number">100</span>, <span class="number">5</span>):</span><br><span class="line">    lgb = LGBMClassifier(max_depth=<span class="number">2</span>, n_estimators=i)</span><br><span class="line">    score = cross_val_score(lgb, X, y, cv=<span class="number">10</span>)</span><br><span class="line">    test.append(score.mean())</span><br><span class="line">    </span><br><span class="line">plt.plot(range(<span class="number">10</span>, <span class="number">100</span>, <span class="number">5</span>), test)</span><br><span class="line">plt.ylabel(<span class="string">'score'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'n_estimators'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200820220218847.png" alt="image-20200820220218847" style="zoom:67%;" /></p>
+<p>从图中可以看出，最高得分接近0.84。</p>
+<h4 id="集成几个模型"><a href="#集成几个模型" class="headerlink" title="集成几个模型"></a>集成几个模型</h4><p>最后将几个模型集成一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">clf = [<span class="literal">None</span>]*<span class="number">5</span></span><br><span class="line">clf[<span class="number">0</span>] = DecisionTreeClassifier(random_state=<span class="number">0</span>,max_depth=<span class="number">3</span>,criterion=<span class="string">"entropy"</span>)</span><br><span class="line">clf[<span class="number">1</span>] = LogisticRegression()</span><br><span class="line">clf[<span class="number">2</span>] = RandomForestClassifier(n_estimators=<span class="number">100</span>, max_depth=<span class="number">6</span>, random_state=<span class="number">20</span>)</span><br><span class="line">clf[<span class="number">3</span>] = BaggingClassifier(n_estimators=<span class="number">20</span>)</span><br><span class="line">clf[<span class="number">4</span>] = LGBMClassifier(max_depth=<span class="number">2</span>, n_estimators=<span class="number">40</span>)</span><br><span class="line"></span><br><span class="line">predictFrame = pd.DataFrame()</span><br><span class="line"><span class="keyword">for</span> model <span class="keyword">in</span> clf:</span><br><span class="line">    model.fit(Xtrain, Ytrain)</span><br><span class="line">    predictFrame[str(model)[:<span class="number">14</span>]] = model.predict(Xtest)</span><br><span class="line"></span><br><span class="line">te = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">    clf_ = RandomForestClassifier(n_estimators=<span class="number">100</span>, max_depth=i, random_state=<span class="number">0</span>)</span><br><span class="line">    score = cross_val_score(clf_, predictFrame, Ytest, cv=<span class="number">10</span>, scoring=<span class="string">'precision'</span>)</span><br><span class="line">    te.append(score.mean())</span><br><span class="line">    </span><br><span class="line">plt.plot(range(<span class="number">1</span>,<span class="number">10</span>), te)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200821002438273.png" alt="image-20200821002438273" style="zoom:67%;" /></p>
+<p>从上图看出，集成后的得分超过了0.91比单个模型的正确率提升了很多。但还是挺菜的。</p>
+<p>最后简单总结下，自己能力有限，一些参数也是简单的定了下来，当然我相信你们分数都会比我高。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/datawhale%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"># datawhale，数据分析</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/19/%E5%88%86%E6%B2%BB/" rel="prev" title="分治">
+      <i class="fa fa-chevron-left"></i> 分治
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">泰坦尼克号生存预测
+
+这是kaggle上面比较入门的一个比赛。今天让我们来看看怎么做吧。kaggle传送门。首先报名，下载数据集。
+数据载入及概述首先导入从Kaggle上面下载的数据集，在导入的过程中就需要先导入一些必备的包了。
+1
+2
+3
+4
+5
+6
+import numpy as np
+import pandas as pd
+
+# 接着导入我们的训练数据
+filename &#x3D; &#39;titanic&#x2F;train.csv&#39;  # 这是我存放的文件路径，这边换成你们自己的
+train &#x3D; pd.read_csv(filename)
+
+然后来看看训练数据集长啥样。（每个列的名字的含义，在kaggle页面有介绍，这边就不说了。）
+1
+train.head()
+
+
+1
+train.info()
+
+
+通过info()这个函数我们可要知道，哪些特征的数值类型是什么。比如，上面PassengerId，Survived，Pclass，Age等是数值型数据，而Name，Sex，Ticket等是字符型数据。字符型数据肯定到后面是要转换的，可能转换成one-hot类型的。不过数值型数据也可能是需要转换的。后面会细说。
+1
+trian.isnull().sum()
+
+
+通过isnull()可以看出哪些列缺失了数据，缺失了多少行。只有对缺失数据的处理有很多种，比如说填充，或者删去。
+数据可视化年龄与生存我们都知道，在危难来临之际，一般都会让孩子和老人先脱离危险，所以我们将年龄分成3个段[0,20],[20,60],[60,80]。画出存活的人数和年龄段的图。
+1
+2
+3
+4
+5
+import seaborn as sns
+examine &#x3D; train.copy() # 这边将训练数据集备份一份
+#将连续变量Age划分为[0,5) [5,15) [15,30) [30,50) [50,80)五个年龄段，并分别用类别变量12345表示
+examine[&#39;AgeBand&#39;] &#x3D; pd.cut(examine[&#39;Age&#39;],[0,20,60,80],labels &#x3D; [&#39;1&#39;,&#39;2&#39;,&#39;3&#39;])
+sns.barplot(x&#x3D;&#39;AgeBand&#39;, y&#x3D;&#39;Survived&#39;, data&#x3D;examine)
+
+
+从上图，可以明显看出小孩的存活率偏高，那为什么老人存活率最低呢，是因为泰坦尼克号与一座冰山相撞，那么有冰山，必然说明那个地方的气候很寒冷，老人的身体不太好，所以存活率这么一解释，是不是也说得通。
+性别与生存前面说的小孩和老人优先，当然了还有一句是女士优先。所以我们来看看性别与存活的关系。
+1
+sns.barplot(x&#x3D;&quot;Sex&quot;, y&#x3D;&quot;Survived&quot;, data&#x3D;examine)
+
+
+
+1
+2
+3
+4
+# 提示：计算男女中死亡人数 1表示生存，0表示死亡
+examine.groupby([&#39;Sex&#39;,&#39;Survived&#39;])[&#39;Survived&#39;].count().unstack().plot(kind&#x3D;&#39;bar&#39;,stacked&#x3D;&#39;True&#39;)
+plt.title(&#39;survived_count&#39;)
+plt.ylabel(&#39;count&#39;)
+
+从上面两个图，明显可以看出两者存活的几率是相差很大的。女性的存活率是明显高于男性。这也符合实际，在泰坦尼克号这部电影中，也是能够看出来。
+社会地位与生存可能有人看到社会地位就有点疑惑了，数据集里面哪有这个特征，其实不然。仓位等级和票价多多少少都能说明的。就好比几十年前，家里有车的人都是大户人家，地主官僚跟普通人的地位还是差别很大的。因此萌发一个想法，看这个特征跟存活率的关系如何。
+1
+sns.barplot(x&#x3D;&quot;Pclass&quot;, y&#x3D;&quot;Survived&quot;, data&#x3D;examine)
+
+
+从图中看出来，仓位等级跟生存关系还是很大的，这也比较符合现实。懂得都懂。
+泰坦尼克号数据集中不同仓位等级的人年龄分布情况1
+2
+3
+4
+5
+examine.Age[examine.Pclass &#x3D;&#x3D; 1].plot(kind&#x3D;&#39;kde&#39;)
+examine.Age[examine.Pclass &#x3D;&#x3D; 2].plot(kind&#x3D;&#39;kde&#39;)
+examine.Age[examine.Pclass &#x3D;&#x3D; 3].plot(kind&#x3D;&#39;kde&#39;)
+plt.xlabel(&quot;age&quot;)
+plt.legend((1,2,3),loc&#x3D;&quot;best&quot;)
+
+
+不过这个图好像跟生存关系不大。
+数据清洗及特征处理缺失值的处理
+前面分析过，&#39;Cabin&#39;这列缺失了687个数据，总共才891个数据。而且这列确实跟生存与否没什么关系，因此就直接删除掉这列。还有&#39;Name&#39;，&#39;Ticket &#39;跟生存也没什么关系，一并删除了。
+1
+2
+train.drop([&#39;Cabin&#39;, &#39;Name&#39;, &#39;Ticket&#39;], inplace&#x3D;True, axis&#x3D;1)
+train.head()
+
+
+然后来看&#39;Age&#39;这列的缺失值，这列缺失了100多条数据，因此我们采用填充的方式，不过填充的方式有很多，这边使用均值填充。
+1
+2
+train[&quot;Age&quot;] &#x3D; train[&quot;Age&quot;].fillna(train[&quot;Age&quot;].mean())
+trian.isnull().sum()
+
+
+现在看到只有&#39;Embarked&#39;这列还剩下2个缺失值，2个缺失值好办，我们直接删掉就好了，对结果没什么影响。
+1
+train &#x3D; train.dropna()
+
+删掉这两条数据之后，总得数据就变成了889条了。缺失值的处理就到这里差不多结束了。
+分类变量的处理首先将二分类变量&#39;Sex&#39;转换成0和1。
+1
+train[&#39;Sex&#39;] &#x3D; (train[&#39;Sex&#39;] &#x3D;&#x3D; &#39;male&#39;).astype(np.int64)
+
+然后将三分类变量&#39;Embarked&#39;转换成0、1、2。
+1
+2
+labels &#x3D; train[&#39;Embarked&#39;].unique().tolist()
+train[&#39;Embarked&#39;] &#x3D; train[&#39;Embarked&#39;].apply(lambda x : labels.index(x))
+
+当然，将分类变量转换成数值型的方式又很多，我只是写了其中的一种。
+将数据中的训练变量和标签分开1
+2
+3
+4
+5
+X &#x3D; train.iloc[:, train.columns !&#x3D; &#39;Survived&#39;]
+y &#x3D; train.iloc[:, train.columns &#x3D;&#x3D; &#39;Survived&#39;]
+X.shape, y.shape
+# 输出
+# (889, 8), (889, 1)
+
+接下来，要将训练集拆分为训练集和验证集。并且训练集和验证集的比列为3：1。
+1
+2
+3
+4
+5
+from sklearn.model_selection import train_test_split
+Xtrain, Xtest, Ytrain, Ytest &#x3D; train_test_split(X,y,test_size&#x3D;0.25)
+Xtrain.shape, Xtest.shape
+# 输出
+# (666, 8), (223, 8)
+
+还有最后一步，我们要重新设置下索引。至于为什么需要，看下面这张图就可以了。
+
+1
+2
+for i in [Xtrain, Xtest, Ytrain, Ytest]:
+    i.reset_index(drop&#x3D;True, inplace&#x3D;True)
+
+到这里，数据的清洗，特征处理的工作基本完成了。接下来就是建模了。
+数据建模及模型评估先导入一些后面会用到的库
+1
+2
+3
+4
+5
+6
+7
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+import matplotlib.pyplot as plt
+
+决策树1
+2
+3
+4
+5
+clf &#x3D; DecisionTreeClassifier(random_state&#x3D;0)
+clf.fit(Xtrain, Ytrain)
+# 查看验证集score值
+print(&quot;Testing set score: &amp;#123;:.2f&amp;#125;&quot;.format(clf.score(Xtest, Ytest)))
+# Testing set score: 0.74
+
+使用10折交叉验证来评估，并且取平均。
+1
+2
+score &#x3D; cross_val_score(clf,X,y,cv&#x3D;10).mean()
+# 0.757
+
+接下来优化下这个模型
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+tr &#x3D; []
+te &#x3D; []
+for i in range(1, 11):
+    clf &#x3D; DecisionTreeClassifier(random_state&#x3D;0,max_depth&#x3D;i,criterion&#x3D;&quot;entropy&quot;)
+    clf &#x3D; clf.fit(Xtrain, Ytrain)
+    score_tr &#x3D; clf.score(Xtrain,Ytrain)
+    score_te &#x3D; cross_val_score(clf,X,y,cv&#x3D;10).mean()
+    tr.append(score_tr)
+    te.append(score_te)
+print(max(te))
+plt.plot(range(1,11),tr,color&#x3D;&quot;red&quot;,label&#x3D;&quot;train&quot;)
+plt.plot(range(1,11),te,color&#x3D;&quot;blue&quot;,label&#x3D;&quot;test&quot;)
+plt.xticks(range(1,11))
+plt.legend()
+
+
+可以看出，最大深度为3的时候，得分最高为0.8166624106230849。
+逻辑回归1
+2
+3
+4
+5
+# 默认参数逻辑回归模型
+lr &#x3D; LogisticRegression()
+lr.fit(Xtrain, Ytrain)
+print(&quot;Testing set score: &amp;#123;:.2f&amp;#125;&quot;.format(lr.score(Xtest, Ytest)))
+# Testing set score: 0.80
+
+使用10折交叉验证来评估，并且取平均。
+1
+2
+score &#x3D; cross_val_score(lr,X,y,cv&#x3D;10).mean()
+# 0.795
+
+随机森林1
+2
+3
+4
+5
+6
+test &#x3D; []
+for i in range(1, 11):
+    rfc &#x3D; RandomForestClassifier(n_estimators&#x3D;100, max_depth&#x3D;i, random_state&#x3D;20)
+    score &#x3D; cross_val_score(rfc, X, y, cv&#x3D;10)
+    test.append(score.mean())
+plt.plot(range(1, 11), test)
+
+
+可以，发现当最大深度为6的时候，模型的得分最高。接近0.83，我们可以使用网格搜索来获取最优的参数，但是网格搜索比较耗时，这边就不写出来了。
+Bagging1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+from sklearn.ensemble import BaggingClassifier
+test &#x3D; []
+
+for i in range(10, 50, 5):
+    clf &#x3D; BaggingClassifier(n_estimators&#x3D;i)
+    score &#x3D; cross_val_score(clf, X, y, cv&#x3D;10)
+    test.append(score.mean())
+    
+plt.plot(range(10, 50, 5), test)
+plt.ylabel(&#39;score&#39;)
+plt.xlabel(&#39;n_estimators&#39;)
+
+
+从上图看出，最高应该在0.82左右。
+LGBClassifier1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+from lightgbm import LGBMClassifier
+test &#x3D; []
+for i in range(10, 100, 5):
+    lgb &#x3D; LGBMClassifier(max_depth&#x3D;2, n_estimators&#x3D;i)
+    score &#x3D; cross_val_score(lgb, X, y, cv&#x3D;10)
+    test.append(score.mean())
+    
+plt.plot(range(10, 100, 5), test)
+plt.ylabel(&#39;score&#39;)
+plt.xlabel(&#39;n_estimators&#39;)
+
+
+从图中可以看出，最高得分接近0.84。
+集成几个模型最后将几个模型集成一下
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+clf &#x3D; [None]*5
+clf[0] &#x3D; DecisionTreeClassifier(random_state&#x3D;0,max_depth&#x3D;3,criterion&#x3D;&quot;entropy&quot;)
+clf[1] &#x3D; LogisticRegression()
+clf[2] &#x3D; RandomForestClassifier(n_estimators&#x3D;100, max_depth&#x3D;6, random_state&#x3D;20)
+clf[3] &#x3D; BaggingClassifier(n_estimators&#x3D;20)
+clf[4] &#x3D; LGBMClassifier(max_depth&#x3D;2, n_estimators&#x3D;40)
+
+predictFrame &#x3D; pd.DataFrame()
+for model in clf:
+    model.fit(Xtrain, Ytrain)
+    predictFrame[str(model)[:14]] &#x3D; model.predict(Xtest)
+
+te &#x3D; []
+for i in range(1, 10):
+    clf_ &#x3D; RandomForestClassifier(n_estimators&#x3D;100, max_depth&#x3D;i, random_state&#x3D;0)
+    score &#x3D; cross_val_score(clf_, predictFrame, Ytest, cv&#x3D;10, scoring&#x3D;&#39;precision&#39;)
+    te.append(score.mean())
+    
+plt.plot(range(1,10), te)
+
+
+从上图看出，集成后的得分超过了0.91比单个模型的正确率提升了很多。但还是挺菜的。
+最后简单总结下，自己能力有限，一些参数也是简单的定了下来，当然我相信你们分数都会比我高。
+</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text">
+
+这是kaggle上面比较入门的一个比赛。今天让我们来看看怎么做吧。kaggle传送门。首先报名，下载数据集。
+数据载入及概述首先导入从Kaggle上面下载的数据集，在导入的过程中就需要先导入一些必备的包了。
+1
+2
+3
+4
+5
+6
+import numpy as np
+import pandas as pd
+
+# 接着导入我们的训练数据
+filename &#x3D; &#39;titanic&#x2F;train.csv&#39;  # 这是我存放的文件路径，这边换成你们自己的
+train &#x3D; pd.read_csv(filename)
+
+然后来看看训练数据集长啥样。（每个列的名字的含义，在kaggle页面有介绍，这边就不说了。）
+1
+train.head()
+
+
+1
+train.info()
+
+
+通过info()这个函数我们可要知道，哪些特征的数值类型是什么。比如，上面PassengerId，Survived，Pclass，Age等是数值型数据，而Name，Sex，Ticket等是字符型数据。字符型数据肯定到后面是要转换的，可能转换成one-hot类型的。不过数值型数据也可能是需要转换的。后面会细说。
+1
+trian.isnull().sum()
+
+
+通过isnull()可以看出哪些列缺失了数据，缺失了多少行。只有对缺失数据的处理有很多种，比如说填充，或者删去。
+数据可视化年龄与生存我们都知道，在危难来临之际，一般都会让孩子和老人先脱离危险，所以我们将年龄分成3个段[0,20],[20,60],[60,80]。画出存活的人数和年龄段的图。
+1
+2
+3
+4
+5
+import seaborn as sns
+examine &#x3D; train.copy() # 这边将训练数据集备份一份
+#将连续变量Age划分为[0,5) [5,15) [15,30) [30,50) [50,80)五个年龄段，并分别用类别变量12345表示
+examine[&#39;AgeBand&#39;] &#x3D; pd.cut(examine[&#39;Age&#39;],[0,20,60,80],labels &#x3D; [&#39;1&#39;,&#39;2&#39;,&#39;3&#39;])
+sns.barplot(x&#x3D;&#39;AgeBand&#39;, y&#x3D;&#39;Survived&#39;, data&#x3D;examine)
+
+
+从上图，可以明显看出小孩的存活率偏高，那为什么老人存活率最低呢，是因为泰坦尼克号与一座冰山相撞，那么有冰山，必然说明那个地方的气候很寒冷，老人的身体不太好，所以存活率这么一解释，是不是也说得通。
+性别与生存前面说的小孩和老人优先，当然了还有一句是女士优先。所以我们来看看性别与存活的关系。
+1
+sns.barplot(x&#x3D;&quot;Sex&quot;, y&#x3D;&quot;Survived&quot;, data&#x3D;examine)
+
+
+
+1
+2
+3
+4
+# 提示：计算男女中死亡人数 1表示生存，0表示死亡
+examine.groupby([&#39;Sex&#39;,&#39;Survived&#39;])[&#39;Survived&#39;].count().unstack().plot(kind&#x3D;&#39;bar&#39;,stacked&#x3D;&#39;True&#39;)
+plt.title(&#39;survived_count&#39;)
+plt.ylabel(&#39;count&#39;)
+
+从上面两个图，明显可以看出两者存活的几率是相差很大的。女性的存活率是明显高于男性。这也符合实际，在泰坦尼克号这部电影中，也是能够看出来。
+社会地位与生存可能有人看到社会地位就有点疑惑了，数据集里面哪有这个特征，其实不然。仓位等级和票价多多少少都能说明的。就好比几十年前，家里有车的人都是大户人家，地主官僚跟普通人的地位还是差别很大的。因此萌发一个想法，看这个特征跟存活率的关系如何。
+1
+sns.barplot(x&#x3D;&quot;Pclass&quot;, y&#x3D;&quot;Survived&quot;, data&#x3D;examine)
+
+
+从图中看出来，仓位等级跟生存关系还是很大的，这也比较符合现实。懂得都懂。
+泰坦尼克号数据集中不同仓位等级的人年龄分布情况1
+2
+3
+4
+5
+examine.Age[examine.Pclass &#x3D;&#x3D; 1].plot(kind&#x3D;&#39;kde&#39;)
+examine.Age[examine.Pclass &#x3D;&#x3D; 2].plot(kind&#x3D;&#39;kde&#39;)
+examine.Age[examine.Pclass &#x3D;&#x3D; 3].plot(kind&#x3D;&#39;kde&#39;)
+plt.xlabel(&quot;age&quot;)
+plt.legend((1,2,3),loc&#x3D;&quot;best&quot;)
+
+
+不过这个图好像跟生存关系不大。
+数据清洗及特征处理缺失值的处理
+前面分析过，&#39;Cabin&#39;这列缺失了687个数据，总共才891个数据。而且这列确实跟生存与否没什么关系，因此就直接删除掉这列。还有&#39;Name&#39;，&#39;Ticket &#39;跟生存也没什么关系，一并删除了。
+1
+2
+train.drop([&#39;Cabin&#39;, &#39;Name&#39;, &#39;Ticket&#39;], inplace&#x3D;True, axis&#x3D;1)
+train.head()
+
+
+然后来看&#39;Age&#39;这列的缺失值，这列缺失了100多条数据，因此我们采用填充的方式，不过填充的方式有很多，这边使用均值填充。
+1
+2
+train[&quot;Age&quot;] &#x3D; train[&quot;Age&quot;].fillna(train[&quot;Age&quot;].mean())
+trian.isnull().sum()
+
+
+现在看到只有&#39;Embarked&#39;这列还剩下2个缺失值，2个缺失值好办，我们直接删掉就好了，对结果没什么影响。
+1
+train &#x3D; train.dropna()
+
+删掉这两条数据之后，总得数据就变成了889条了。缺失值的处理就到这里差不多结束了。
+分类变量的处理首先将二分类变量&#39;Sex&#39;转换成0和1。
+1
+train[&#39;Sex&#39;] &#x3D; (train[&#39;Sex&#39;] &#x3D;&#x3D; &#39;male&#39;).astype(np.int64)
+
+然后将三分类变量&#39;Embarked&#39;转换成0、1、2。
+1
+2
+labels &#x3D; train[&#39;Embarked&#39;].unique().tolist()
+train[&#39;Embarked&#39;] &#x3D; train[&#39;Embarked&#39;].apply(lambda x : labels.index(x))
+
+当然，将分类变量转换成数值型的方式又很多，我只是写了其中的一种。
+将数据中的训练变量和标签分开1
+2
+3
+4
+5
+X &#x3D; train.iloc[:, train.columns !&#x3D; &#39;Survived&#39;]
+y &#x3D; train.iloc[:, train.columns &#x3D;&#x3D; &#39;Survived&#39;]
+X.shape, y.shape
+# 输出
+# (889, 8), (889, 1)
+
+接下来，要将训练集拆分为训练集和验证集。并且训练集和验证集的比列为3：1。
+1
+2
+3
+4
+5
+from sklearn.model_selection import train_test_split
+Xtrain, Xtest, Ytrain, Ytest &#x3D; train_test_split(X,y,test_size&#x3D;0.25)
+Xtrain.shape, Xtest.shape
+# 输出
+# (666, 8), (223, 8)
+
+还有最后一步，我们要重新设置下索引。至于为什么需要，看下面这张图就可以了。
+
+1
+2
+for i in [Xtrain, Xtest, Ytrain, Ytest]:
+    i.reset_index(drop&#x3D;True, inplace&#x3D;True)
+
+到这里，数据的清洗，特征处理的工作基本完成了。接下来就是建模了。
+数据建模及模型评估先导入一些后面会用到的库
+1
+2
+3
+4
+5
+6
+7
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+import matplotlib.pyplot as plt
+
+决策树1
+2
+3
+4
+5
+clf &#x3D; DecisionTreeClassifier(random_state&#x3D;0)
+clf.fit(Xtrain, Ytrain)
+# 查看验证集score值
+print(&quot;Testing set score: &amp;#123;:.2f&amp;#125;&quot;.format(clf.score(Xtest, Ytest)))
+# Testing set score: 0.74
+
+使用10折交叉验证来评估，并且取平均。
+1
+2
+score &#x3D; cross_val_score(clf,X,y,cv&#x3D;10).mean()
+# 0.757
+
+接下来优化下这个模型
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+tr &#x3D; []
+te &#x3D; []
+for i in range(1, 11):
+    clf &#x3D; DecisionTreeClassifier(random_state&#x3D;0,max_depth&#x3D;i,criterion&#x3D;&quot;entropy&quot;)
+    clf &#x3D; clf.fit(Xtrain, Ytrain)
+    score_tr &#x3D; clf.score(Xtrain,Ytrain)
+    score_te &#x3D; cross_val_score(clf,X,y,cv&#x3D;10).mean()
+    tr.append(score_tr)
+    te.append(score_te)
+print(max(te))
+plt.plot(range(1,11),tr,color&#x3D;&quot;red&quot;,label&#x3D;&quot;train&quot;)
+plt.plot(range(1,11),te,color&#x3D;&quot;blue&quot;,label&#x3D;&quot;test&quot;)
+plt.xticks(range(1,11))
+plt.legend()
+
+
+可以看出，最大深度为3的时候，得分最高为0.8166624106230849。
+逻辑回归1
+2
+3
+4
+5
+# 默认参数逻辑回归模型
+lr &#x3D; LogisticRegression()
+lr.fit(Xtrain, Ytrain)
+print(&quot;Testing set score: &amp;#123;:.2f&amp;#125;&quot;.format(lr.score(Xtest, Ytest)))
+# Testing set score: 0.80
+
+使用10折交叉验证来评估，并且取平均。
+1
+2
+score &#x3D; cross_val_score(lr,X,y,cv&#x3D;10).mean()
+# 0.795
+
+随机森林1
+2
+3
+4
+5
+6
+test &#x3D; []
+for i in range(1, 11):
+    rfc &#x3D; RandomForestClassifier(n_estimators&#x3D;100, max_depth&#x3D;i, random_state&#x3D;20)
+    score &#x3D; cross_val_score(rfc, X, y, cv&#x3D;10)
+    test.append(score.mean())
+plt.plot(range(1, 11), test)
+
+
+可以，发现当最大深度为6的时候，模型的得分最高。接近0.83，我们可以使用网格搜索来获取最优的参数，但是网格搜索比较耗时，这边就不写出来了。
+Bagging1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+from sklearn.ensemble import BaggingClassifier
+test &#x3D; []
+
+for i in range(10, 50, 5):
+    clf &#x3D; BaggingClassifier(n_estimators&#x3D;i)
+    score &#x3D; cross_val_score(clf, X, y, cv&#x3D;10)
+    test.append(score.mean())
+    
+plt.plot(range(10, 50, 5), test)
+plt.ylabel(&#39;score&#39;)
+plt.xlabel(&#39;n_estimators&#39;)
+
+
+从上图看出，最高应该在0.82左右。
+LGBClassifier1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+from lightgbm import LGBMClassifier
+test &#x3D; []
+for i in range(10, 100, 5):
+    lgb &#x3D; LGBMClassifier(max_depth&#x3D;2, n_estimators&#x3D;i)
+    score &#x3D; cross_val_score(lgb, X, y, cv&#x3D;10)
+    test.append(score.mean())
+    
+plt.plot(range(10, 100, 5), test)
+plt.ylabel(&#39;score&#39;)
+plt.xlabel(&#39;n_estimators&#39;)
+
+
+从图中可以看出，最高得分接近0.84。
+集成几个模型最后将几个模型集成一下
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+clf &#x3D; [None]*5
+clf[0] &#x3D; DecisionTreeClassifier(random_state&#x3D;0,max_depth&#x3D;3,criterion&#x3D;&quot;entropy&quot;)
+clf[1] &#x3D; LogisticRegression()
+clf[2] &#x3D; RandomForestClassifier(n_estimators&#x3D;100, max_depth&#x3D;6, random_state&#x3D;20)
+clf[3] &#x3D; BaggingClassifier(n_estimators&#x3D;20)
+clf[4] &#x3D; LGBMClassifier(max_depth&#x3D;2, n_estimators&#x3D;40)
+
+predictFrame &#x3D; pd.DataFrame()
+for model in clf:
+    model.fit(Xtrain, Ytrain)
+    predictFrame[str(model)[:14]] &#x3D; model.predict(Xtest)
+
+te &#x3D; []
+for i in range(1, 10):
+    clf_ &#x3D; RandomForestClassifier(n_estimators&#x3D;100, max_depth&#x3D;i, random_state&#x3D;0)
+    score &#x3D; cross_val_score(clf_, predictFrame, Ytest, cv&#x3D;10, scoring&#x3D;&#39;precision&#39;)
+    te.append(score.mean())
+    
+plt.plot(range(1,10), te)
+
+
+从上图看出，集成后的得分超过了0.91比单个模型的正确率提升了很多。但还是挺菜的。
+最后简单总结下，自己能力有限，一些参数也是简单的定了下来，当然我相信你们分数都会比我高。
+</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据载入及概述"><span class="nav-number">2.0.1.</span> <span class="nav-text">数据载入及概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据可视化"><span class="nav-number">2.0.2.</span> <span class="nav-text">数据可视化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#年龄与生存"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">年龄与生存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性别与生存"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">性别与生存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#社会地位与生存"><span class="nav-number">2.0.2.3.</span> <span class="nav-text">社会地位与生存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#泰坦尼克号数据集中不同仓位等级的人年龄分布情况"><span class="nav-number">2.0.2.4.</span> <span class="nav-text">泰坦尼克号数据集中不同仓位等级的人年龄分布情况</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据清洗及特征处理"><span class="nav-number">2.0.3.</span> <span class="nav-text">数据清洗及特征处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#缺失值的处理"><span class="nav-number">2.0.3.1.</span> <span class="nav-text">缺失值的处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分类变量的处理"><span class="nav-number">2.0.3.2.</span> <span class="nav-text">分类变量的处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将数据中的训练变量和标签分开"><span class="nav-number">2.0.3.3.</span> <span class="nav-text">将数据中的训练变量和标签分开</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据建模及模型评估"><span class="nav-number">2.0.4.</span> <span class="nav-text">数据建模及模型评估</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#决策树"><span class="nav-number">2.0.4.1.</span> <span class="nav-text">决策树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑回归"><span class="nav-number">2.0.4.2.</span> <span class="nav-text">逻辑回归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#随机森林"><span class="nav-number">2.0.4.3.</span> <span class="nav-text">随机森林</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bagging"><span class="nav-number">2.0.4.4.</span> <span class="nav-text">Bagging</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LGBClassifier"><span class="nav-number">2.0.4.5.</span> <span class="nav-text">LGBClassifier</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集成几个模型"><span class="nav-number">2.0.4.6.</span> <span class="nav-text">集成几个模型</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">养乐多</p>
+  <div class="site-description" itemprop="description">从现在开始</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">养乐多</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">96k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:27</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+
