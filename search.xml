@@ -2339,7 +2339,7 @@ P(Y=b)=\sum_{a}P(Y=b,X=a)</script><p>求和符号表示穷举所有Y（或X）�
 \sum_{a}P(X=a|Y=b)=1</script><p><strong>1&amp;2&amp;3、联合概率、边缘概率和条件概率之间的关系</strong></p>
 <script type="math/tex; mode=display">
 P(X=a|Y=b)=\frac{P(X=a,Y=b)}{P(Y=b)}</script><p>当然，如果X和Y相互独立的话公式就变成这样了，$P(X=a)=\frac{P(X=a,Y=b)}{P(Y=b)}$</p>
-<h4 id="2-2、极大似然估计"><a href="#2-2、极大似然估计" class="headerlink" title="2.2、极大似然估计"></a>2.2、极大似然估计</h4><p>在说极大似然估计前，先来看看贝叶斯决策</p>
+<h4 id="2-2、极大似然估计"><a href="#2-2、极大似然估计" class="headerlink" title="2.2、极大似然估计"></a>2.2、极大似然估计</h4><p>在说极大似然估计前，先来看看贝叶斯决策。</p>
 <p><strong>贝叶斯决策</strong></p>
 <p>首先来看贝叶斯分类，我们都知道经典的贝叶斯公式：</p>
 <script type="math/tex; mode=display">
@@ -2362,7 +2362,7 @@ P(w_2|x)=\frac{P(x|w_2)P(w_2)}{P(x)}=\frac{\frac{2}{3}\times\frac{1}{3}}{\frac{5
 <p>​    类条件概率的估计（非常难），原因包括：概率密度函数包含了一个随机变量的全部信息；样本数据可能不多；特征向量x的维度可能很大等等。总之要直接估计类条件概率的密度函数很难。解决的办法就是，把估计完全未知的概率密度$P(x|w_i)$转化为估计参数。这里就将概率密度估计问题转化为参数估计问题，极大似然估计就是一种参数估计方法。当然了，概率密度函数的选取很重要，模型正确，在样本区域无穷时，我们会得到较准确的估计值，如果模型都错了，那估计半天的参数，肯定也没啥意义了。</p>
 <p><strong>极大似然估计</strong></p>
 <p> 极大似然估计的原理，用一张图片来说明，如下图所示：</p>
-<p><img src="https://img-blog.csdn.net/20170528002827749" alt="img" style="zoom:67%;" /></p>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/20200904125744.jpg" alt="a_1"></p>
 <p>总结起来，最大似然估计的目的就是： <font color=red>利用已知的样本结果，反推最有可能（最大概率）导致这样结果的参数值。</font></p>
 <p>原理：极大似然估计是建立在极大似然原理的基础上的一个统计方法，是概率论在统计学中的应用。极大似然估计提供了一种给定观察数据来评估模型参数的方法，即：“模型已定，参数未知”。通过若干次试验，观察其结果，利用试验结果得到某个参数值能够使样本出现的概率为最大，则称为极大似然估计。</p>
 <p>由于样本集中的样本都是独立同分布，可以只考虑一类样本集D，来估计参数向量θ。记已知的样本集为：</p>
@@ -2450,7 +2450,7 @@ P(Y,Z^i|\theta)=cQ(Z^i)\tag{5}</script><p><code>方程(5)</code>两边同时累�
 <p><img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Ctheta%7D_A%5E%7B%281%29%7D+%3D+%5Cfrac%7B21.3%7D%7B21.3%2B8.6%7D+%3D+0.71+%5C%5C" alt="[公式]"></p>
 <p><img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Ctheta%7D_B%5E%7B%281%29%7D+%3D+%5Cfrac%7B11.7%7D%7B+11.7+%2B+8.4%7D+%3D+0.58+%5C%5C" alt="[公式]"></p>
 <p><strong>第二轮迭代</strong>：基于第一轮EM计算好的 <img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Ctheta%7D_A%5E%7B%281%29%7D%2C+%5Chat%7B%5Ctheta%7D_B%5E%7B%281%29%7D" alt="[公式]"> , 进行第二轮 EM，计算每个实验中选择的硬币是 A 和 B 的概率（E步），然后在计算M步，如此继续迭代……迭代十步之后 <img src="https://www.zhihu.com/equation?tex=%5Chat%7B%5Ctheta%7D_A%5E%7B%2810%29%7D+%3D+0.8%2C+%5Chat%7B%5Ctheta%7D_B%5E%7B%2810%29%7D+%3D+0.52" alt="[公式]"></p>
-<p><strong>Reference</strong></p>
+<h3 id="5、代码实践"><a href="#5、代码实践" class="headerlink" title="5、代码实践"></a>5、代码实践</h3><p><strong>Reference</strong></p>
 <ul>
 <li><a href="https://blog.csdn.net/tick_tock97/article/details/79885868" target="_blank" rel="noopener">https://blog.csdn.net/tick_tock97/article/details/79885868</a></li>
 <li><a href="https://blog.csdn.net/zengxiantao1994/article/details/72787849" target="_blank" rel="noopener">https://blog.csdn.net/zengxiantao1994/article/details/72787849</a></li>
