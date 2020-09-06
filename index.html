@@ -218,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-04 15:37:53" itemprop="dateModified" datetime="2020-09-04T15:37:53+08:00">2020-09-04</time>
+                <time title="修改时间：2020-09-06 23:39:43" itemprop="dateModified" datetime="2020-09-06T23:39:43+08:00">2020-09-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -255,145 +255,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1、摘要"><a href="#1、摘要" class="headerlink" title="1、摘要"></a>1、摘要</h3><p>EM算法是一种迭代算法，1977年由Dempster等人总结提出，用于含有隐变量（hidden variable）的概率模型参数的极大似然估计，或极大后验概率估计。EM算法的每次迭代由两步组成：E步，求期望（expectation）；M步，求极大（maximization）。所以这一算法称为期望极大算法（expectation maximization algorithm），简称EM算法。</p>
-<h3 id="2、预备知识"><a href="#2、预备知识" class="headerlink" title="2、预备知识"></a>2、预备知识</h3><h4 id="2-1、联合概率、边缘概率、条件概率"><a href="#2-1、联合概率、边缘概率、条件概率" class="headerlink" title="2.1、联合概率、边缘概率、条件概率"></a>2.1、联合概率、边缘概率、条件概率</h4><p><strong>1、联合概率</strong></p>
-<p>联合概率指的是包含多个条件且<strong>所有条件同时成立</strong>的概率，记作P(X=a,Y=b)或P(a,b)。 <font color=red>一定要注意是所有条件同时成立。</font></p>
-<p><strong>2、边缘概率</strong></p>
-<p>边缘概率是与联合概率对应的，P(X=a)或P(Y=b)，这类仅与单个随机变量有关的概率称为边缘概率。</p>
-<p><strong>1&amp;2、联合概率和边缘概率的关系</strong></p>
-<script type="math/tex; mode=display">
-P(X=a)=\sum_{b}P(X=a,Y=b) \\
-
-P(Y=b)=\sum_{a}P(Y=b,X=a)</script><p>求和符号表示穷举所有Y（或X）所能取得b（或a）后，所有对应值相加得到的和。</p>
-<p>注意：上面X和Y谁写在前面是没有关系的，我只是为了更容易理解，所以改了下位置。</p>
-<p><strong>3、条件概率</strong></p>
-<p>条件概率表示在条件Y=b成立的情况下，X=a的概率，记作P(X=a|Y=b)或P(a|b)，它具有如下性质：</p>
-<p><strong>“在条件Y=b下X的条件分布”也是一种“X的概率分布”，因此穷举X的可取值之后，所有这些值对应的概率之和为1</strong>即：</p>
-<script type="math/tex; mode=display">
-\sum_{a}P(X=a|Y=b)=1</script><p><strong>1&amp;2&amp;3、联合概率、边缘概率和条件概率之间的关系</strong></p>
-<script type="math/tex; mode=display">
-P(X=a|Y=b)=\frac{P(X=a,Y=b)}{P(Y=b)}</script><p>当然，如果X和Y相互独立的话公式就变成这样了，$P(X=a)=\frac{P(X=a,Y=b)}{P(Y=b)}$</p>
-<h4 id="2-2、极大似然估计"><a href="#2-2、极大似然估计" class="headerlink" title="2.2、极大似然估计"></a>2.2、极大似然估计</h4><p>在说极大似然估计前，先来看看贝叶斯决策。</p>
-<p><strong>贝叶斯决策</strong></p>
-<p>首先来看贝叶斯分类，我们都知道经典的贝叶斯公式：</p>
-<script type="math/tex; mode=display">
-P(w|x)=\frac{P(x|w)P(w)}{P(x)}</script><p>其中：$P(w)$为先验概率，表示每种类别分布的概率；$P(x|w)$为类条件概率，表示在某种类别前提下，某事发生的概率。而$P(w|x)$为后验概率，表示某事发生了，并且它属于某一类别的概率，了这个后验概率，我们就可以对样本进行分类。后验概率越大，说明某事物属于这个类别的可能性越大。</p>
-<p>我们来看一个直观的例子：<strong>已知：</strong>在夏季，某公园男性穿凉鞋的概率为1/2，女性穿凉鞋的概率为2/3，并且该公园中男女比例通常为2:1，<strong>问题：</strong>若你在公园中随机遇到一个穿凉鞋的人，请问他的性别为男性或女性的概率分别为多少？</p>
-<p> 从问题来看，就是上面讲的，某事发生了，它属于某一类别的概率是多少？即后验概率。</p>
-<p>设&emsp;$w_1=男性$，$w_2=女性$，$x=穿凉鞋$。</p>
-<p>由已知可以得：</p>
-<script type="math/tex; mode=display">
-先验概率P(w_1)=\frac{2}{3}，P(w_2)=\frac{1}{3} \\
-类条件概率P(x|w_1)=\frac{1}{2}，P(x|w_2)=\frac{2}{3}</script><p>男性和女性穿凉鞋独立（至少这题没特别说明，两者不独立），所以在公园里遇到一个人穿凉鞋的概率为：</p>
-<script type="math/tex; mode=display">
-P(x)=P(w_1)P(x|w_1)+P(w_2)P(x|w_2)=\frac{2}{3}\times\frac{1}{2}+\frac{1}{3}\times\frac{2}{3}=\frac{1}{3}+\frac{2}{9}=\frac{5}{9}</script><p>有贝叶斯公式算出：</p>
-<script type="math/tex; mode=display">
-P(w_1|x)=\frac{P(x|w_1)P(w_1)}{P(x)}=\frac{\frac{1}{2}\times\frac{2}{3}}{\frac{5}{9}}=\frac{3}{5} \\
-P(w_2|x)=\frac{P(x|w_2)P(w_2)}{P(x)}=\frac{\frac{2}{3}\times\frac{1}{3}}{\frac{5}{9}}=\frac{2}{5}</script><p>所以遇到一个穿凉鞋的人，判断这个人是男性的概率为$\frac{3}{5}$，是女性的概率为$\frac{2}{5}$。当然贝叶斯决策并不是我们要说的重点。</p>
-<p><strong>问题引出</strong></p>
-<p>​    但是在实际问题中并不都是这样幸运的，我们能获得的数据可能只有有限数目的样本数据，而先验概率$P(w_i)$和类条件概率(各类的总体分布)$P(x|w_i)$都是未知的。根据仅有的样本数据进行分类时，一种可行的办法是我们需要先对先验概率和类条件概率进行估计，然后再套用贝叶斯分类器。</p>
-<p>​    先验概率的估计较简单，1、每个样本所属的自然状态都是已知的（有监督学习）；2、依靠经验；3、用训练样本中各类出现的频率估计。</p>
-<p>​    类条件概率的估计（非常难），原因包括：概率密度函数包含了一个随机变量的全部信息；样本数据可能不多；特征向量x的维度可能很大等等。总之要直接估计类条件概率的密度函数很难。解决的办法就是，把估计完全未知的概率密度$P(x|w_i)$转化为估计参数。这里就将概率密度估计问题转化为参数估计问题，极大似然估计就是一种参数估计方法。当然了，概率密度函数的选取很重要，模型正确，在样本区域无穷时，我们会得到较准确的估计值，如果模型都错了，那估计半天的参数，肯定也没啥意义了。</p>
-<p><strong>极大似然估计</strong></p>
-<p> 极大似然估计的原理，用一张图片来说明，如下图所示：</p>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/20200904125744.jpg" alt="a_1"></p>
-<p>总结起来，最大似然估计的目的就是： <font color=red>利用已知的样本结果，反推最有可能（最大概率）导致这样结果的参数值。</font></p>
-<p>原理：极大似然估计是建立在极大似然原理的基础上的一个统计方法，是概率论在统计学中的应用。极大似然估计提供了一种给定观察数据来评估模型参数的方法，即：“模型已定，参数未知”。通过若干次试验，观察其结果，利用试验结果得到某个参数值能够使样本出现的概率为最大，则称为极大似然估计。</p>
-<p>由于样本集中的样本都是独立同分布，可以只考虑一类样本集D，来估计参数向量θ。记已知的样本集为：</p>
-<script type="math/tex; mode=display">
-D=\lbrace x_1,x_2,x_3,\cdots,x_N \rbrace</script><p>似然函数（likehood function）：联合概率密度$P(D|\theta)$称为相对于$\lbrace x_1,x_2,x_3,\cdots,x_N \rbrace$的$\theta$的似然幻术。</p>
-<script type="math/tex; mode=display">
-记l(\theta)=P(D|\theta)=p(x_1,x_2,x_3,\cdots,x_N|\theta)=\prod_{i=1}^NP(x_i|\theta)</script><p>如果$\hat{\theta}$是参数空间中能使似然函数$l(\theta)$最大的$\theta$值，则$\hat{\theta}$应该是最有可能的参数值，那么$\hat{\theta}$就是$\theta$的极大似然估计量。它是样本集的函数，记作：</p>
-<script type="math/tex; mode=display">
-\hat{\theta}=d(x_1,x_2,\cdots,x_N)=d(D) \\
-\hat{\theta}(x_1,x_2,\cdots,x_N)称作极大似然函数估计值</script><p>ML估计：求使得出现改组样本的概率最大的$\theta$值</p>
-<script type="math/tex; mode=display">
-\hat{\theta}=arg~\mathop{max}_{\theta}~l(\theta)=arg~\mathop{max}_\theta\prod_{i=1}^NP(x_i|\theta)</script><p>为了便于计算，通常把$\prod$，利用对数可以转换成$\log$。因此就定义了对数似然函数（通常取e作为底数）：</p>
-<script type="math/tex; mode=display">
-记H(\theta)=log~l(\theta) \\
-\hat{\theta}=arg~\mathop{max}_\theta~H(\theta)=arg~\mathop{max}_\theta~log~l(\theta)=arg~\mathop{max}_\theta\sum_{i=1}^Nlog~(P(x_i|\theta))</script><p>然后通过，求导使式子等于0就可以求出$\theta$的值了。</p>
-<h4 id="2-3、Jensen不等式"><a href="#2-3、Jensen不等式" class="headerlink" title="2.3、Jensen不等式"></a>2.3、Jensen不等式</h4><p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/20200904153745.png" alt="image-20200904153745173" style="zoom:80%;" /></p>
-<p><img src="https://pic3.zhimg.com/v2-22d1d68bb9db46d48c1a4c194477427c_b.jpg" alt="img"></p>
-<p>注：若函数 $f$ 是凹函数，Jensen不等式符号相反。</p>
-<h3 id="3、EM算法"><a href="#3、EM算法" class="headerlink" title="3、EM算法"></a>3、EM算法</h3><h4 id="3-1、EM算法的引入"><a href="#3-1、EM算法的引入" class="headerlink" title="3.1、EM算法的引入"></a>3.1、EM算法的引入</h4><p>首先通过书上的三硬币模型来导入，这里我就直接将书上的题目拍下来了。</p>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/1.jpg" style="zoom: 25%;" /></p>
-<script type="math/tex; mode=display">
-\begin{cases}
-\pi p+(1-\pi)q，y=1\\
-\pi(1-p)+(1-\pi)(1-q)，y=0\tag{1}
-\end{cases}</script><p>将(1)式合并一下就得到：</p>
-<script type="math/tex; mode=display">
-\pi p^y(1-p)^{1-y}+(1-\pi)q^y(1-q)^{1-y}\tag{2}</script><p>接下来来推导书上的三硬币模型也就是<code>公式(9.1)</code>。</p>
-<script type="math/tex; mode=display">
-P(y|\theta)=\sum_zP(y,z|\theta)</script><p>这一步就是前面说过的联合概率和边缘概率的关系。下面来证明</p>
-<script type="math/tex; mode=display">
-\sum_zP(y,z|\theta)=\sum_zP(z|\theta)P(y|z,\theta)\\
-左边=\sum_z\frac{P(y,z,\theta)}{P(\theta)}\\
-右边=\sum_z\frac{P(z,\theta)}{P(\theta)}P(y|z,\theta)=\sum_z\frac{P(y,z,\theta)}{P(\theta)}</script><p>因此该等式成立。然后再结合<code>公式(2)</code>就可以得出书上的<code>公式(9.1)</code>。</p>
-<p>将观测数据表示为$Y=(Y_1,Y_2,Y_3,\cdots,Y_n)^T$，未观测数据表示为$Z=(Z_1,Z_2,Z_3,\cdots,Z_n)^T$，所以观测数据的似然函数为</p>
-<script type="math/tex; mode=display">
-P(Y|\theta)=\sum_ZP(Y,Z|\theta)=\sum_ZP(Z|\theta)P(Y|Z,\theta)) \tag{9.2}</script><p>即</p>
-<script type="math/tex; mode=display">
-P(Y|\theta)=\prod_{j=1}^n[\pi p^{y_j}(1-p)^{1-y_j}+(1-\pi)q^{y_j}(1-q)^{1-y_j}]\tag{9.3}</script><p>考虑求模型参数$\theta=(\theta,p,q)$的极大似然估计，即</p>
-<script type="math/tex; mode=display">
-\hat{\theta}=arg~\mathop{max}_{\theta}log~P(Y|\theta)\tag{9.4}</script><p>由于这个问题没有解析解，只有通过迭代的方法求解，EM算法就是可以用于求解这个问题的一种迭代算法。每次迭代包含两步：E步，求期望；M步，求极大化。下面来介绍EM算法。</p>
-<h4 id="3-2、EM算法的导出"><a href="#3-2、EM算法的导出" class="headerlink" title="3.2、EM算法的导出"></a>3.2、EM算法的导出</h4><p>我们面对一个含有隐变量的概率模型，目标是极大化观测数据（不完全数据）Y关于参数$\theta$的对数似然函数，即极大化</p>
-<script type="math/tex; mode=display">
-L(\theta)=log~P(Y|\theta)=log~\sum_ZP(Y,Z|\theta)=log(\sum_ZP(Y|Z,\theta)P(Z|\theta))\tag{9.12}</script><p>然后我们要来极大化$L(\theta)$，也就是要对$\theta$求导咯。我们先来展开看看$L(\theta)$长什么样子。</p>
-<script type="math/tex; mode=display">
-L(\theta)=log[(Y|Z_1,\theta)P(Z_1|\theta)+(Y|Z_2,\theta)P(Z_2|\theta)+\cdots+(Y|Z_n,\theta)P(Z_n|\theta)]</script><p>这个式子求导后的形式自己脑补一下就知道很复杂了吧。所以很难通过求导来求解得到$\theta$。因此我们想一下可不可以把$\sum$符号从$log$当中提出来呢。因此，这里我们前面说过的Jensen不等式就派上用场了。得到了它的下界。</p>
-<script type="math/tex; mode=display">
-L(\theta)=log(\sum_ZP(Y|Z,\theta)P(Z|\theta))=log(\sum_ZQ(Z)\frac{P(Y|Z,\theta)P(Z|\theta)}{Q(Z)})\tag{3}</script><script type="math/tex; mode=display">
->=\sum_ZQ(Z)log~\frac{P(Y|Z,\theta)P(Z|\theta)}{Q(Z)}\tag{4}</script><p>上面<code>公式(3)</code>中引入了一个新的未知的分布Q(Z)，满足：</p>
-<script type="math/tex; mode=display">
-\sum_zQ(z)=1,其中，0<=Q(z)<=1</script><p><code>公式(4)</code>用到了Jensen不等式（对数函数是凹函数）：</p>
-<script type="math/tex; mode=display">
-log(E(x))>=E(log(x))</script><p>其中：</p>
-<script type="math/tex; mode=display">
-E(x)=\sum_i\lambda_ix_i,\lambda_i>=0,\sum_i\lambda_i=1\\
-x_i=\frac{P(Y,Z^i|\theta)}{Q(Z^i)}\\
-\lambda_i=Q(Z^i)</script><p>由 Jensen 不等式可知，等式成立的条件是随机变量是常数，则有：</p>
-<script type="math/tex; mode=display">
-\frac{P(Y,Z^i|\theta)}{Q(Z^i)}=c</script><p>其中c为常数，对于任意<code>i</code>，我们得到</p>
-<script type="math/tex; mode=display">
-P(Y,Z^i|\theta)=cQ(Z^i)\tag{5}</script><p><code>方程(5)</code>两边同时累加和：</p>
-<script type="math/tex; mode=display">
-\sum_zP(Y,Z|\theta)=c\sum_zQ(z)</script><p>由于$\sum_ZQ(Z)=1$。从上面式子中得到$\sum_ZP(Y,Z|\theta)=c$</p>
-<p>所以：$Q_(Z^i)=\frac{P(Y,Z^i|\theta)}{c}=\frac{P(Y,Z^i|\theta)}{\sum_ZP(Y,Z|\theta)}=\frac{P(Y,Z|\theta)}{P(Y|\theta)}=P(Z|Y,\theta)$。这就是<code>书中公式(9.13)</code>上面为什么分子分母同时乘以$P(Z|Y,\theta^{(i)})$。</p>
-<h3 id="4、EM算法案例-两硬币模型"><a href="#4、EM算法案例-两硬币模型" class="headerlink" title="4、EM算法案例-两硬币模型"></a>4、<a href="https://link.zhihu.com/?target=http%3A//ai.stanford.edu/~chuongdo/papers/em_tutorial.pdf">EM算法案例-两硬币模型</a></h3><p>假设有两枚硬币A、B，以相同的概率随机选择一个硬币，进行如下的掷硬币实验：共做 5 次实验，每次实验独立的掷十次，结果如图中 a 所示，例如某次实验产生了H、T、T、T、H、H、T、H、T、H (H代表正面朝上)。a 是在知道每次选择的是A还是B的情况下进行，b是在不知道选择的是A还是B的情况下进行，问如何估计两个硬币正面出现的概率？</p>
-<p><img src="https://pic4.zhimg.com/80/v2-a5b47206d802b392e0e72a23c6b7bb95_720w.jpg" alt="img"></p>
-<p><strong>CASE a</strong></p>
-<p>已知每个实验选择的是硬币A 还是硬币 B，重点是如何计算输出的概率分布，这其实也是极大似然求导所得。<br><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/20200904152856.png" alt="image-20200904152856113"><br>上面这个式子求导之后发现，5 次实验中A正面向上的次数再除以总次数作为即为 $\hat{\theta}_A$，5次实验中B正面向上的次数再除以总次数作为即为 ，即:</p>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/20200904153119.png" alt="image-20200904153119865" style="zoom: 67%;" /></p>
-<p><strong>CASE b</strong></p>
-<p>由于并不知道选择的是硬币 A 还是硬币 B，因此采用EM算法。</p>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/20200904153149.png" alt="image-20200904153149814" style="zoom:67%;" /></p>
-<p>计算出每个实验为硬币 A 和硬币 B 的概率，然后进行加权求和。</p>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/20200904153230.png" alt="image-20200904153230384" style="zoom:67%;" /></p>
-<p>针对L函数求导来对参数求导，例如对 $\theta_A$求导：</p>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/20200904153322.png" alt="image-20200904153322627" style="zoom:67%;" /></p>
-<p>求导等于 0 之后就可得到图中的第一次迭代之后的参数值:</p>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/20200904153346.png" alt="image-20200904153346590" style="zoom:67%;" /></p>
-<p>当然，基于Case a 我们也可以用一种更简单的方法求得：</p>
-<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/20200904153400.png" alt="image-20200904153400339" style="zoom:67%;" /></p>
-<h3 id=""><a href="#" class="headerlink" title=""></a><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/20200904153413.png" alt="image-20200904153413865"  /></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EM</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, prob)</span>:</span></span><br><span class="line">        self.pro_A, self.pro_B, self.pro_C = prob</span><br><span class="line"></span><br><span class="line">    <span class="comment"># e_step</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pmf</span><span class="params">(self, i)</span>:</span></span><br><span class="line">        <span class="comment"># 硬币B产生y的概率</span></span><br><span class="line">        pro_1 = self.pro_A * math.pow(self.pro_B, data[i]) * math.pow(</span><br><span class="line">            (<span class="number">1</span> - self.pro_B), <span class="number">1</span> - data[i])</span><br><span class="line">        <span class="comment"># 硬币A产生y的概率</span></span><br><span class="line">        pro_2 = (<span class="number">1</span> - self.pro_A) * math.pow(self.pro_C, data[i]) * math.pow(</span><br><span class="line">            (<span class="number">1</span> - self.pro_C), <span class="number">1</span> - data[i])</span><br><span class="line">        <span class="comment"># y来自硬币B的概率，也就是公式(9.5)</span></span><br><span class="line">        <span class="keyword">return</span> pro_1 / (pro_1 + pro_2)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># m_step</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, data)</span>:</span></span><br><span class="line">        count = len(data)</span><br><span class="line">        print(<span class="string">'init prob:&#123;&#125;, &#123;&#125;, &#123;&#125;'</span>.format(self.pro_A, self.pro_B,</span><br><span class="line">                                            self.pro_C))</span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> range(count):</span><br><span class="line">            _ = <span class="keyword">yield</span></span><br><span class="line">            _pmf = [self.pmf(k) <span class="keyword">for</span> k <span class="keyword">in</span> range(count)]</span><br><span class="line">            <span class="comment"># 公式(9.6)</span></span><br><span class="line">            pro_A = <span class="number">1</span> / count * sum(_pmf)</span><br><span class="line">            <span class="comment"># 公式(9.7)</span></span><br><span class="line">            pro_B = sum([_pmf[k] * data[k] <span class="keyword">for</span> k <span class="keyword">in</span> range(count)]) / sum(</span><br><span class="line">                [_pmf[k] <span class="keyword">for</span> k <span class="keyword">in</span> range(count)])</span><br><span class="line">            <span class="comment"># 公式(9.8)</span></span><br><span class="line">            pro_C = sum([(<span class="number">1</span> - _pmf[k]) * data[k]</span><br><span class="line">                         <span class="keyword">for</span> k <span class="keyword">in</span> range(count)]) / sum([(<span class="number">1</span> - _pmf[k])</span><br><span class="line">                                                        <span class="keyword">for</span> k <span class="keyword">in</span> range(count)])</span><br><span class="line">            print(<span class="string">'&#123;&#125;/&#123;&#125;  pro_a:&#123;:.3f&#125;, pro_b:&#123;:.3f&#125;, pro_c:&#123;:.3f&#125;'</span>.format(</span><br><span class="line">                d + <span class="number">1</span>, count, pro_A, pro_B, pro_C))</span><br><span class="line">            self.pro_A = pro_A</span><br><span class="line">            self.pro_B = pro_B</span><br><span class="line">            self.pro_C = pro_C</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 我这里直接使用书上的数据</span></span><br><span class="line">data = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>]</span><br><span class="line"><span class="comment"># 初始化的概率也选择跟书上一样</span></span><br><span class="line">em = EM(prob=[<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>])</span><br><span class="line">f = em.fit(data)</span><br><span class="line">next(f)</span><br><span class="line"><span class="comment"># 输出 init prob:0.5, 0.5, 0.5</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第一次迭代</span></span><br><span class="line">f.send(<span class="number">1</span>)</span><br><span class="line"><span class="comment"># 输出 1/10  pro_a:0.500, pro_b:0.600, pro_c:0.600</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二次</span></span><br><span class="line">f.send(<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 输出 2/10  pro_a:0.500, pro_b:0.600, pro_c:0.600</span></span><br></pre></td></tr></table></figure>
-<p>可以看出跟书上得出的结果是一样一样的。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 书中另一个初始化的概率为[0.4, 0.6, 0.7]</span></span><br><span class="line">em = EM(prob=[<span class="number">0.4</span>, <span class="number">0.6</span>, <span class="number">0.7</span>])</span><br><span class="line">f2 = em.fit(data)</span><br><span class="line">next(f2)</span><br><span class="line"><span class="comment"># 输出 init prob:0.4, 0.6, 0.7</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第一次迭代</span></span><br><span class="line">f2.send(<span class="number">1</span>)</span><br><span class="line"><span class="comment"># 输出 1/10  pro_a:0.406, pro_b:0.537, pro_c:0.643</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二次迭代</span></span><br><span class="line">f2.send(<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 输出 2/10  pro_a:0.406, pro_b:0.537, pro_c:0.643</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第三次迭代</span></span><br><span class="line">f2.send(<span class="number">3</span>)</span><br><span class="line"><span class="comment"># 输出 3/10  pro_a:0.406, pro_b:0.537, pro_c:0.643</span></span><br></pre></td></tr></table></figure>
-<p>一直迭代下去也就是书上的那个概率。至此EM算法的一些笔记到这里就结束了，如果跟书本有出入的，还是以书本为准。溜了~</p>
-<p><strong>Reference</strong></p>
-<ul>
-<li><a href="https://blog.csdn.net/tick_tock97/article/details/79885868" target="_blank" rel="noopener">https://blog.csdn.net/tick_tock97/article/details/79885868</a></li>
-<li><a href="https://blog.csdn.net/zengxiantao1994/article/details/72787849" target="_blank" rel="noopener">https://blog.csdn.net/zengxiantao1994/article/details/72787849</a></li>
-<li>李航《统计学习方法》第二版</li>
-<li><a href="https://www.zhihu.com/collection/582310071" target="_blank" rel="noopener">https://www.zhihu.com/collection/582310071</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/35698329" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/35698329</a></li>
-<li><a href="http://ai.stanford.edu/~chuongdo/papers/em_tutorial.pdf" target="_blank" rel="noopener">http://ai.stanford.edu/~chuongdo/papers/em_tutorial.pdf</a></li>
-<li><a href="https://github.com/wzyonggege/statistical-learning-method" target="_blank" rel="noopener">https://github.com/wzyonggege/statistical-learning-method</a></li>
-</ul>
-
+          <p>&emsp;
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/02/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94EM%E7%AE%97%E6%B3%95%E5%8F%8A%E5%85%B6%E6%8E%A8%E5%B9%BF/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
