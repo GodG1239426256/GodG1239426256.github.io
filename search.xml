@@ -3,8 +3,8 @@
   <entry>
     <title>python-函数与Lambda表达式</title>
     <url>/2020/07/31/python-%E5%87%BD%E6%95%B0%E4%B8%8ELambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-    <content><![CDATA[<h3 id="1、函数"><a href="#1、函数" class="headerlink" title="1、函数"></a>1、函数</h3><a id="more"></a>
-<p>Python 的函数具有非常灵活多样的参数形态，既可以实现简单的调用，又可以传入非常复杂的参数。从简到繁的参数形态如下：</p>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<h3 id="1、函数"><a href="#1、函数" class="headerlink" title="1、函数"></a>1、函数</h3><p>Python 的函数具有非常灵活多样的参数形态，既可以实现简单的调用，又可以传入非常复杂的参数。从简到繁的参数形态如下：</p>
 <ul>
 <li>位置参数 (positional argument)</li>
 <li>默认参数 (default argument)</li>
@@ -157,8 +157,8 @@
   <entry>
     <title>datime模块</title>
     <url>/2020/08/04/python-datime%E6%A8%A1%E5%9D%97/</url>
-    <content><![CDATA[<p>datetime 是 Python 中处理日期的标准模块，它提供了 4 种对日期和时间进行处理的类：<strong>datetime</strong>、<strong>date</strong>、<strong>time</strong> 和 <strong>timedelta</strong>。</p>
-<a id="more"></a>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<p>datetime 是 Python 中处理日期的标准模块，它提供了 4 种对日期和时间进行处理的类：<strong>datetime</strong>、<strong>date</strong>、<strong>time</strong> 和 <strong>timedelta</strong>。</p>
 <hr>
 <h2 id="1-datetime类"><a href="#1-datetime类" class="headerlink" title="1. datetime类"></a>1. datetime类</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">datetime</span><span class="params">(date)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, year, month, day, hour, minute, second, microsecond, tzinfo)</span></span></span><br><span class="line"><span class="function">        <span class="title">pass</span></span></span><br><span class="line"><span class="function">    <span class="title">def</span> <span class="title">now</span><span class="params">(cls, tz=None)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">timestamp</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fromtimestamp</span><span class="params">(cls, t, tz=None)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">date</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">time</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">year</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">month</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">day</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hour</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minute</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">second</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isoweekday</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">strftime</span><span class="params">(self, fmt)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">combine</span><span class="params">(cls, date, time, tzinfo=True)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 <ul>
@@ -364,8 +364,8 @@
   <entry>
     <title>python-列表，元组，字符串</title>
     <url>/2020/07/22/python-%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%BB%84%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
-    <content><![CDATA[<h3 id="Python一些数据类型"><a href="#Python一些数据类型" class="headerlink" title="Python一些数据类型"></a>Python一些数据类型</h3><a id="more"></a>
-<p>整型<code>&lt;class &#39;int&#39;&gt;</code>&emsp;浮点型<code>&lt;class &#39;float&#39;&gt;</code>&emsp;布尔型<code>&lt;class &#39;bool&#39;&gt;</code></p>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<h3 id="Python一些数据类型"><a href="#Python一些数据类型" class="headerlink" title="Python一些数据类型"></a>Python一些数据类型</h3><p>整型<code>&lt;class &#39;int&#39;&gt;</code>&emsp;浮点型<code>&lt;class &#39;float&#39;&gt;</code>&emsp;布尔型<code>&lt;class &#39;bool&#39;&gt;</code></p>
 <p>列表<code>&lt;class &#39;list&#39;&gt;</code>&emsp;元组<code>&lt;class &#39;tuple&#39;&gt;</code>&emsp;字典<code>&lt;class &#39;dict&#39;&gt;</code>&emsp;集合<code>&lt;class &#39;set&#39;&gt;</code>&emsp;字符串<code>&lt;class &#39;str&#39;&gt;</code></p>
 <h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><p>列表是有序集合，没有固定大小，能够保存任意数量任意类型的 Python 对象，语法为 <code>[元素1, 元素2, ..., 元素n]</code>。</p>
 <h4 id="创建一个列表"><a href="#创建一个列表" class="headerlink" title="创建一个列表"></a>创建一个列表</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = [<span class="string">'Monday'</span>, <span class="string">'Tuesday'</span>, <span class="string">'Wednesday'</span>, <span class="string">'Thursday'</span>, <span class="string">'Friday'</span>]</span><br><span class="line">print(x, type(x))</span><br><span class="line"><span class="comment"># ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] &lt;class 'list'&gt;</span></span><br><span class="line"></span><br><span class="line">x = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line">print(x, type(x))</span><br><span class="line"><span class="comment"># [2, 3, 4, 5, 6, 7] &lt;class 'list'&gt;</span></span><br></pre></td></tr></table></figure>
@@ -559,8 +559,8 @@
   <entry>
     <title>python-字典、集合和序列</title>
     <url>/2020/07/28/python-%E5%AD%97%E5%85%B8%E3%80%81%E9%9B%86%E5%90%88%E5%92%8C%E5%BA%8F%E5%88%97/</url>
-    <content><![CDATA[<h2 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h2><a id="more"></a>
-<p><code>dict.fromkeys(seq[, value])</code> 用于创建一个新字典，以序列 <code>seq</code> 中元素做字典的键，<code>value</code> 为字典所有键对应的初始值。</p>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<h2 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h2><p><code>dict.fromkeys(seq[, value])</code> 用于创建一个新字典，以序列 <code>seq</code> 中元素做字典的键，<code>value</code> 为字典所有键对应的初始值。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">seq = (<span class="string">'name'</span>, <span class="string">'age'</span>, <span class="string">'sex'</span>)</span><br><span class="line">dic1 = dict.fromkeys(seq)</span><br><span class="line">print(<span class="string">"新的字典为 : %s"</span> % str(dic1))  </span><br><span class="line"><span class="comment"># 新的字典为 : &#123;'name': None, 'age': None, 'sex': None&#125;</span></span><br><span class="line"></span><br><span class="line">dic2 = dict.fromkeys(seq, <span class="number">10</span>)</span><br><span class="line">print(<span class="string">"新的字典为 : %s"</span> % str(dic2))  </span><br><span class="line"><span class="comment"># 新的字典为 : &#123;'name': 10, 'age': 10, 'sex': 10&#125;</span></span><br><span class="line"></span><br><span class="line">dic3 = dict.fromkeys(seq, (<span class="string">'小马'</span>, <span class="string">'8'</span>, <span class="string">'男'</span>))</span><br><span class="line">print(<span class="string">"新的字典为 : %s"</span> % str(dic3))  </span><br><span class="line"><span class="comment"># 新的字典为 : &#123;'name': ('小马', '8', '男'), 'age': ('小马', '8', '男'), 'sex': ('小马', '8', '男')&#125;</span></span><br></pre></td></tr></table></figure>
 <p><code>dict.setdefault(key, default=None)</code>和<code>get()</code>方法 类似, 如果键不存在于字典中，将会添加键并将值设为默认值。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dic = &#123;<span class="string">'Name'</span>: <span class="string">'Lsgogroup'</span>, <span class="string">'Age'</span>: <span class="number">7</span>&#125;</span><br><span class="line">print(<span class="string">"Age 键的值为 : %s"</span> % dic.setdefault(<span class="string">'Age'</span>, <span class="literal">None</span>))  <span class="comment"># Age 键的值为 : 7</span></span><br><span class="line">print(<span class="string">"Sex 键的值为 : %s"</span> % dic.setdefault(<span class="string">'Sex'</span>, <span class="literal">None</span>))  <span class="comment"># Sex 键的值为 : None</span></span><br><span class="line">print(<span class="string">"新字典为："</span>, dic)  </span><br><span class="line"><span class="comment"># 新字典为： &#123;'Age': 7, 'Name': 'Lsgogroup', 'Sex': None&#125;</span></span><br></pre></td></tr></table></figure>
@@ -603,8 +603,8 @@
   <entry>
     <title>文件与文件系统</title>
     <url>/2020/08/04/python-%E6%96%87%E4%BB%B6%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<h2 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h2><a id="more"></a>
-<ul>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<h2 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h2><ul>
 <li><code>open(file, mode=&#39;r&#39;, buffering=None, encoding=None, errors=None, newline=None, closefd=True)</code> Open file and return a stream.  Raise OSError upon failure.<ul>
 <li><code>file</code>: 必需，文件路径（相对或者绝对路径）。</li>
 <li><code>mode</code>: 可选，文件打开模式</li>
@@ -840,8 +840,8 @@
   <entry>
     <title>python-变量、运算符、数据类型及位运算</title>
     <url>/2020/07/20/python-%E5%8F%98%E9%87%8F%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6%E3%80%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%8F%8A%E4%BD%8D%E8%BF%90%E7%AE%97/</url>
-    <content><![CDATA[<h3 id="1-1-Python简介"><a href="#1-1-Python简介" class="headerlink" title="1.1 Python简介"></a>1.1 Python简介</h3><a id="more"></a>
-<p>&emsp;&emsp;Python 是由 Guido van Rossum 在八十年代末和九十年代初，在荷兰国家数学和计算机科学研究所设计出来的。Python 本身也是由诸多其他语言发展而来的,这包括 ABC、Modula-3、C、C++、Algol-68、SmallTalk、Unix shell 和其他的脚本语言等等。像 Perl 语言一样，Python 源代码同样遵循 GPL(GNU General Public License)协议。现在 Python 是由一个核心开发团队在维护，Guido van Rossum 仍然占据着至关重要的作用，指导其进展。Python 2.7 被确定为最后一个 Python 2.x 版本，它除了支持 Python 2.x 语法外，还支持部分 Python 3.1 语法。</p>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<h3 id="1-1-Python简介"><a href="#1-1-Python简介" class="headerlink" title="1.1 Python简介"></a>1.1 Python简介</h3><p>&emsp;&emsp;Python 是由 Guido van Rossum 在八十年代末和九十年代初，在荷兰国家数学和计算机科学研究所设计出来的。Python 本身也是由诸多其他语言发展而来的,这包括 ABC、Modula-3、C、C++、Algol-68、SmallTalk、Unix shell 和其他的脚本语言等等。像 Perl 语言一样，Python 源代码同样遵循 GPL(GNU General Public License)协议。现在 Python 是由一个核心开发团队在维护，Guido van Rossum 仍然占据着至关重要的作用，指导其进展。Python 2.7 被确定为最后一个 Python 2.x 版本，它除了支持 Python 2.x 语法外，还支持部分 Python 3.1 语法。</p>
 <h3 id="1-2-学习目标"><a href="#1-2-学习目标" class="headerlink" title="1.2 学习目标"></a>1.2 学习目标</h3><p>1、变量、运算符与数据类型</p>
 <ul>
 <li>注释</li>
@@ -1235,7 +1235,8 @@
   <entry>
     <title>python-异常处理</title>
     <url>/2020/07/22/python-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</url>
-    <content><![CDATA[<p>异常就是运行期检测到的错误。计算机语言针对可能出现的错误定义了异常类型，某种错误引发对应的异常时，异常处理程序将被启动，从而恢复程序的正常运行。<a id="more"></a></p>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<p>异常就是运行期检测到的错误。计算机语言针对可能出现的错误定义了异常类型，某种错误引发对应的异常时，异常处理程序将被启动，从而恢复程序的正常运行。</p>
 <h3 id="Python标准异常处理总结"><a href="#Python标准异常处理总结" class="headerlink" title="Python标准异常处理总结"></a>Python标准异常处理总结</h3><ul>
 <li>BaseException：所有异常的 <strong>基类</strong></li>
 <li>Exception：常规异常的 <strong>基类</strong></li>
@@ -1299,8 +1300,8 @@
   <entry>
     <title>条件循环结构</title>
     <url>/2020/07/21/python-%E6%9D%A1%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<h3 id="1-1-if语句"><a href="#1-1-if语句" class="headerlink" title="1.1 if语句"></a>1.1 <code>if</code>语句</h3><a id="more"></a>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> expression:</span><br><span class="line">    expr_true_suite</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<h3 id="1-1-if语句"><a href="#1-1-if语句" class="headerlink" title="1.1 if语句"></a>1.1 <code>if</code>语句</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> expression:</span><br><span class="line">    expr_true_suite</span><br></pre></td></tr></table></figure>
 <p>【例子】</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="number">2</span> &gt; <span class="number">1</span> <span class="keyword">and</span> <span class="keyword">not</span> <span class="number">2</span> &gt; <span class="number">3</span>:</span><br><span class="line">    print(<span class="string">'Hello python'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Hello python</span></span><br></pre></td></tr></table></figure>
 <h3 id="1-2-if-else语句"><a href="#1-2-if-else语句" class="headerlink" title="1.2 if-else语句"></a>1.2 <code>if-else</code>语句</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> expression:</span><br><span class="line">    expr_true_suite</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    expr_false_suite</span><br></pre></td></tr></table></figure>
@@ -1379,8 +1380,8 @@
   <entry>
     <title>类与对象</title>
     <url>/2020/08/03/python-%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/</url>
-    <content><![CDATA[<h1 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h1><a id="more"></a>
-<h2 id="1-对象-属性-方法"><a href="#1-对象-属性-方法" class="headerlink" title="1. 对象 = 属性 + 方法"></a>1. 对象 = 属性 + 方法</h2><p>对象是类的实例。换句话说，类主要定义对象的结构，然后我们以类为模板创建对象。类不但包含方法定义，而且还包含所有实例共享的数据。</p>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<h1 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h1><h2 id="1-对象-属性-方法"><a href="#1-对象-属性-方法" class="headerlink" title="1. 对象 = 属性 + 方法"></a>1. 对象 = 属性 + 方法</h2><p>对象是类的实例。换句话说，类主要定义对象的结构，然后我们以类为模板创建对象。类不但包含方法定义，而且还包含所有实例共享的数据。</p>
 <ul>
 <li>封装：信息隐蔽技术</li>
 </ul>
@@ -1543,7 +1544,8 @@
   <entry>
     <title>图像插值算法</title>
     <url>/2020/08/10/%E5%9B%BE%E5%83%8F%E6%8F%92%E5%80%BC%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>&emsp;在图像处理中，平移变换、旋转变换以及放缩变换是一些基础且常用的操作。<a id="more"></a>这些几何变换并不改变图象的象素值，只是在图象平面上进行象素的重新排列。在一幅输入图象$[u，v]$中，灰度值仅在整数位置上有定义。然而，输出图象[x，y]的灰度值一般由处在非整数坐标上的$（u，v）$值来决定。这就需要插值算法来进行处理，常见的插值算法有最近邻插值、双线性插值和三次样条插值。</p>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<p>&emsp;在图像处理中，平移变换、旋转变换以及放缩变换是一些基础且常用的操作。<!--more-->这些几何变换并不改变图象的象素值，只是在图象平面上进行象素的重新排列。在一幅输入图象$[u，v]$中，灰度值仅在整数位置上有定义。然而，输出图象[x，y]的灰度值一般由处在非整数坐标上的$（u，v）$值来决定。这就需要插值算法来进行处理，常见的插值算法有最近邻插值、双线性插值和三次样条插值。</p>
 <h3 id="1、最近邻插值算法原理"><a href="#1、最近邻插值算法原理" class="headerlink" title="1、最近邻插值算法原理"></a>1、最近邻插值算法原理</h3><p>最近邻插值，是指将目标图像中的点，对应到源图像中后，找到最相邻的整数点，作为插值后的输出。</p>
 <p><img src="https://img-blog.csdnimg.cn/20200412101740312.png" alt="img" style="zoom: 25%;" /></p>
 <p>&emsp;如上图所示，目标图像中的某点投影到原图像中的位置为点P,此时易知，$f(P) = f(Q11)$.</p>
@@ -1666,8 +1668,8 @@ f(x, y)=[f(1,0)-f(0,0)] x+[f(0,1)-f(0,0)] y \\
   <entry>
     <title>资金流入流出预测实践</title>
     <url>/2020/08/18/%E8%B5%84%E9%87%91%E6%B5%81%E5%85%A5%E6%B5%81%E5%87%BA%E9%A2%84%E6%B5%8B%E5%AE%9E%E8%B7%B5/</url>
-    <content><![CDATA[<h3 id="一、数据探索与分析"><a href="#一、数据探索与分析" class="headerlink" title="一、数据探索与分析"></a>一、数据探索与分析</h3><a id="more"></a>
-<p>首先来看看<code>seaborn</code>这个库的用法，因为我们在作分析的时候，会频繁的使用这个库。</p>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<h3 id="一、数据探索与分析"><a href="#一、数据探索与分析" class="headerlink" title="一、数据探索与分析"></a>一、数据探索与分析</h3><p>首先来看看<code>seaborn</code>这个库的用法，因为我们在作分析的时候，会频繁的使用这个库。</p>
 <p>Seaborn是一种基于matplotlib的图形可视化python libraty。它提供了一种<strong>高度交互式界面</strong>，便于用户能够做出各种有吸引力的统计图表。</p>
 <p>Seaborn其实是在matplotlib的基础上进行了更高级的API封装，从而使得<strong>作图更加容易</strong>，在大多数情况下使用seaborn就能做出很具有吸引力的图，而使用matplotlib就能制作具有更多特色的图。应该把Seaborn视为matplotlib的补充，而不是替代物。同时它能高度兼容<strong>numpy</strong>与<strong>pandas</strong>数据结构以及<strong>scipy</strong>与<strong>statsmodels</strong>等统计模式。掌握seaborn能很大程度帮助我们更高效的观察数据与图表，并且更加深入了解它们。</p>
 <p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200818160001866.png" alt="image-20200818160001866" style="zoom:67%;" /></p>
@@ -1791,8 +1793,8 @@ f(x, y)=[f(1,0)-f(0,0)] x+[f(0,1)-f(0,0)] y \\
   <entry>
     <title>零基础入门nlp-新闻文本分类实战</title>
     <url>/2020/07/20/%E6%96%B0%E9%97%BB%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E5%AE%9E%E6%88%98/</url>
-    <content><![CDATA[<h3 id="赛题理解"><a href="#赛题理解" class="headerlink" title="赛题理解"></a>赛题理解</h3><a id="more"></a>
-<p>&emsp;&emsp;首先要理解赛题的背景及描述——赛题以新闻数据为赛题数据，数据集报名后可见并可下载。赛题数据为新闻文本，并按照字符级别进行匿名处理。整合划分出14个候选分类类别：财经、彩票、房产、股票、家居、教育、科技、社会、时尚、时政、体育、星座、游戏、娱乐的文本数据。通过描述，我们可以知道这道题是要==通过给定的一段文本来判断是属于哪一种类别的==。</p>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<h3 id="赛题理解"><a href="#赛题理解" class="headerlink" title="赛题理解"></a>赛题理解</h3><p>&emsp;&emsp;首先要理解赛题的背景及描述——赛题以新闻数据为赛题数据，数据集报名后可见并可下载。赛题数据为新闻文本，并按照字符级别进行匿名处理。整合划分出14个候选分类类别：财经、彩票、房产、股票、家居、教育、科技、社会、时尚、时政、体育、星座、游戏、娱乐的文本数据。通过描述，我们可以知道这道题是要==通过给定的一段文本来判断是属于哪一种类别的==。</p>
 <p>&emsp;&emsp;赛题数据由以下几个部分构成：训练集20w条样本，测试集A包括5w条样本，测试集B包括5w条样本。为了预防选手人工标注测试集的情况，我们将比赛数据的文本按照字符级别进行了匿名处理。处理后的赛题训练数据如下：</p>
 <div class="table-container">
 <table>
@@ -2073,8 +2075,8 @@ TF-IDF=TF\times IDF</script><p>分母之所以要加1，是为了避免分母为
   <entry>
     <title>（一）数据加载及探索性数据分析</title>
     <url>/2020/08/16/%EF%BC%88%E4%B8%80%EF%BC%89%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD%E5%8F%8A%E6%8E%A2%E7%B4%A2%E6%80%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<h4 id="导入numpy和pandas"><a href="#导入numpy和pandas" class="headerlink" title="导入numpy和pandas"></a>导入numpy和pandas</h4><a id="more"></a>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 如果没安装这两个库可以通过</span></span><br><span class="line"><span class="comment"># conda install numpy 或者 pip install numpy</span></span><br><span class="line"><span class="comment"># conda install pandas 或者 pip install pandas</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<h4 id="导入numpy和pandas"><a href="#导入numpy和pandas" class="headerlink" title="导入numpy和pandas"></a>导入numpy和pandas</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 如果没安装这两个库可以通过</span></span><br><span class="line"><span class="comment"># conda install numpy 或者 pip install numpy</span></span><br><span class="line"><span class="comment"># conda install pandas 或者 pip install pandas</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
 <h4 id="载入数据"><a href="#载入数据" class="headerlink" title="载入数据"></a>载入数据</h4><p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200816110515081.png" alt="image-20200816110515081" style="zoom: 67%;" /></p>
 <p>虽然有上面那么多种用法，不过用的最多的还是<code>read_csv</code>和<code>read_table</code>这两个。</p>
 <p>这次学习使用的是泰坦尼克号的数据，kaggle链接——<a href="https://www.kaggle.com/c/titanic/overview" target="_blank" rel="noopener">https://www.kaggle.com/c/titanic/overview</a>。</p>
@@ -2125,8 +2127,8 @@ TF-IDF=TF\times IDF</script><p>分母之所以要加1，是为了避免分母为
   <entry>
     <title>（二）数据处理及特征清理</title>
     <url>/2020/08/18/%EF%BC%88%E4%BA%8C%EF%BC%89%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E7%89%B9%E5%BE%81%E6%B8%85%E7%90%86/</url>
-    <content><![CDATA[<h3 id="2-1-缺失值观察与处理"><a href="#2-1-缺失值观察与处理" class="headerlink" title="2.1 缺失值观察与处理"></a>2.1 缺失值观察与处理</h3><a id="more"></a>
-<p>我们拿到的数据经常会有很多缺失值，比如我们可以看到Cabin列存在NaN，那其他列还有没有缺失值，这些缺失值要怎么处理呢。</p>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<h3 id="2-1-缺失值观察与处理"><a href="#2-1-缺失值观察与处理" class="headerlink" title="2.1 缺失值观察与处理"></a>2.1 缺失值观察与处理</h3><p>我们拿到的数据经常会有很多缺失值，比如我们可以看到Cabin列存在NaN，那其他列还有没有缺失值，这些缺失值要怎么处理呢。</p>
 <h4 id="2-1-1-缺失值观察"><a href="#2-1-1-缺失值观察" class="headerlink" title="2.1.1 缺失值观察"></a>2.1.1 缺失值观察</h4><p>还是以泰坦尼克号的数据为例。查看各个特征缺失值个数</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 首先导入库和数据</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df = pd.read_csv(<span class="string">'train.csv'</span>)</span><br></pre></td></tr></table></figure>
 <p>方法1：</p>
@@ -2177,8 +2179,8 @@ TF-IDF=TF\times IDF</script><p>分母之所以要加1，是为了避免分母为
   <entry>
     <title>分治</title>
     <url>/2020/08/19/%E5%88%86%E6%B2%BB/</url>
-    <content><![CDATA[<h3 id="分治算法的原理"><a href="#分治算法的原理" class="headerlink" title="分治算法的原理"></a>分治算法的原理</h3><a id="more"></a>
-<p>分治算法的原理可以用二叉树表示。假设给定的问题不能够被直接了当地解决。这时，我们可以将原问题分成相互独立的两个子问题。如果能将这两个子问题解决，那我们就离原问题的解不远了。如果子问题还是复杂问题的话，我们就继续分解，直到子问题满足边界条件，小到可以直接得出答案为止。得到最小子问题的解后，我们往上递回，将子问题的解层层合并，最终获得原问题的解。</p>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<h3 id="分治算法的原理"><a href="#分治算法的原理" class="headerlink" title="分治算法的原理"></a>分治算法的原理</h3><p>分治算法的原理可以用二叉树表示。假设给定的问题不能够被直接了当地解决。这时，我们可以将原问题分成相互独立的两个子问题。如果能将这两个子问题解决，那我们就离原问题的解不远了。如果子问题还是复杂问题的话，我们就继续分解，直到子问题满足边界条件，小到可以直接得出答案为止。得到最小子问题的解后，我们往上递回，将子问题的解层层合并，最终获得原问题的解。</p>
 <p>我们不一定每一次都将原问题分成两个子问题。根据问题的需要，我们可以将原问题分成 k 个子问题， k&gt;1。</p>
 <p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/img/image-20200819133056422.png" alt="image-20200819133056422" style="zoom: 50%;" /></p>
 <h3 id="分治法适用的情况"><a href="#分治法适用的情况" class="headerlink" title="分治法适用的情况"></a>分治法适用的情况</h3><ul>
@@ -2206,8 +2208,7 @@ TF-IDF=TF\times IDF</script><p>分母之所以要加1，是为了避免分母为
   <entry>
     <title>泰坦尼克号生存预测</title>
     <url>/2020/08/20/%E6%B3%B0%E5%9D%A6%E5%B0%BC%E5%85%8B%E5%8F%B7%E7%94%9F%E5%AD%98%E9%A2%84%E6%B5%8B/</url>
-    <content><![CDATA[<p><h1 align='center'>泰坦尼克号生存预测<h1/></p>
-<a id="more"></a>
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
 <p>这是kaggle上面比较入门的一个比赛。今天让我们来看看怎么做吧。<a href="https://www.kaggle.com/c/titanic" target="_blank" rel="noopener">kaggle传送门</a>。首先报名，下载数据集。</p>
 <h3 id="数据载入及概述"><a href="#数据载入及概述" class="headerlink" title="数据载入及概述"></a>数据载入及概述</h3><p>首先导入从Kaggle上面下载的数据集，在导入的过程中就需要先导入一些必备的包了。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接着导入我们的训练数据</span></span><br><span class="line">filename = <span class="string">'titanic/train.csv'</span>  <span class="comment"># 这是我存放的文件路径，这边换成你们自己的</span></span><br><span class="line">train = pd.read_csv(filename)</span><br></pre></td></tr></table></figure>
@@ -2296,7 +2297,8 @@ TF-IDF=TF\times IDF</script><p>分母之所以要加1，是为了避免分母为
   <entry>
     <title>动态规划算法</title>
     <url>/2020/08/21/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念      "></a>1 概念      <a id="more"></a></h3><pre><code>   **动态规划**算法是通过拆分问题，定义问题状态和状态之间的关系，使得问题能够以递推（或者说分治）的方式去解决。在学习动态规划之前需要明确掌握几个重要概念。
+    <content><![CDATA[<p>&emsp;<a id="more"></a></p>
+<h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念"></a>1 概念</h3><pre><code>   **动态规划**算法是通过拆分问题，定义问题状态和状态之间的关系，使得问题能够以递推（或者说分治）的方式去解决。在学习动态规划之前需要明确掌握几个重要概念。
 </code></pre><p>  <strong>阶段：</strong>对于一个完整的问题过程，适当的切分为若干个相互联系的子问题，每次在求解一个子问题，则对应一个阶段，整个问题的求解转化为按照阶段次序去求解。</p>
 <p>  <strong>状态：</strong>状态表示每个阶段开始时所处的客观条件，即在求解子问题时的已知条件。状态描述了研究的问题过程中的状况。</p>
 <p>  <strong>决策：</strong>决策表示当求解过程处于某一阶段的某一状态时，可以根据当前条件作出不同的选择，从而确定下一个阶段的状态，这种选择称为决策。</p>
