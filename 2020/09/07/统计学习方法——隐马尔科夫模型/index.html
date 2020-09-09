@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="&amp;emsp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="统计学习方法——隐马尔科夫模型">
+<meta property="og:url" content="http://yoursite.com/2020/09/07/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E9%9A%90%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Yakult">
+<meta property="og:description" content="&amp;emsp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/20200907182750.jpg">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/20200907232309.jpg">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/20200909141628.png">
+<meta property="article:published_time" content="2020-09-07T09:05:02.000Z">
+<meta property="article:modified_time" content="2020-09-09T06:37:46.647Z">
+<meta property="article:author" content="养乐多">
+<meta property="article:tag" content="统计学习方法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/20200907182750.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2020/09/07/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E9%9A%90%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E6%A8%A1%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>统计学习方法——隐马尔科夫模型 | Yakult</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Yakult</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录学习中的点点滴滴</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/07/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E9%9A%90%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="养乐多">
+      <meta itemprop="description" content="从现在开始">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yakult">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          统计学习方法——隐马尔科夫模型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-07 17:05:02" itemprop="dateCreated datePublished" datetime="2020-09-07T17:05:02+08:00">2020-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-09 14:37:46" itemprop="dateModified" datetime="2020-09-09T14:37:46+08:00">2020-09-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&emsp;<a id="more"></a></p>
+<p><strong>摘要：</strong>隐马尔可夫模型（hidden Markov model，HMM）是可用于标注问题的统计学习模型，描述由隐藏的马尔可夫链随机生成观测序列的过程，属于生成模型。隐马尔可夫模型在语音识别，自然语言处理，生物信息，模式识别等领域有着广泛的应用。</p>
+<h3 id="1、马尔科夫模型与HMM"><a href="#1、马尔科夫模型与HMM" class="headerlink" title="1、马尔科夫模型与HMM"></a>1、<strong>马尔科夫模型与HMM</strong></h3><p>&emsp;&emsp;要讲隐马尔科夫模型，需要先从马尔科夫模型讲起。已知N个有序随机变量，根据贝叶斯定理，他们的联合分布可以写成条件分布的连乘积：</p>
+<script type="math/tex; mode=display">
+P(x_1,x_2,\cdots,x_N)=\prod_{n=1}^NP(x_n|x_{n-1},\cdots,x_1)\tag{1}</script><p>&emsp;&emsp;马尔科夫模型是指，假设序列中的任何一个随机变量在给定它的前一个变量时的分布与更早的变量无关，即：</p>
+<script type="math/tex; mode=display">
+P(x_n|x_{n-1},\cdots,x_1)=P(x_n|x_{n-1})\tag{2}</script><p>&emsp;&emsp;在此假设下，N个随机变量的联合分布可以简化为：</p>
+<script type="math/tex; mode=display">
+P(x_1,x_2,\cdots,x_N)=\prod_{n=2}^NP(x_n|x_{n-1})\tag{3}</script><p>&emsp;&emsp;一阶马尔科夫性只能表达当前变量与前一个变量的关系，然而很多实际问题往往没有这么简单。为了表达当前变量与更早的变量之间的关系，可以引入高阶马尔科夫性。概括来说，M阶马尔科夫性是指当前随机变量在给定其之前的M个变量时与更早的变量无关，用公式表达就是：</p>
+<script type="math/tex; mode=display">
+P(x_n|x_{n-1},\cdots,x_1)=P(x_n|x_{n-1},\cdots,x_{n-M})\tag{4}</script><p>&emsp;&emsp;高阶马尔科夫性虽然达到了关联当前变量与更早的变量的目的，但有一个问题就是指数爆炸问题，即参数数量随着M的增大呈指数增长。假设每个随机变量有<code>K</code>种状态，对于一阶马尔科夫模型而言，要表达条件分布$P(x_n|x_{n-1})$，因为对于$x_{n-1}$的每个取值（共有<code>K</code>个取值）需要<code>K</code>个$x_n$的取值，根据条件概率的定义，这<code>K</code>个值的和为1，因此实际有个<code>K-1</code>个自由参数，因此共需要<code>K(K-1)</code>个参数。同理，对于<code>M</code>阶马尔科夫模型而言，要表达条件分布$P(x_n|x_{n-1},\cdots,x_{n-M})$，则需要$K^M(K-1)$个参数（对于$x_n,\cdots,x_{n-M}$的每一个取值的组合（共$K^M$个），都需要<code>K-1</code>个$x_n$的取值）。</p>
+<p>&emsp;&emsp;那么，有没有一种方法即能将当前变量与更早的变量关联起来，又不需要那么多参数呢？当然，这里有一种非常强大的手段，即引入隐变量，这是机器学习中用简单的基础部件表达丰富的模型的有力手段。这里如果假设隐变量构成一阶马尔科夫模型，而每个观测变量与一个隐变量关联，则可以得到一类模型的基础结构，即状态空间模型。如下图，$z_n$为隐藏变量，$x_n$为观测变量。</p>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/20200907182750.jpg" alt="img" style="zoom: 67%;" /></p>
+<p>该类模型的关键是隐藏变量之间满足如下条件独立性，即在给定$z_n$时，$z_{n-1}$和$z_{n+1}$条件独立：</p>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/20200907232309.jpg" alt="img"></p>
+<p>这类模型的联合分布可以表示为：</p>
+<script type="math/tex; mode=display">
+P(x_1,\cdots,x_N,z_1,\cdots,z_N)=P(z_1)</script><p>&emsp;&emsp;可见，看似很复杂的模型被分解成了简单的$P(z_1)$、$P(z_n|z_{n-1})$和$P(x_n|z_n)$部分，这三者分别叫做<strong>初始概率模型、转移概率模型和观测概率模型</strong>，对状态空间模型建模实际就是对这三者进行建模。而且此时观测变量之间不再具有任何马尔科夫性，因为此时$x_n$的分布与其之前所有的观测变量都相关，无法从的$P(x_n|x_{n-1},\cdots,x_1)$条件变量中拿掉任何一个变量，这样就将一个变量与其之前所有的变量关联起来了。这就是隐变量的能力。</p>
+<p>&emsp;&emsp;当$z_n$为离散变量时，该状态空间模型即为隐马尔科夫模型。现在可以解释一下“隐马尔科夫”这个名字的含义了。“马尔科夫”自然是表示随机变量之间构成一个马尔科夫链了。而“隐”是指我们要推测的变量是未知的、隐藏的。正是这些隐藏的变量构成了马尔科夫链，所以就叫“隐马尔科夫”了。</p>
+<h3 id="2、隐马尔可夫模型"><a href="#2、隐马尔可夫模型" class="headerlink" title="2、隐马尔可夫模型"></a>2、隐马尔可夫模型</h3><p>&emsp;&emsp;隐藏的马尔可夫链随机生成的状态的序列，称为<strong>状态序列</strong>；每个状态生成一个一个观测，而由此产生的观测的随机序列，称为<strong>观测序列</strong>。</p>
+<p>&emsp;&emsp;设Q是所有可能的状态的集合，V是所有可能的观测的集合：</p>
+<script type="math/tex; mode=display">
+Q=\lbrace q_1,q_2,\cdots,q_N \rbrace，V=\lbrace v_1,v_2,\cdots,v_M \rbrace</script><p>其中，N是所有可能的状态的集合，V是所有可能的观测的集合。</p>
+<p>&emsp;&emsp;I是长度为T的状态序列，O是对应的观测序列：</p>
+<script type="math/tex; mode=display">
+I=(i_1,i_2,\cdots,i_T)，O=(o_1,o_2,\cdots,o_T)</script><p>&emsp;&emsp;A是状态转移概率矩阵：</p>
+<script type="math/tex; mode=display">
+A=[a_{ij}]_{N\times N}</script><p>其中，</p>
+<script type="math/tex; mode=display">
+a_{ij}=P(i_{t+1}=q_j|i_t=q_i)，i=1,2,\cdots,N;~~~j=1,2,\cdots,N</script><p>是在时刻$t$处于状态$q_i$的条件下在时刻$t+1$转移到状态$q_j$的概率。</p>
+<p>&emsp;&emsp;B是观测概率矩阵：</p>
+<script type="math/tex; mode=display">
+B=[b_j(k)]_{N\times M}</script><p>其中，</p>
+<script type="math/tex; mode=display">
+b_j(k)=P(o_t=v_k|i_t=q_j)，~~k=1,2,\cdots,M;~~~j=1,2,\cdots,N</script><p>是在时刻$t$处于状态$q_j$的条件下生成观测$v_k$的概率。</p>
+<p>&emsp;&emsp;$\pi$是初始状态概率向量：</p>
+<script type="math/tex; mode=display">
+\pi=(\pi_i)</script><p>其中，</p>
+<script type="math/tex; mode=display">
+\pi_i=P(i_1=q_i)，i=1,2,\cdots,N</script><p>是时刻$t=1$处于状态$q_i$的概率。</p>
+<h3 id="3、隐马尔可夫模型的3个基本问题"><a href="#3、隐马尔可夫模型的3个基本问题" class="headerlink" title="3、隐马尔可夫模型的3个基本问题"></a>3、隐马尔可夫模型的3个基本问题</h3><ol>
+<li>概率计算问题</li>
+<li>学习问题</li>
+<li>预测问题</li>
+</ol>
+<p>为了解决上述的三个问题，由此产生了一些算法。</p>
+<h4 id="3-1、概率计算算法"><a href="#3-1、概率计算算法" class="headerlink" title="3.1、概率计算算法"></a>3.1、概率计算算法</h4><ul>
+<li>直接计算法（计算复杂度达到了$TN^T$，复杂度太高，因此在实际中不使用）</li>
+<li>前向算法</li>
+<li>后向算法</li>
+</ul>
+<p>1）前向算法：</p>
+<p><strong>定义</strong>：给定马尔可夫模型$\lambda$，定义到时刻$t$部分观测序列为$o_1,o_2,\cdots,o_t$且状态为$q_i$的概率为前向概率，记作</p>
+<script type="math/tex; mode=display">
+\alpha_t(i)=P(o_1,o_2,\cdots,o_t,i_t=q_i|\lambda)</script><p>2）后向算法：</p>
+<p><strong>定义</strong>：给定马尔可夫模型$\lambda$，定义在时刻$t$状态为$q_i$的条件下，从$t+1$到$T$的 部分观测序列为$o_{t+1},o_{t+2},\cdots,o_T$的概率为后向概率，记作</p>
+<script type="math/tex; mode=display">
+\beta_t(i)=P(o_{t+1},o_{t+2},\cdots,o_T|i_t=q_i,\lambda)</script><h4 id="3-2、学习算法"><a href="#3-2、学习算法" class="headerlink" title="3.2、学习算法"></a>3.2、学习算法</h4><ul>
+<li>监督学习算法</li>
+<li>无监督学习算法——Baum-Welch算法（也就是EM算法）</li>
+</ul>
+<p>1）监督学习算法：</p>
+<p>使用极大似然估计法来估计模型参数</p>
+<script type="math/tex; mode=display">
+\hat{a}_{ij}=\frac{A_{ij}}{\sum_{j=1}^NA_{ij}}，i=1,2,\cdots,N;~~~j=1,2,\cdots,N \\
+\hat{b}_j(k)=\frac{B_{jk}}{\sum_{k=1}^MB_{jk}}，j=1,2,\cdots,N;~~~k=1,2,\cdots,M</script><p>2）无监督学习算法：</p>
+<script type="math/tex; mode=display">
+a_{ij}^{(n+1)}=\frac{\sum_{t=1}^{T-1}\zeta_t(i,j)}{\sum_{t=1}^{T-1}\gamma_t(i)}\\ \\
+b_j(k)^{(n+1)}=\frac{\sum_{t=1,o_t=v_k}^T\gamma_t(j)}{\sum_{t=1}^T\gamma_t(j)}\\ \\
+\pi_i^{(n+1)}=\gamma_1(i)</script><h4 id="3-3、预测算法"><a href="#3-3、预测算法" class="headerlink" title="3.3、预测算法"></a>3.3、预测算法</h4><ul>
+<li>近似算法</li>
+<li>维特比算法</li>
+</ul>
+<p>1）近似算法：</p>
+<script type="math/tex; mode=display">
+\gamma_t(i)=\frac{\alpha_t(i)\beta_t(i)}{P(O|\lambda)}=\frac{\alpha_t(i)\beta_t(i)}{\sum_{j=1}^N\alpha_t(j)\beta_t(j)} \\
+i_t^*=arg ~\mathop{max}_{1\le i\le N}~[\gamma_t(i)]，t=1,2,\cdots,T \\
+I^*=(i_1^*,i_2^*,\cdots,i_T^*)</script><p>2）维特比算法：</p>
+<p>这个算法就要隆重的来学习一下了。维特比算法实际是用<a href="https://www.yakult.icu/2020/08/21/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95/#more" target="_blank" rel="noopener">动态规划</a>解隐马尔可夫模型预测问题，即用动态规划求解概率最大路径（最优路径）。（动态规划看另外一个博客）</p>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/20200909141628.png" alt="9825bc315c6034a83754a192cc1349540923766a" style="zoom:67%;" /></p>
+<p>1）如果概率最大的路径p(或者说最短路径)经过某个点，比如途中的$X_{22}$，那么这条路径上的起始点S到X22的这段子路径Q，一定是S到$X_{22}$之间的最短路径。否则，用S到$X_{22}$的最短路径R替代Q，便构成一条比P更短的路径，这显然是矛盾的。证明了满足最优性原理。</p>
+<p>2）从S到E的路径必定经过第i个时刻的某个状态，假定第i个时刻有k个状态，那么如果记录了从S到第i个状态的所有k个节点的最短路径，最终的最短路径必经过其中一条，这样，在任意时刻，只要考虑非常有限的最短路即可。</p>
+<p>3）结合以上两点，假定当我们从状态i进入状态i+1时，从S到状态i上各个节的最短路径已经找到，并且记录在这些节点上，那么在计算从起点S到第i+1状态的某个节点$X_{i+1}$的最短路径时，只要考虑从S到前一个状态i所有的k个节点的最短路径，以及从这个节点到$X_{i+1}$，j的距离即可。 </p>
+<h3 id="4、代码实践"><a href="#4、代码实践" class="headerlink" title="4、代码实践"></a>4、代码实践</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HiddenMarkov</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, Q, V, A, B, O, PI)</span>:</span>  <span class="comment"># 使用前向算法</span></span><br><span class="line">        N = len(Q)  <span class="comment">#可能存在的状态数量</span></span><br><span class="line">        M = len(O)  <span class="comment"># 观测序列的大小</span></span><br><span class="line">        alphas = np.zeros((N, M))  <span class="comment"># alpha值</span></span><br><span class="line">        T = M  <span class="comment"># 有几个时刻，有几个观测序列，就有几个时刻</span></span><br><span class="line">        <span class="keyword">for</span> t <span class="keyword">in</span> range(T):  <span class="comment"># 遍历每一时刻，算出alpha值</span></span><br><span class="line">            indexOfO = V.index(O[t])  <span class="comment"># 找出序列对应的索引</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(N):</span><br><span class="line">                <span class="keyword">if</span> t == <span class="number">0</span>:  <span class="comment"># 计算初值</span></span><br><span class="line">                    alphas[i][t] = PI[t][i] * B[i][indexOfO]  <span class="comment"># P176（10.15）</span></span><br><span class="line">                    print(</span><br><span class="line">                        <span class="string">'alpha1(%d)=p%db%db(o1)=%f'</span> % (i, i, i, alphas[i][t]))</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    alphas[i][t] = np.dot(</span><br><span class="line">                        [alpha[t - <span class="number">1</span>] <span class="keyword">for</span> alpha <span class="keyword">in</span> alphas],</span><br><span class="line">                        [a[i] <span class="keyword">for</span> a <span class="keyword">in</span> A]) * B[i][indexOfO]  <span class="comment"># 对应P176（10.16）</span></span><br><span class="line">                    print(<span class="string">'alpha%d(%d)=[sigma alpha%d(i)ai%d]b%d(o%d)=%f'</span> %</span><br><span class="line">                          (t, i, t - <span class="number">1</span>, i, i, t, alphas[i][t]))</span><br><span class="line">                    <span class="comment"># print(alphas)</span></span><br><span class="line">        P = np.sum([alpha[M - <span class="number">1</span>] <span class="keyword">for</span> alpha <span class="keyword">in</span> alphas])  <span class="comment"># P176(10.17)</span></span><br><span class="line">        <span class="comment"># alpha11 = pi[0][0] * B[0][0]    #代表a1(1)</span></span><br><span class="line">        <span class="comment"># alpha12 = pi[0][1] * B[1][0]    #代表a1(2)</span></span><br><span class="line">        <span class="comment"># alpha13 = pi[0][2] * B[2][0]    #代表a1(3)</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">backward</span><span class="params">(self, Q, V, A, B, O, PI)</span>:</span>  <span class="comment"># 后向算法</span></span><br><span class="line">        N = len(Q)  <span class="comment"># 可能存在的状态数量</span></span><br><span class="line">        M = len(O)  <span class="comment"># 观测序列的大小</span></span><br><span class="line">        betas = np.ones((N, M))  <span class="comment"># beta</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(N):</span><br><span class="line">            print(<span class="string">'beta%d(%d)=1'</span> % (M, i))</span><br><span class="line">        <span class="keyword">for</span> t <span class="keyword">in</span> range(M - <span class="number">2</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">            indexOfO = V.index(O[t + <span class="number">1</span>])  <span class="comment"># 找出序列对应的索引</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(N):</span><br><span class="line">                betas[i][t] = np.dot(</span><br><span class="line">                    np.multiply(A[i], [b[indexOfO] <span class="keyword">for</span> b <span class="keyword">in</span> B]),</span><br><span class="line">                    [beta[t + <span class="number">1</span>] <span class="keyword">for</span> beta <span class="keyword">in</span> betas])</span><br><span class="line">                realT = t + <span class="number">1</span></span><br><span class="line">                realI = i + <span class="number">1</span></span><br><span class="line">                print(</span><br><span class="line">                    <span class="string">'beta%d(%d)=[sigma a%djbj(o%d)]beta%d(j)=('</span> %</span><br><span class="line">                    (realT, realI, realI, realT + <span class="number">1</span>, realT + <span class="number">1</span>),</span><br><span class="line">                    end=<span class="string">''</span>)</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(N):</span><br><span class="line">                    print(</span><br><span class="line">                        <span class="string">"%.2f*%.2f*%.2f+"</span> % (A[i][j], B[j][indexOfO],</span><br><span class="line">                                             betas[j][t + <span class="number">1</span>]),</span><br><span class="line">                        end=<span class="string">''</span>)</span><br><span class="line">                print(<span class="string">"0)=%.3f"</span> % betas[i][t])</span><br><span class="line">        <span class="comment"># print(betas)</span></span><br><span class="line">        indexOfO = V.index(O[<span class="number">0</span>])</span><br><span class="line">        P = np.dot(</span><br><span class="line">            np.multiply(PI, [b[indexOfO] <span class="keyword">for</span> b <span class="keyword">in</span> B]),</span><br><span class="line">            [beta[<span class="number">0</span>] <span class="keyword">for</span> beta <span class="keyword">in</span> betas])</span><br><span class="line">        print(<span class="string">"P(O|lambda)="</span>, end=<span class="string">""</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(N):</span><br><span class="line">            print(</span><br><span class="line">                <span class="string">"%.1f*%.1f*%.5f+"</span> % (PI[<span class="number">0</span>][i], B[i][indexOfO], betas[i][<span class="number">0</span>]),</span><br><span class="line">                end=<span class="string">""</span>)</span><br><span class="line">        print(<span class="string">"0=%f"</span> % P)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">viterbi</span><span class="params">(self, Q, V, A, B, O, PI)</span>:</span></span><br><span class="line">        N = len(Q)  <span class="comment">#可能存在的状态数量</span></span><br><span class="line">        M = len(O)  <span class="comment"># 观测序列的大小</span></span><br><span class="line">        deltas = np.zeros((N, M))</span><br><span class="line">        psis = np.zeros((N, M))</span><br><span class="line">        I = np.zeros((<span class="number">1</span>, M))</span><br><span class="line">        <span class="keyword">for</span> t <span class="keyword">in</span> range(M):</span><br><span class="line">            realT = t + <span class="number">1</span></span><br><span class="line">            indexOfO = V.index(O[t])  <span class="comment"># 找出序列对应的索引</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(N):</span><br><span class="line">                realI = i + <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> t == <span class="number">0</span>:</span><br><span class="line">                    deltas[i][t] = PI[<span class="number">0</span>][i] * B[i][indexOfO]</span><br><span class="line">                    psis[i][t] = <span class="number">0</span></span><br><span class="line">                    print(<span class="string">'delta1(%d)=pi%d * b%d(o1)=%.2f * %.2f=%.2f'</span> %</span><br><span class="line">                          (realI, realI, realI, PI[<span class="number">0</span>][i], B[i][indexOfO],</span><br><span class="line">                           deltas[i][t]))</span><br><span class="line">                    print(<span class="string">'psis1(%d)=0'</span> % (realI))</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    deltas[i][t] = np.max(</span><br><span class="line">                        np.multiply([delta[t - <span class="number">1</span>] <span class="keyword">for</span> delta <span class="keyword">in</span> deltas],</span><br><span class="line">                                    [a[i] <span class="keyword">for</span> a <span class="keyword">in</span> A])) * B[i][indexOfO]</span><br><span class="line">                    print(</span><br><span class="line">                        <span class="string">'delta%d(%d)=max[delta%d(j)aj%d]b%d(o%d)=%.2f*%.2f=%.5f'</span></span><br><span class="line">                        % (realT, realI, realT - <span class="number">1</span>, realI, realI, realT,</span><br><span class="line">                           np.max(</span><br><span class="line">                               np.multiply([delta[t - <span class="number">1</span>] <span class="keyword">for</span> delta <span class="keyword">in</span> deltas],</span><br><span class="line">                                           [a[i] <span class="keyword">for</span> a <span class="keyword">in</span> A])), B[i][indexOfO],</span><br><span class="line">                           deltas[i][t]))</span><br><span class="line">                    psis[i][t] = np.argmax(</span><br><span class="line">                        np.multiply(</span><br><span class="line">                            [delta[t - <span class="number">1</span>] <span class="keyword">for</span> delta <span class="keyword">in</span> deltas],</span><br><span class="line">                            [a[i]</span><br><span class="line">                             <span class="keyword">for</span> a <span class="keyword">in</span> A])) + <span class="number">1</span>  <span class="comment">#由于其返回的是索引，因此应+1才能和正常的下标值相符合。</span></span><br><span class="line">                    print(<span class="string">'psis%d(%d)=argmax[delta%d(j)aj%d]=%d'</span> %</span><br><span class="line">                          (realT, realI, realT - <span class="number">1</span>, realI, psis[i][t]))</span><br><span class="line">        print(deltas)</span><br><span class="line">        print(psis)</span><br><span class="line">        I[<span class="number">0</span>][M - <span class="number">1</span>] = np.argmax([delta[M - <span class="number">1</span>] <span class="keyword">for</span> delta <span class="keyword">in</span> deltas</span><br><span class="line">                                 ]) + <span class="number">1</span>  <span class="comment">#由于其返回的是索引，因此应+1才能和正常的下标值相符合。</span></span><br><span class="line">        print(<span class="string">'i%d=argmax[deltaT(i)]=%d'</span> % (M, I[<span class="number">0</span>][M - <span class="number">1</span>]))</span><br><span class="line">        <span class="keyword">for</span> t <span class="keyword">in</span> range(M - <span class="number">2</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">            I[<span class="number">0</span>][t] = psis[int(I[<span class="number">0</span>][t + <span class="number">1</span>]) - <span class="number">1</span>][t + <span class="number">1</span>]</span><br><span class="line">            print(<span class="string">'i%d=psis%d(i%d)=%d'</span> % (t + <span class="number">1</span>, t + <span class="number">2</span>, t + <span class="number">2</span>, I[<span class="number">0</span>][t]))</span><br><span class="line">        print(<span class="string">"状态序列I："</span>, I)</span><br></pre></td></tr></table></figure>
+<p><strong>Reference:</strong></p>
+<ul>
+<li><a href="https://www.zhihu.com/people/yi-zhi-luo-shui-de-zhu" target="_blank" rel="noopener">https://www.zhihu.com/people/yi-zhi-luo-shui-de-zhu</a></li>
+<li>统计学习方法（第二版）</li>
+<li>数学之美</li>
+<li><a href="https://github.com/fengdu78/lihang-code" target="_blank" rel="noopener">https://github.com/fengdu78/lihang-code</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" rel="tag"># 统计学习方法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/02/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94EM%E7%AE%97%E6%B3%95%E5%8F%8A%E5%85%B6%E6%8E%A8%E5%B9%BF/" rel="prev" title="统计学习方法——EM算法及其推广">
+      <i class="fa fa-chevron-left"></i> 统计学习方法——EM算法及其推广
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、马尔科夫模型与HMM"><span class="nav-number">1.</span> <span class="nav-text">1、马尔科夫模型与HMM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、隐马尔可夫模型"><span class="nav-number">2.</span> <span class="nav-text">2、隐马尔可夫模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、隐马尔可夫模型的3个基本问题"><span class="nav-number">3.</span> <span class="nav-text">3、隐马尔可夫模型的3个基本问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1、概率计算算法"><span class="nav-number">3.1.</span> <span class="nav-text">3.1、概率计算算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2、学习算法"><span class="nav-number">3.2.</span> <span class="nav-text">3.2、学习算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3、预测算法"><span class="nav-number">3.3.</span> <span class="nav-text">3.3、预测算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、代码实践"><span class="nav-number">4.</span> <span class="nav-text">4、代码实践</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">养乐多</p>
+  <div class="site-description" itemprop="description">从现在开始</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">养乐多</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">112k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:41</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+
