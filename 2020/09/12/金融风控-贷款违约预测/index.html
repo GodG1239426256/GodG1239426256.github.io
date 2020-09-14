@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="&amp;emsp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="金融风控-贷款违约预测">
+<meta property="og:url" content="http://yoursite.com/2020/09/12/%E9%87%91%E8%9E%8D%E9%A3%8E%E6%8E%A7-%E8%B4%B7%E6%AC%BE%E8%BF%9D%E7%BA%A6%E9%A2%84%E6%B5%8B/index.html">
+<meta property="og:site_name" content="Yakult">
+<meta property="og:description" content="&amp;emsp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/20200912143934.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/20200912144353.jpg">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/20200912144612.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/20200912145411.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/20200912151139.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/20200912151211.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/20200912151323.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/20200912151813.png">
+<meta property="og:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/20200912154652.png">
+<meta property="article:published_time" content="2020-09-12T06:33:31.000Z">
+<meta property="article:modified_time" content="2020-09-14T08:17:42.027Z">
+<meta property="article:author" content="养乐多">
+<meta property="article:tag" content="金融风控">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/Godg1000/picture_bed/raw/master/20200912143934.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/09/12/%E9%87%91%E8%9E%8D%E9%A3%8E%E6%8E%A7-%E8%B4%B7%E6%AC%BE%E8%BF%9D%E7%BA%A6%E9%A2%84%E6%B5%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>金融风控-贷款违约预测 | Yakult</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Yakult</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录学习中的点点滴滴</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/12/%E9%87%91%E8%9E%8D%E9%A3%8E%E6%8E%A7-%E8%B4%B7%E6%AC%BE%E8%BF%9D%E7%BA%A6%E9%A2%84%E6%B5%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="养乐多">
+      <meta itemprop="description" content="从现在开始">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yakult">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          金融风控-贷款违约预测
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-12 14:33:31" itemprop="dateCreated datePublished" datetime="2020-09-12T14:33:31+08:00">2020-09-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-14 16:17:42" itemprop="dateModified" datetime="2020-09-14T16:17:42+08:00">2020-09-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">数据分析</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&emsp;<a id="more"></a></p>
+<p><strong>摘要：</strong>赛题以金融风控中的个人信贷为背景，要求选手根据贷款申请人的数据信息预测其是否有违约的可能，以此判断是否通过此项贷款，这是一个典型的分类问题。赛题以预测用户贷款是否违约为任务，数据集报名后可见并可下载，该数据来自某信贷平台的贷款记录，总数据量超过120w，包含47列变量信息，其中15列为匿名变量。为了保证比赛的公平性，将会从中抽取80万条作为训练集，20万条作为测试集A，20万条作为测试集B，同时会对employmentTitle、purpose、postCode和title等信息进行脱敏。比赛链接——<a href="https://tianchi.aliyun.com/competition/entrance/531830/information" target="_blank" rel="noopener">天池</a></p>
+<h3 id="赛题理解"><a href="#赛题理解" class="headerlink" title="赛题理解"></a>赛题理解</h3><p>部分字段表，详细的请看赛题与数据中。</p>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/20200912143934.png" alt="image-20200912143831093" style="zoom:67%;" /></p>
+<p><strong>评测标准</strong>：</p>
+<p>本次比赛的评价方法为AUC评估模型效果（越大越好）。现在来看看什么是AUC。</p>
+<p>混淆矩阵（Confuse Matrix）</p>
+<ul>
+<li>若一个实例是正类，并且被预测为正类，即为真正类TP(True Positive )</li>
+<li>若一个实例是正类，但是被预测为负类，即为假负类FN(False Negative )</li>
+<li>若一个实例是负类，但是被预测为正类，即为假正类FP(False Positive )</li>
+<li>若一个实例是负类，并且被预测为负类，即为真负类TN(True Negative )</li>
+</ul>
+<p>ROC空间将假正例率（FPR）定义为 X 轴，真正例率（TPR）定义为 Y 轴。</p>
+<p>TPR：在所有实际为正例的样本中，被正确地判断为正例之比率。</p>
+<script type="math/tex; mode=display">TPR = \frac{TP}{TP + FN}</script><p>FPR：在所有实际为负例的样本中，被错误地判断为正例之比率。</p>
+<script type="math/tex; mode=display">FPR = \frac{FP}{FP + TN}</script><p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/20200912144353.jpg" alt="img" style="zoom:67%;" /></p>
+<p>这是百度百科中关于AUC介绍的一张图。</p>
+<p>AUC（Area Under Curve）被定义为ROC曲线下与坐标轴围成的面积，显然这个面积的数值不会大于1。又由于ROC曲线一般都处于y=x这条直线的上方，所以AUC的取值范围在0.5和1之间。AUC越接近1.0，检测方法真实性越高;等于0.5时，则真实性最低，无应用价值。</p>
+<p><strong>结果提交</strong>：</p>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/20200912144612.png" alt="image-20200912144612128"></p>
+<p>下面通过<code>sklearn</code>库中的一些函数来简单演示下上面提到的混淆矩阵，ROC，以及AUC</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 混淆矩阵</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix</span><br><span class="line">y_pred = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">y_true = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>]</span><br><span class="line">print(<span class="string">'混淆矩阵:\n'</span>,confusion_matrix(y_true, y_pred))</span><br></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 输出</span><br><span class="line">混淆矩阵:</span><br><span class="line"><span class="string">[[1 1]</span></span><br><span class="line"><span class="string">[1 1]]</span></span><br></pre></td></tr></table></figure>
+<p>其中<code>[0, 0]</code>表示的是TN，<code>[0, 1]</code>表示的是FP，<code>[1, 0]</code>表示的是FN，<code>[1, 1]</code>表示的是FP。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## ROC曲线</span></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> roc_curve</span><br><span class="line">y_pred = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line">y_true = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">FPR,TPR,thresholds=roc_curve(y_true, y_pred)</span><br><span class="line">plt.title(<span class="string">'ROC'</span>)</span><br><span class="line">plt.plot(FPR, TPR,<span class="string">'b'</span>)</span><br><span class="line">plt.plot([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">1</span>],<span class="string">'r--'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'TPR'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'FPR'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/20200912145411.png" alt="image-20200912145411211" style="zoom:67%;" /></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## AUC</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> roc_auc_score</span><br><span class="line">y_true = np.array([<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>])</span><br><span class="line">y_scores = np.array([<span class="number">0.1</span>, <span class="number">0.4</span>, <span class="number">0.35</span>, <span class="number">0.8</span>])</span><br><span class="line">print(<span class="string">'AUC socre:'</span>,roc_auc_score(y_true, y_scores))</span><br><span class="line"><span class="comment"># AUC socre: 0.75</span></span><br></pre></td></tr></table></figure>
+<p>AUC的取值就是上面ROC蓝色曲线和下坐标轴构成的面积。</p>
+<h3 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h3><p>首先导入数据分析及可视化会用到的库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">'ignore'</span>)</span><br></pre></td></tr></table></figure>
+<p>读取<code>train.csv</code>和<code>testA.csv</code>的数据，并查看数据的大小、特征、缺失值之类的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(train.info(), testA.info())</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/20200912151139.png" alt="image-20200912151139645" style="zoom: 80%;" /></p>
+<p>训练集<code>train</code>的大小为80万，<code>testA</code>的大小为20万行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train.describe()</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/20200912151211.png" alt="image-20200912151211639" style="zoom: 67%;" /></p>
+<p>特征比较多，只能展示部分了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">missing = train.isnull().sum()</span><br><span class="line">missing = missing[missing &gt; <span class="number">0</span>]</span><br><span class="line"><span class="comment"># 并画出缺失率的图</span></span><br><span class="line">missing_rate = missing/len(train)</span><br><span class="line">missing_rate.plot.bar()</span><br></pre></td></tr></table></figure>
+<center class="half">
+    <img src="https://gitee.com/Godg1000/picture_bed/raw/master/20200912151323.png" alt="image-20200912151323722" width="300"/>
+    <img src="https://gitee.com/Godg1000/picture_bed/raw/master/20200912151813.png" width="300"/>
+</center>
+
+<p>可以看出，<code>train</code>的缺失值还是不少的，但是占比不是很多。不过缺失值对于<code>xgb</code>，<code>lgb</code>等树模型来说可以直接空缺，树模型会自己优化，要是用别的模型还是要处理的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">one_value_fea = [col <span class="keyword">for</span> col <span class="keyword">in</span> train.columns <span class="keyword">if</span> train[col].nunique() &lt;= <span class="number">1</span>]</span><br><span class="line"><span class="comment"># 'policyCode'</span></span><br><span class="line">one_value_fea_test = [col <span class="keyword">for</span> col <span class="keyword">in</span> testA.columns <span class="keyword">if</span> testA[col].nunique() &lt;= <span class="number">1</span>]</span><br><span class="line"><span class="comment"># 'policyCode'</span></span><br></pre></td></tr></table></figure>
+<p>然后我们发现<code>policyCode</code>这个记录不管是在训练集中还是测试集中 ，都只有一个值，那么这个就直接可以删去了，对模型丝毫没有影响。</p>
+<p><strong>查看特征的数值类型和对象类型：</strong></p>
+<ul>
+<li>特征一般都是由类别型特征和数值型特征组成</li>
+<li>类别型特征有时具有非数值关系，有时也具有数值关系。比如‘grade’中的等级A，B，C等，是否只是单纯的分类，还是A优于其他要结合业务判断。</li>
+<li>数值型特征本是可以直接入模的，但往往风控人员要对其做分箱，转化为WOE编码进而做标准评分卡等操作。从模型效果上来看，特征分箱主要是为了降低变量的复杂性，减少变量噪音对模型的影响，提高自变量和因变量的相关度。从而使模型更加稳定。</li>
+</ul>
+<p>数值类型一般是能直接带进模型里面的，而对象模型也就是<code>object</code>是需要先处理一下的。</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numerical_fea = list(<span class="name">train</span>.select_dtypes(<span class="name">exclude=</span>['object']).columns)</span><br><span class="line">category_fea = list(<span class="name">train</span>.select_dtypes(<span class="name">include=</span>['object']).columns)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#每个数字特征得分布可视化</span></span><br><span class="line">f = pd.melt(train, value_vars=numerical_fea)</span><br><span class="line">g = sns.FacetGrid(f, col=<span class="string">"variable"</span>,  col_wrap=<span class="number">2</span>, sharex=<span class="literal">False</span>, sharey=<span class="literal">False</span>)</span><br><span class="line">g = g.map(sns.distplot, <span class="string">"value"</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/Godg1000/picture_bed/raw/master/20200912154652.png" alt="1"></p>
+<h3 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h3><p>首先导入在这个过程中会用到的一些库，将数据读取进来。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> SelectKBest</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> chi2</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler</span><br><span class="line"><span class="keyword">import</span> xgboost <span class="keyword">as</span> xgb</span><br><span class="line"><span class="keyword">import</span> lightgbm <span class="keyword">as</span> lgb</span><br><span class="line"><span class="keyword">from</span> catboost <span class="keyword">import</span> CatBoostRegressor</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> StratifiedKFold, KFold</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, f1_score, roc_auc_score, log_loss</span><br><span class="line">warnings.filterwarnings(<span class="string">'ignore'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">train =pd.read_csv(<span class="string">'data/train.csv'</span>)</span><br><span class="line">testA = pd.read_csv(<span class="string">'data/testA.csv'</span>)</span><br></pre></td></tr></table></figure>
+<p>方便后序对特征的操作，在这里就把训练集的数据和测试集的数据拼接起来（后面再拆分开）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = pd.concat([train, testA], axis=<span class="number">0</span>, ignore_index=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">'employmentLength'</span>].value_counts(dropna=<span class="literal">False</span>).sort_index()</span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="string">year</span>        <span class="number">65671</span></span><br><span class="line"><span class="number">10</span><span class="string">+</span> <span class="string">years</span>    <span class="number">328525</span></span><br><span class="line"><span class="number">2</span> <span class="string">years</span>       <span class="number">90565</span></span><br><span class="line"><span class="number">3</span> <span class="string">years</span>       <span class="number">80163</span></span><br><span class="line"><span class="number">4</span> <span class="string">years</span>       <span class="number">59818</span></span><br><span class="line"><span class="number">5</span> <span class="string">years</span>       <span class="number">62645</span></span><br><span class="line"><span class="number">6</span> <span class="string">years</span>       <span class="number">46582</span></span><br><span class="line"><span class="number">7</span> <span class="string">years</span>       <span class="number">44230</span></span><br><span class="line"><span class="number">8</span> <span class="string">years</span>       <span class="number">45168</span></span><br><span class="line"><span class="number">9</span> <span class="string">years</span>       <span class="number">37866</span></span><br><span class="line"><span class="string">&lt;</span> <span class="number">1</span> <span class="string">year</span>      <span class="number">80226</span></span><br><span class="line"><span class="string">NaN</span>           <span class="number">58541</span></span><br><span class="line"><span class="attr">Name:</span> <span class="string">employmentLength,</span> <span class="attr">dtype:</span> <span class="string">int64</span></span><br></pre></td></tr></table></figure>
+<p>从上面看出<code>employmentLength</code>是<code>object</code>类型，因此我们可以将字符串转成数字类型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">'employmentLength'</span>].replace(to_replace=<span class="string">'10+ years'</span>, value=<span class="string">'10 years'</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">data[<span class="string">'employmentLength'</span>].replace(<span class="string">'&lt; 1 year'</span>, <span class="string">'0 years'</span>, inplace=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">employmentLength_to_int</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> pd.isnull(s):</span><br><span class="line">        <span class="keyword">return</span> s</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> np.int8(s.split()[<span class="number">0</span>])</span><br><span class="line">    </span><br><span class="line">data[<span class="string">'employmentLength'</span>] = data[<span class="string">'employmentLength'</span>].apply(employmentLength_to_int)</span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10.0</span>    <span class="number">328525</span></span><br><span class="line"><span class="number">2.0</span>      <span class="number">90565</span></span><br><span class="line"><span class="number">0.0</span>      <span class="number">80226</span></span><br><span class="line"><span class="number">3.0</span>      <span class="number">80163</span></span><br><span class="line"><span class="number">1.0</span>      <span class="number">65671</span></span><br><span class="line"><span class="number">5.0</span>      <span class="number">62645</span></span><br><span class="line"><span class="number">4.0</span>      <span class="number">59818</span></span><br><span class="line"><span class="number">6.0</span>      <span class="number">46582</span></span><br><span class="line"><span class="number">8.0</span>      <span class="number">45168</span></span><br><span class="line"><span class="number">7.0</span>      <span class="number">44230</span></span><br><span class="line"><span class="number">9.0</span>      <span class="number">37866</span></span><br><span class="line"><span class="attr">Name:</span> <span class="string">employmentLength,</span> <span class="attr">dtype:</span> <span class="string">int64</span></span><br></pre></td></tr></table></figure>
+<p>现在再来看看<code>earliesCreditLine</code>这列的数据长什么样子。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">'earliesCreditLine'</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>         Aug<span class="number">-2001</span></span><br><span class="line"><span class="number">1</span>         May<span class="number">-2002</span></span><br><span class="line"><span class="number">2</span>         May<span class="number">-2006</span></span><br><span class="line"><span class="number">3</span>         May<span class="number">-1999</span></span><br><span class="line"><span class="number">4</span>         Aug<span class="number">-1977</span></span><br><span class="line">            ...   </span><br><span class="line"><span class="number">999995</span>    Nov<span class="number">-2005</span></span><br><span class="line"><span class="number">999996</span>    Oct<span class="number">-2006</span></span><br><span class="line"><span class="number">999997</span>    Dec<span class="number">-2001</span></span><br><span class="line"><span class="number">999998</span>    Aug<span class="number">-2005</span></span><br><span class="line"><span class="number">999999</span>    Aug<span class="number">-2002</span></span><br><span class="line">Name: earliesCreditLine, Length: <span class="number">1000000</span>, dtype: object</span><br></pre></td></tr></table></figure>
+<p>我们也可以将其中的月份去掉只取其中的年，操作如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">'earliesCreditLine'</span>] = data[<span class="string">'earliesCreditLine'</span>].apply(<span class="keyword">lambda</span> s: int(s[<span class="number">-4</span>:]))</span><br></pre></td></tr></table></figure>
+<p>结果就变成了数值类型的数据了。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>         <span class="number">2001</span></span><br><span class="line"><span class="number">1</span>         <span class="number">2002</span></span><br><span class="line"><span class="number">2</span>         <span class="number">2006</span></span><br><span class="line"><span class="number">3</span>         <span class="number">1999</span></span><br><span class="line"><span class="number">4</span>         <span class="number">1977</span></span><br><span class="line">          <span class="string">...</span> </span><br><span class="line"><span class="number">999995</span>    <span class="number">2005</span></span><br><span class="line"><span class="number">999996</span>    <span class="number">2006</span></span><br><span class="line"><span class="number">999997</span>    <span class="number">2001</span></span><br><span class="line"><span class="number">999998</span>    <span class="number">2005</span></span><br><span class="line"><span class="number">999999</span>    <span class="number">2002</span></span><br><span class="line"><span class="attr">Name:</span> <span class="string">earliesCreditLine,</span> <span class="attr">Length:</span> <span class="number">1000000</span><span class="string">,</span> <span class="attr">dtype:</span> <span class="string">int64</span></span><br></pre></td></tr></table></figure>
+<p>对一些类别特征做如下操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 类型数在2之上，又不是高维稀疏的</span></span><br><span class="line">data = pd.get_dummies(data, columns=[<span class="string">'grade'</span>, <span class="string">'subGrade'</span>, <span class="string">'homeOwnership'</span>, <span class="string">'verificationStatus'</span>, 				<span class="string">'purpose'</span>, <span class="string">'regionCode'</span>], drop_first=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 高维类别特征需要进行转换</span></span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> [<span class="string">'employmentTitle'</span>, <span class="string">'postCode'</span>, <span class="string">'title'</span>]:</span><br><span class="line">    data[f+<span class="string">'_cnts'</span>] = data.groupby([f])[<span class="string">'id'</span>].transform(<span class="string">'count'</span>)</span><br><span class="line">    data[f+<span class="string">'_rank'</span>] = data.groupby([f])[<span class="string">'id'</span>].rank(ascending=<span class="literal">False</span>).astype(int)</span><br><span class="line">    <span class="keyword">del</span> data[f]</span><br></pre></td></tr></table></figure>
+<p>我们发现在训练集中没有<code>n2.2，n2.3</code>这列，而在测试集中有，因此我们可以选择删掉这两列（也可以不删，如果用的是树模型，树模型会自己优化缺失值）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> data[<span class="string">'n2.2'</span>]</span><br><span class="line"><span class="keyword">del</span> data[<span class="string">'n2.3'</span>]</span><br><span class="line"><span class="keyword">del</span> data[<span class="string">'id'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># id这列也没什么用，就一起删去了。</span></span><br></pre></td></tr></table></figure>
+<p>现在将训练集和测试集拆分开来。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">features = [f <span class="keyword">for</span> f <span class="keyword">in</span> data.columns <span class="keyword">if</span> f <span class="keyword">not</span> <span class="keyword">in</span> [<span class="string">'id'</span>,<span class="string">'issueDate'</span>,<span class="string">'isDefault'</span>]]</span><br><span class="line"></span><br><span class="line">train = data[data.isDefault.notnull()].reset_index(drop=<span class="literal">True</span>)</span><br><span class="line">test = data[data.isDefault.isnull()].reset_index(drop=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">x_train = train[features]</span><br><span class="line">x_test = test[features]</span><br><span class="line"></span><br><span class="line">y_train = train[<span class="string">'isDefault'</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="建模和融合"><a href="#建模和融合" class="headerlink" title="建模和融合"></a>建模和融合</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cv_model</span><span class="params">(clf, train_x, train_y, test_x, clf_name)</span>:</span></span><br><span class="line">    folds = <span class="number">10</span></span><br><span class="line">    seed = <span class="number">2020</span></span><br><span class="line">    kf = KFold(n_splits=folds, shuffle=<span class="literal">True</span>, random_state=seed)</span><br><span class="line"></span><br><span class="line">    train = np.zeros(train_x.shape[<span class="number">0</span>])</span><br><span class="line">    test = np.zeros(test_x.shape[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">    cv_scores = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i, (train_index, valid_index) <span class="keyword">in</span> enumerate(kf.split(train_x, train_y)):</span><br><span class="line">        print(<span class="string">'************************************ &#123;&#125; ************************************'</span>.format(str(i+<span class="number">1</span>)))</span><br><span class="line">        trn_x, trn_y, val_x, val_y = train_x.iloc[train_index], train_y[train_index], train_x.iloc[valid_index], train_y[valid_index]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> clf_name == <span class="string">"lgb"</span>:</span><br><span class="line">            train_matrix = clf.Dataset(trn_x, label=trn_y)</span><br><span class="line">            valid_matrix = clf.Dataset(val_x, label=val_y)</span><br><span class="line"></span><br><span class="line">            params = &#123;</span><br><span class="line">                <span class="string">'boosting_type'</span>: <span class="string">'gbdt'</span>,</span><br><span class="line">                <span class="string">'objective'</span>: <span class="string">'binary'</span>,</span><br><span class="line">                <span class="string">'metric'</span>: <span class="string">'auc'</span>,</span><br><span class="line">                <span class="string">'min_child_weight'</span>: <span class="number">5</span>,</span><br><span class="line">                <span class="string">'num_leaves'</span>: <span class="number">2</span> ** <span class="number">5</span>,</span><br><span class="line">                <span class="string">'lambda_l2'</span>: <span class="number">10</span>,</span><br><span class="line">                <span class="string">'feature_fraction'</span>: <span class="number">0.8</span>,</span><br><span class="line">                <span class="string">'bagging_fraction'</span>: <span class="number">0.8</span>,</span><br><span class="line">                <span class="string">'bagging_freq'</span>: <span class="number">4</span>,</span><br><span class="line">                <span class="string">'learning_rate'</span>: <span class="number">0.1</span>,</span><br><span class="line">                <span class="string">'seed'</span>: <span class="number">2020</span>,</span><br><span class="line">                <span class="string">'nthread'</span>: <span class="number">28</span>,</span><br><span class="line">                <span class="string">'n_jobs'</span>:<span class="number">24</span>,</span><br><span class="line">                <span class="string">'silent'</span>: <span class="literal">True</span>,</span><br><span class="line">                <span class="string">'verbose'</span>: <span class="number">-1</span>,</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            model = clf.train(params, train_matrix, <span class="number">50000</span>, valid_sets=[train_matrix, valid_matrix], verbose_eval=<span class="number">200</span>,early_stopping_rounds=<span class="number">200</span>)</span><br><span class="line">            val_pred = model.predict(val_x, num_iteration=model.best_iteration)</span><br><span class="line">            test_pred = model.predict(test_x, num_iteration=model.best_iteration)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># print(list(sorted(zip(features, model.feature_importance("gain")), key=lambda x: x[1], reverse=True))[:20])</span></span><br><span class="line">                </span><br><span class="line">        <span class="keyword">if</span> clf_name == <span class="string">"xgb"</span>:</span><br><span class="line">            train_matrix = clf.DMatrix(trn_x , label=trn_y)</span><br><span class="line">            valid_matrix = clf.DMatrix(val_x , label=val_y)</span><br><span class="line">            test_matrix = clf.DMatrix(test_x)</span><br><span class="line">            </span><br><span class="line">            params = &#123;<span class="string">'booster'</span>: <span class="string">'gbtree'</span>,</span><br><span class="line">                      <span class="string">'objective'</span>: <span class="string">'binary:logistic'</span>,</span><br><span class="line">                      <span class="string">'eval_metric'</span>: <span class="string">'auc'</span>,</span><br><span class="line">                      <span class="string">'gamma'</span>: <span class="number">1</span>,</span><br><span class="line">                      <span class="string">'min_child_weight'</span>: <span class="number">1.5</span>,</span><br><span class="line">                      <span class="string">'max_depth'</span>: <span class="number">5</span>,</span><br><span class="line">                      <span class="string">'lambda'</span>: <span class="number">10</span>,</span><br><span class="line">                      <span class="string">'subsample'</span>: <span class="number">0.7</span>,</span><br><span class="line">                      <span class="string">'colsample_bytree'</span>: <span class="number">0.7</span>,</span><br><span class="line">                      <span class="string">'colsample_bylevel'</span>: <span class="number">0.7</span>,</span><br><span class="line">                      <span class="string">'eta'</span>: <span class="number">0.04</span>,</span><br><span class="line">                      <span class="string">'tree_method'</span>: <span class="string">'exact'</span>,</span><br><span class="line">                      <span class="string">'seed'</span>: <span class="number">2020</span>,</span><br><span class="line">                      <span class="string">'nthread'</span>: <span class="number">36</span>,</span><br><span class="line">                      <span class="string">"silent"</span>: <span class="literal">True</span>,</span><br><span class="line">                      &#125;</span><br><span class="line">            </span><br><span class="line">            watchlist = [(train_matrix, <span class="string">'train'</span>),(valid_matrix, <span class="string">'eval'</span>)]</span><br><span class="line">            </span><br><span class="line">            model = clf.train(params, train_matrix, num_boost_round=<span class="number">50000</span>, evals=watchlist, verbose_eval=<span class="number">200</span>, early_stopping_rounds=<span class="number">200</span>)</span><br><span class="line">            val_pred  = model.predict(valid_matrix, ntree_limit=model.best_ntree_limit)</span><br><span class="line">            test_pred = model.predict(test_matrix , ntree_limit=model.best_ntree_limit)</span><br><span class="line">                 </span><br><span class="line">        <span class="keyword">if</span> clf_name == <span class="string">"cat"</span>:</span><br><span class="line">            params = &#123;<span class="string">'learning_rate'</span>: <span class="number">0.05</span>, <span class="string">'depth'</span>: <span class="number">5</span>, <span class="string">'l2_leaf_reg'</span>: <span class="number">10</span>, <span class="string">'bootstrap_type'</span>: <span class="string">'Bernoulli'</span>,</span><br><span class="line">                      <span class="string">'od_type'</span>: <span class="string">'Iter'</span>, <span class="string">'od_wait'</span>: <span class="number">50</span>, <span class="string">'random_seed'</span>: <span class="number">11</span>, <span class="string">'allow_writing_files'</span>: <span class="literal">False</span>&#125;</span><br><span class="line">            </span><br><span class="line">            model = clf(iterations=<span class="number">20000</span>, **params)</span><br><span class="line">            model.fit(trn_x, trn_y, eval_set=(val_x, val_y),</span><br><span class="line">                      cat_features=[], use_best_model=<span class="literal">True</span>, verbose=<span class="number">500</span>)</span><br><span class="line">            </span><br><span class="line">            val_pred  = model.predict(val_x)</span><br><span class="line">            test_pred = model.predict(test_x)</span><br><span class="line">            </span><br><span class="line">        train[valid_index] = val_pred</span><br><span class="line">        test = test_pred / kf.n_splits</span><br><span class="line">        cv_scores.append(roc_auc_score(val_y, val_pred))</span><br><span class="line">        </span><br><span class="line">        print(cv_scores)</span><br><span class="line">       </span><br><span class="line">    print(<span class="string">"%s_scotrainre_list:"</span> % clf_name, cv_scores)</span><br><span class="line">    print(<span class="string">"%s_score_mean:"</span> % clf_name, np.mean(cv_scores))</span><br><span class="line">    print(<span class="string">"%s_score_std:"</span> % clf_name, np.std(cv_scores))</span><br><span class="line">    <span class="keyword">return</span> train, test</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lgb_model</span><span class="params">(x_train, y_train, x_test)</span>:</span></span><br><span class="line">    lgb_train, lgb_test = cv_model(lgb, x_train, y_train, x_test, <span class="string">"lgb"</span>)</span><br><span class="line">    <span class="keyword">return</span> lgb_train, lgb_test</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xgb_model</span><span class="params">(x_train, y_train, x_test)</span>:</span></span><br><span class="line">    xgb_train, xgb_test = cv_model(xgb, x_train, y_train, x_test, <span class="string">"xgb"</span>)</span><br><span class="line">    <span class="keyword">return</span> xgb_train, xgb_test</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cat_model</span><span class="params">(x_train, y_train, x_test)</span>:</span></span><br><span class="line">    cat_train, cat_test = cv_model(CatBoostRegressor, x_train, y_train, x_test, <span class="string">"cat"</span>) </span><br><span class="line">    <span class="keyword">return</span> cat_train, cat_test</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rh_test = <span class="number">0.5</span>*lgb_test+<span class="number">0.5</span>*cat_test</span><br><span class="line">testA[<span class="string">'isDefault'</span>] = rh_test</span><br><span class="line">testA[[<span class="string">'id'</span>,<span class="string">'isDefault'</span>]].to_csv(<span class="string">'test_sub.csv'</span>, index=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>因为<code>xgboost</code>模型的速度会比其它两个慢很多，我就没用这个去训练了。</p>
+<p><strong>baseline.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入需要的库</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> gc</span><br><span class="line"><span class="keyword">import</span> lightgbm <span class="keyword">as</span> lgb</span><br><span class="line"><span class="keyword">import</span> xgboost <span class="keyword">as</span> xgb</span><br><span class="line"><span class="keyword">from</span> catboost <span class="keyword">import</span> CatBoostRegressor</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> SGDRegressor, LinearRegression, Ridge</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> StratifiedKFold, KFold</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, f1_score, roc_auc_score, log_loss</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">'ignore'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入数据</span></span><br><span class="line">train = pd.read_csv(<span class="string">'data/train.csv'</span>)</span><br><span class="line">testA = pd.read_csv(<span class="string">'data/testA.csv'</span>)</span><br><span class="line"></span><br><span class="line">data = pd.concat([train, testA], axis=<span class="number">0</span>, ignore_index=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">data[<span class="string">'employmentLength'</span>].replace(to_replace=<span class="string">'10+ years'</span>, value=<span class="string">'10 years'</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">data[<span class="string">'employmentLength'</span>].replace(<span class="string">'&lt; 1 year'</span>, <span class="string">'0 years'</span>, inplace=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">employmentLength_to_int</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> pd.isnull(s):</span><br><span class="line">        <span class="keyword">return</span> s</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> np.int8(s.split()[<span class="number">0</span>])</span><br><span class="line">    </span><br><span class="line">data[<span class="string">'employmentLength'</span>] = data[<span class="string">'employmentLength'</span>].apply(employmentLength_to_int)</span><br><span class="line">data[<span class="string">'earliesCreditLine'</span>] = data[<span class="string">'earliesCreditLine'</span>].apply(<span class="keyword">lambda</span> s: int(s[<span class="number">-4</span>:]))</span><br><span class="line"></span><br><span class="line">data = pd.get_dummies(data, columns=[<span class="string">'grade'</span>, <span class="string">'subGrade'</span>, <span class="string">'homeOwnership'</span>, <span class="string">'verificationStatus'</span>, <span class="string">'purpose'</span>, <span class="string">'regionCode'</span>], drop_first=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> [<span class="string">'employmentTitle'</span>, <span class="string">'postCode'</span>, <span class="string">'title'</span>]:</span><br><span class="line">    data[f+<span class="string">'_cnts'</span>] = data.groupby([f])[<span class="string">'id'</span>].transform(<span class="string">'count'</span>)</span><br><span class="line">    data[f+<span class="string">'_rank'</span>] = data.groupby([f])[<span class="string">'id'</span>].rank(ascending=<span class="literal">False</span>).astype(int)</span><br><span class="line">    <span class="keyword">del</span> data[f]</span><br><span class="line">    </span><br><span class="line"><span class="keyword">del</span> data[<span class="string">'n2.2'</span>]</span><br><span class="line"><span class="keyword">del</span> data[<span class="string">'n2.3'</span>]</span><br><span class="line"><span class="keyword">del</span> data[<span class="string">'id'</span>]</span><br><span class="line"></span><br><span class="line">features = [f <span class="keyword">for</span> f <span class="keyword">in</span> data.columns <span class="keyword">if</span> f <span class="keyword">not</span> <span class="keyword">in</span> [<span class="string">'id'</span>,<span class="string">'issueDate'</span>,<span class="string">'isDefault'</span>]]</span><br><span class="line"></span><br><span class="line">train = data[data.isDefault.notnull()].reset_index(drop=<span class="literal">True</span>)</span><br><span class="line">test = data[data.isDefault.isnull()].reset_index(drop=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">x_train = train[features]</span><br><span class="line">x_test = test[features]</span><br><span class="line">y_train = train[<span class="string">'isDefault'</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cv_model</span><span class="params">(clf, train_x, train_y, test_x, clf_name)</span>:</span></span><br><span class="line">    folds = <span class="number">10</span></span><br><span class="line">    seed = <span class="number">2020</span></span><br><span class="line">    kf = KFold(n_splits=folds, shuffle=<span class="literal">True</span>, random_state=seed)</span><br><span class="line"></span><br><span class="line">    train = np.zeros(train_x.shape[<span class="number">0</span>])</span><br><span class="line">    test = np.zeros(test_x.shape[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">    cv_scores = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i, (train_index, valid_index) <span class="keyword">in</span> enumerate(kf.split(train_x, train_y)):</span><br><span class="line">        print(<span class="string">'************************************ &#123;&#125; ************************************'</span>.format(str(i+<span class="number">1</span>)))</span><br><span class="line">        trn_x, trn_y, val_x, val_y = train_x.iloc[train_index], train_y[train_index], train_x.iloc[valid_index], train_y[valid_index]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> clf_name == <span class="string">"lgb"</span>:</span><br><span class="line">            train_matrix = clf.Dataset(trn_x, label=trn_y)</span><br><span class="line">            valid_matrix = clf.Dataset(val_x, label=val_y)</span><br><span class="line"></span><br><span class="line">            params = &#123;</span><br><span class="line">                <span class="string">'boosting_type'</span>: <span class="string">'gbdt'</span>,</span><br><span class="line">                <span class="string">'objective'</span>: <span class="string">'binary'</span>,</span><br><span class="line">                <span class="string">'metric'</span>: <span class="string">'auc'</span>,</span><br><span class="line">                <span class="string">'min_child_weight'</span>: <span class="number">5</span>,</span><br><span class="line">                <span class="string">'num_leaves'</span>: <span class="number">2</span> ** <span class="number">5</span>,</span><br><span class="line">                <span class="string">'lambda_l2'</span>: <span class="number">10</span>,</span><br><span class="line">                <span class="string">'feature_fraction'</span>: <span class="number">0.8</span>,</span><br><span class="line">                <span class="string">'bagging_fraction'</span>: <span class="number">0.8</span>,</span><br><span class="line">                <span class="string">'bagging_freq'</span>: <span class="number">4</span>,</span><br><span class="line">                <span class="string">'learning_rate'</span>: <span class="number">0.1</span>,</span><br><span class="line">                <span class="string">'seed'</span>: <span class="number">2020</span>,</span><br><span class="line">                <span class="string">'nthread'</span>: <span class="number">28</span>,</span><br><span class="line">                <span class="string">'n_jobs'</span>:<span class="number">24</span>,</span><br><span class="line">                <span class="string">'silent'</span>: <span class="literal">True</span>,</span><br><span class="line">                <span class="string">'verbose'</span>: <span class="number">-1</span>,</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            model = clf.train(params, train_matrix, <span class="number">50000</span>, valid_sets=[train_matrix, valid_matrix], verbose_eval=<span class="number">200</span>,early_stopping_rounds=<span class="number">200</span>)</span><br><span class="line">            val_pred = model.predict(val_x, num_iteration=model.best_iteration)</span><br><span class="line">            test_pred = model.predict(test_x, num_iteration=model.best_iteration)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># print(list(sorted(zip(features, model.feature_importance("gain")), key=lambda x: x[1], reverse=True))[:20])</span></span><br><span class="line">                </span><br><span class="line">        <span class="keyword">if</span> clf_name == <span class="string">"xgb"</span>:</span><br><span class="line">            train_matrix = clf.DMatrix(trn_x , label=trn_y)</span><br><span class="line">            valid_matrix = clf.DMatrix(val_x , label=val_y)</span><br><span class="line">            test_matrix = clf.DMatrix(test_x)</span><br><span class="line">            </span><br><span class="line">            params = &#123;<span class="string">'booster'</span>: <span class="string">'gbtree'</span>,</span><br><span class="line">                      <span class="string">'objective'</span>: <span class="string">'binary:logistic'</span>,</span><br><span class="line">                      <span class="string">'eval_metric'</span>: <span class="string">'auc'</span>,</span><br><span class="line">                      <span class="string">'gamma'</span>: <span class="number">1</span>,</span><br><span class="line">                      <span class="string">'min_child_weight'</span>: <span class="number">1.5</span>,</span><br><span class="line">                      <span class="string">'max_depth'</span>: <span class="number">5</span>,</span><br><span class="line">                      <span class="string">'lambda'</span>: <span class="number">10</span>,</span><br><span class="line">                      <span class="string">'subsample'</span>: <span class="number">0.7</span>,</span><br><span class="line">                      <span class="string">'colsample_bytree'</span>: <span class="number">0.7</span>,</span><br><span class="line">                      <span class="string">'colsample_bylevel'</span>: <span class="number">0.7</span>,</span><br><span class="line">                      <span class="string">'eta'</span>: <span class="number">0.04</span>,</span><br><span class="line">                      <span class="string">'tree_method'</span>: <span class="string">'exact'</span>,</span><br><span class="line">                      <span class="string">'seed'</span>: <span class="number">2020</span>,</span><br><span class="line">                      <span class="string">'nthread'</span>: <span class="number">36</span>,</span><br><span class="line">                      <span class="string">"silent"</span>: <span class="literal">True</span>,</span><br><span class="line">                      &#125;</span><br><span class="line">            </span><br><span class="line">            watchlist = [(train_matrix, <span class="string">'train'</span>),(valid_matrix, <span class="string">'eval'</span>)]</span><br><span class="line">            </span><br><span class="line">            model = clf.train(params, train_matrix, num_boost_round=<span class="number">50000</span>, evals=watchlist, verbose_eval=<span class="number">200</span>, early_stopping_rounds=<span class="number">200</span>)</span><br><span class="line">            val_pred  = model.predict(valid_matrix, ntree_limit=model.best_ntree_limit)</span><br><span class="line">            test_pred = model.predict(test_matrix , ntree_limit=model.best_ntree_limit)</span><br><span class="line">                 </span><br><span class="line">        <span class="keyword">if</span> clf_name == <span class="string">"cat"</span>:</span><br><span class="line">            params = &#123;<span class="string">'learning_rate'</span>: <span class="number">0.05</span>, <span class="string">'depth'</span>: <span class="number">5</span>, <span class="string">'l2_leaf_reg'</span>: <span class="number">10</span>, <span class="string">'bootstrap_type'</span>: <span class="string">'Bernoulli'</span>,</span><br><span class="line">                      <span class="string">'od_type'</span>: <span class="string">'Iter'</span>, <span class="string">'od_wait'</span>: <span class="number">50</span>, <span class="string">'random_seed'</span>: <span class="number">11</span>, <span class="string">'allow_writing_files'</span>: <span class="literal">False</span>&#125;</span><br><span class="line">            </span><br><span class="line">            model = clf(iterations=<span class="number">20000</span>, **params)</span><br><span class="line">            model.fit(trn_x, trn_y, eval_set=(val_x, val_y),</span><br><span class="line">                      cat_features=[], use_best_model=<span class="literal">True</span>, verbose=<span class="number">500</span>)</span><br><span class="line">            </span><br><span class="line">            val_pred  = model.predict(val_x)</span><br><span class="line">            test_pred = model.predict(test_x)</span><br><span class="line">            </span><br><span class="line">        train[valid_index] = val_pred</span><br><span class="line">        test = test_pred / kf.n_splits</span><br><span class="line">        cv_scores.append(roc_auc_score(val_y, val_pred))</span><br><span class="line">        </span><br><span class="line">        print(cv_scores)</span><br><span class="line">       </span><br><span class="line">    print(<span class="string">"%s_scotrainre_list:"</span> % clf_name, cv_scores)</span><br><span class="line">    print(<span class="string">"%s_score_mean:"</span> % clf_name, np.mean(cv_scores))</span><br><span class="line">    print(<span class="string">"%s_score_std:"</span> % clf_name, np.std(cv_scores))</span><br><span class="line">    <span class="keyword">return</span> train, test</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lgb_model</span><span class="params">(x_train, y_train, x_test)</span>:</span></span><br><span class="line">    lgb_train, lgb_test = cv_model(lgb, x_train, y_train, x_test, <span class="string">"lgb"</span>)</span><br><span class="line">    <span class="keyword">return</span> lgb_train, lgb_test</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xgb_model</span><span class="params">(x_train, y_train, x_test)</span>:</span></span><br><span class="line">    xgb_train, xgb_test = cv_model(xgb, x_train, y_train, x_test, <span class="string">"xgb"</span>)</span><br><span class="line">    <span class="keyword">return</span> xgb_train, xgb_test</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cat_model</span><span class="params">(x_train, y_train, x_test)</span>:</span></span><br><span class="line">    cat_train, cat_test = cv_model(CatBoostRegressor, x_train, y_train, x_test, <span class="string">"cat"</span>) </span><br><span class="line">    <span class="keyword">return</span> cat_train, cat_test</span><br><span class="line"></span><br><span class="line">lgb_train, lgb_test = lgb_model(x_train, y_train, x_test)</span><br><span class="line">cat_train, cat_test = cat_model(x_train, y_train, x_test)</span><br><span class="line">rh_test = <span class="number">0.5</span>*lgb_test+<span class="number">0.5</span>*cat_test</span><br><span class="line">testA[<span class="string">'isDefault'</span>] = rh_test</span><br><span class="line">testA[[<span class="string">'id'</span>,<span class="string">'isDefault'</span>]].to_csv(<span class="string">'test_sub.csv'</span>, index=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%87%91%E8%9E%8D%E9%A3%8E%E6%8E%A7/" rel="tag"># 金融风控</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/07/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E9%9A%90%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E6%A8%A1%E5%9E%8B/" rel="prev" title="统计学习方法——隐马尔科夫模型">
+      <i class="fa fa-chevron-left"></i> 统计学习方法——隐马尔科夫模型
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#赛题理解"><span class="nav-number">1.</span> <span class="nav-text">赛题理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据分析"><span class="nav-number">2.</span> <span class="nav-text">数据分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征工程"><span class="nav-number">3.</span> <span class="nav-text">特征工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建模和融合"><span class="nav-number">4.</span> <span class="nav-text">建模和融合</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">养乐多</p>
+  <div class="site-description" itemprop="description">从现在开始</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">养乐多</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">126k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:54</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+
