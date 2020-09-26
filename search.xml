@@ -2794,7 +2794,52 @@ E_{P(X, Y)}\left[f_{k}\right] &=\sum_{x, y} P(x, y) \sum_{i=1}^{n+1} f_{k}\left(
 <script type="math/tex; mode=display">
 Z(x)=\alpha_{n}^{\mathrm{T}}(x) 1</script><p>&emsp;&emsp;式 (11.34) 和式 (11.35) 是特征函数数学期望的一般计算公式。对于转移特征 $t_{k}\left(y_{i-1}, y_{i}, x, i\right), k=1,2, \cdots, K_{1},$ 可以将式中的 $f_{k}$ 换成 $t_{k}:$ 对于状态特征，可以将 式中的 $f_{k}$ 换成 $s_{i},$ 表示为 $s_{l}\left(y_{i}, x, i\right), k=K_{1}+l, l=1,2, \cdots, K_{2} $ 。</p>
 <p>&emsp;&emsp;有了式 (11.32)$\sim$ 式 $(11.35),$ 对于给定的观测序列 $x$ 与标记序列 $y,$ 可以通过一次 前向扫描计甘 $\alpha_{i}$ 及 $Z(x),$ 通过一次后向扫描计算 $\beta_{i},$ 从而计算所有的概率和特征的 期望。</p>
-<h3 id="CRF的学习预测算法"><a href="#CRF的学习预测算法" class="headerlink" title="CRF的学习预测算法"></a>CRF的学习预测算法</h3><p>先占个坑，这章知识太多了！！！。</p>
+<h3 id="CRF的学习预测算法"><a href="#CRF的学习预测算法" class="headerlink" title="CRF的学习预测算法"></a>CRF的学习预测算法</h3><p><strong>迭代尺度法</strong></p>
+<p>输入: 特征函数 $t_{1}, t_{2}, \cdots, t_{K_{1}}, s_{1}, s_{2}, \cdots, s_{K_{2}} ;$ 经验分布 $\tilde{P}(x, y)$<br>输出: 参数估计值 $\hat{w}$; 模型 $P_{\hat{w}}$<br>(1) 对所有 $k \in\{1,2, \cdots, K\},$ 取初值 $w_{k}=0$<br>(2) 对每一 $k \in\{1,2, \cdots, K\}$ :<br>(a) 当 $k=1,2, \cdots, K_{1}$ 时, 令 $\delta_{k}$ 是方程</p>
+<script type="math/tex; mode=display">
+\sum_{x, y} \tilde{P}(x) P(y \mid x) \sum_{i=1}^{n+1} t_{k}\left(y_{i-1}, y_{i}, x, i\right) \exp \left(\delta_{k} T(x, y)\right)=E_{\tilde{P}}\left[t_{k}\right]</script><p>的解;<br>当 $k=K_{1}+l, l=1,2, \cdots, K_{2}$ 时, $, \hat{\Im} \delta_{K_{1}+l}$ 是方程</p>
+<script type="math/tex; mode=display">
+\sum_{x, y} \tilde{P}(x) P(y \mid x) \sum_{i=1}^{n} s_{l}\left(y_{i}, x, i\right) \exp \left(\delta_{K_{1}+l} T(x, y)\right)=E_{\tilde{P}}\left[s_{l}\right]</script><p>的值，式中 $T(x, y)$ 由式 (11.38) 给出。<br>(b) 更新 $w_{k}$ 值: $w_{k} \leftarrow w_{k}+\delta_{k}$<br>据 $(x, y)$ 取值可能不同。为了处理这个问題，定义松己特征</p>
+<script type="math/tex; mode=display">
+s(x, y)=S-\sum_{i=1}^{n+1} \sum_{k=1}^{K} f_{k}\left(y_{i-1}, y_{i}, x, i\right) \tag{11.39}</script><p>式中 S 是一个常 数。选择足解大的常数 S 使得对训练数据集的所有数据 $(x, y)$, $s(x, y) \geqslant 0$ 成立。这时特征.总数可取 $S_{\text {o }}$<br>由式 (11.36)，对于特移特征 $t_{k}, \delta_{k}$ 的更新方程是</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+\sum \tilde{P}(x) P(y \mid x) \sum_{i=1}^{n+1} t_{k}\left(y_{i-1}, y_{i}, x, i\right) \exp \left(\delta_{k} S\right)=E_{\hat{P}}\left[t_{k}\right]\tag{11.40}
+\end{array}</script><script type="math/tex; mode=display">
+\delta_{k}=\frac{1}{S} \log \frac{E_{\tilde{P}}\left[t_{k}\right]}{E_{P}\left[t_{k}\right]}\tag{11.41}</script><p>其中。</p>
+<script type="math/tex; mode=display">
+E_{P}\left(t_{k}\right)=\sum_{x} \tilde{P}(x) \sum_{i=1}^{n+1} \sum_{y_{i-1}, y_{i}} t_{k}\left(y_{i-1}, y_{i}, x, i\right) \frac{\alpha_{i-1}^{\mathrm{T}}\left(y_{i-1} \mid x\right) M_{i}\left(y_{i-1}, y_{i} \mid x\right) \beta_{i}\left(y_{i} \mid x\right)}{Z(x)}\tag{11.42}</script><p>同样由式 (11.37)，对于状态特征 $s_{l}, \delta_{k}$ 的更新方程是</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+\sum \tilde{P}(x) P(y \mid x) \sum_{i=1}^{n} s_{l}\left(y_{i}, x, i\right) \exp \left(\delta_{K_{1}+l} S\right)=E_{\bar{P}}\left[s_{i}\right]\tag{11.43} \\
+\end{array}</script><script type="math/tex; mode=display">
+\delta_{K_{1}+l}=\frac{1}{S} \log \frac{E_{\tilde{P}}\left[s_{l}\right]}{E_{P}\left[s_{l}\right]}\tag{11.44}</script><p>其中，</p>
+<script type="math/tex; mode=display">
+E_{P}\left(s_{l}\right)=\sum_{x} \tilde{P}(x) \sum_{i=1}^{n} \sum_{y_{i}} s_{l}\left(y_{i}, x, i\right) \frac{\alpha_{i}^{T}\left(y_{i} \mid x\right) \beta_{i}\left(y_{i} \mid x\right)}{Z(x)}\tag{11.45}</script><p>以上算法称为算法 S。在算法 S 中需要使常数 S 取足够大，这样一来，每步迭代<br>的增量向量会变大，算法收签会变慢。算法 T 试图解决这个问题。算法 T 对每个观测<br>字列 x 计算其特休总数最大值 $T(x)$ :</p>
+<p><strong>拟牛顿法</strong></p>
+<p>输入：特征函数 $f_{1}, f_{2}, \cdots, f_{n} ;$ 经验分布 $\tilde{P}(X, Y)$<br>输出: 最优参数值 $\hat{w}$; 最优模型 $P_{\hat{w}}(y \mid x)$ 。<br>(1)选定初始点 $w^{(0)},$ 取 $B_{0}$ 为正定对称矩阵, 置 $k=0$ o<br>(2) 计算 $g_{k}=g\left(w^{(k)}\right)$ 。若 $g_{k}=0,$ 则停止计算; 否则转 (3)<br>(3) 由 $B_{k} p_{k}=-g_{k}$ 求出 $p_{k}$<br>(4)一维搜索: 求 $\lambda_{k}$ 使得</p>
+<script type="math/tex; mode=display">
+f\left(w^{(k)}+\lambda_{k} p_{k}\right)=\min _{\lambda \geqslant 0} f\left(w^{(k)}+\lambda p_{k}\right)</script><p>(5) 置 $w^{(k+1)}=w^{(k)}+\lambda_{k} p_{k}$<br>(6) 计算 $g_{k+1}=g\left(w^{(k+1)}\right),$ 若 $g_{k+1}=0,$ 则停止计算; 否则, 按下式求出 $B_{k+1:}$</p>
+<script type="math/tex; mode=display">
+B_{k+1}=B_{k}+\frac{y_{k} y_{k}^{\mathrm{T}}}{y_{k}^{\mathrm{T}} \delta_{k}}-\frac{B_{k} \delta_{k} \delta_{k}^{\mathrm{T}} B_{k}}{\delta_{k}^{\mathrm{T}} B_{k} \delta_{k}}</script><p>其中</p>
+<script type="math/tex; mode=display">
+y_{k}=g_{k+1}-g_{k}, \quad \delta_{k}=w^{(k+1)}-w^{(k)}</script><p>(7)置$k=k+1$，转(3)。</p>
+<p><strong>维特比算法</strong></p>
+<p>输入：模型特征向量 $F(y, x)$ 和权值向量 $w,$ 观测序列 $x=\left(x_{1}, x_{2}, \cdots, x_{n}\right)$ </p>
+<p>输出：最优路径 $y^{<em>}=\left(y_{1}^{</em>}, y_{2}^{<em>}, \cdots, y_{n}^{</em>}\right)$</p>
+<p>(1)初始化</p>
+<script type="math/tex; mode=display">
+\delta_{1}(j)=w \cdot F_{1}\left(y_{0}=\text { start }, y_{1}=j, x\right), \quad j=1,2, \cdots, m</script><p>(2) 递推。对 $i=2,3, \cdots, n$</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+\delta_{i}(l)=\max _{1 \leqslant j \leqslant m}\left\{\delta_{i-1}(j)+w \cdot F_{i}\left(y_{i-1}=j, y_{i}=l, x\right)\right\}, \quad l=1,2, \cdots, m \\
+\Psi_{i}(l)=\arg \max _{1 \leqslant j \leqslant m}\left\{\delta_{i-1}(j)+w \cdot F_{i}\left(y_{i-1}=j, y_{i}=l, x\right)\right\}, \quad l=1,2, \cdots, m
+\end{array}</script><p>(3) 终止</p>
+<script type="math/tex; mode=display">
+\max _{y}(w \cdot F(y, x))=\max _{1 \leqslant j \leqslant m} \delta_{n}(j)</script><script type="math/tex; mode=display">
+y_{n}^{*}=\arg \max _{1 \leqslant j \leqslant m} \delta_{n}(j)</script><p>（4）返回路径</p>
+<script type="math/tex; mode=display">
+y_{i}^{*}=\Psi_{i+1}\left(y_{i+1}^{*}\right), \quad i=n-1, n-2, \cdots, 1</script><p>求得最优路径 $y^{<em>}=\left(y_{1}^{</em>}, y_{2}^{<em>}, \cdots, y_{n}^{</em>}\right)$</p>
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#这里定义T为转移矩阵列代表前一个y(ij)代表由状态i转到状态j的概率,Tx矩阵x对应于时间序列</span></span><br><span class="line"><span class="comment">#这里将书上的转移特征转换为如下以时间轴为区别的三个多维列表，维度为输出的维度</span></span><br><span class="line">T1 = [[<span class="number">0.6</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">0</span>]]</span><br><span class="line">T2 = [[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">0.2</span>]]</span><br><span class="line"><span class="comment">#将书上的状态特征同样转换成列表,第一个是为y1的未规划概率，第二个为y2的未规划概率</span></span><br><span class="line">S0 = [<span class="number">1</span>, <span class="number">0.5</span>]</span><br><span class="line">S1 = [<span class="number">0.8</span>, <span class="number">0.5</span>]</span><br><span class="line">S2 = [<span class="number">0.8</span>, <span class="number">0.5</span>]</span><br><span class="line">Y = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>]  <span class="comment">#即书上例一需要计算的非规划条件概率的标记序列</span></span><br><span class="line">Y = array(Y) - <span class="number">1</span>  <span class="comment">#这里为了将数与索引相对应即从零开始</span></span><br><span class="line">P = exp(S0[Y[<span class="number">0</span>]])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(Y)):</span><br><span class="line">    P *= exp((eval(<span class="string">'S%d'</span> % i)[Y[i]]) + eval(<span class="string">'T%d'</span> % i)[Y[i - <span class="number">1</span>]][Y[i]])</span><br><span class="line">print(P)</span><br><span class="line">print(exp(<span class="number">3.2</span>))</span><br></pre></td></tr></table></figure>
 <p><strong>Reference:</strong></p>
 <ul>
