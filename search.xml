@@ -2464,7 +2464,7 @@ P(Y,Z^i|\theta)=cQ(Z^i)\tag{5}</script><p><code>方程(5)</code>两边同时累�
 </ul>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>统计学习方法</category>
       </categories>
       <tags>
         <tag>统计学习方法</tag>
@@ -2566,7 +2566,7 @@ I^*=(i_1^*,i_2^*,\cdots,i_T^*)</script><p>2）维特比算法：</p>
 </ul>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>统计学习方法</category>
       </categories>
       <tags>
         <tag>统计学习方法</tag>
@@ -2669,7 +2669,7 @@ I^*=(i_1^*,i_2^*,\cdots,i_T^*)</script><p>2）维特比算法：</p>
       </tags>
   </entry>
   <entry>
-    <title>条件随机场</title>
+    <title>统计学习方法——条件随机场</title>
     <url>/2020/09/19/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA/</url>
     <content><![CDATA[<p>&emsp;<a id="more"></a></p>
 <p><strong>摘要：</strong></p>
@@ -2852,11 +2852,11 @@ y_{i}^{*}=\Psi_{i+1}\left(y_{i+1}^{*}\right), \quad i=n-1, n-2, \cdots, 1</scrip
         <category>统计学习方法</category>
       </categories>
       <tags>
-        <tag>算法</tag>
+        <tag>统计学习方法</tag>
       </tags>
   </entry>
   <entry>
-    <title>无监督学习概论</title>
+    <title>统计学习方法——无监督学习概论</title>
     <url>/2020/09/27/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%AE%BA/</url>
     <content><![CDATA[<p>&emsp;<a id="more"></a></p>
 <h3 id="无监督学习的基本原理"><a href="#无监督学习的基本原理" class="headerlink" title="无监督学习的基本原理"></a>无监督学习的基本原理</h3><p>&emsp;&emsp;无监督学习是从无标注的数据中学习数据的统计规律或者说内在结构的机器学习，主要包括聚类、降维、概率估计。无监督学习可以用于数据分析或者监督学习的前处理。</p>
@@ -2881,7 +2881,149 @@ x_{M 1} & \cdots & x_{M N}
 <p>算法通常是迭代算法，通过迭代达到目标函数的最大化，比如，梯度下降法。</p>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>统计学习方法</category>
+      </categories>
+      <tags>
+        <tag>统计学习方法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>统计学习方法——聚类方法</title>
+    <url>/2020/09/29/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p><strong>摘要：</strong>聚类是针对给定的样本，依据它们特征的相似度或距离，将其归并到若干个“类”或“簇”的数据分析问题。一个类是样本的一个子集。直观上，相似的样本聚集在相同的类，不相似的样本分散在不同的类。这里，样本之间的相似度或距离起着重要作用。</p>
+<h2 id="聚类的基本概念"><a href="#聚类的基本概念" class="headerlink" title="聚类的基本概念"></a>聚类的基本概念</h2><p>首先定义一个矩阵<code>X</code>用来表示<code>n</code>个样本的<code>m</code>个属性。</p>
+<script type="math/tex; mode=display">
+X = [x_{ij}]_{m\times n}=
+\begin{bmatrix}
+x_{11} & x_{12} & \cdots & x_{1n}\\
+x_{21} & x_{22} & \cdots & x_{2n}\\
+\vdots & \vdots &        & \vdots\\
+x_{m1} & x_{m2} & \cdots & x_{mn}\\
+\end{bmatrix}</script><p>这里矩阵<code>X</code>的定义是按照书上来的，1列代表一个样本，当然还有另外一种常见的写法是1行代表一个样本，怎么写都行。</p>
+<h3 id="相似度或距离"><a href="#相似度或距离" class="headerlink" title="相似度或距离"></a>相似度或距离</h3><h4 id="1）闵可夫斯基距离（距离越大相似度越小，距离越小相似度越大）"><a href="#1）闵可夫斯基距离（距离越大相似度越小，距离越小相似度越大）" class="headerlink" title="1）闵可夫斯基距离（距离越大相似度越小，距离越小相似度越大）"></a>1）闵可夫斯基距离（距离越大相似度越小，距离越小相似度越大）</h4><p>给定样本集合<code>X</code>，<code>X</code>是<code>m</code>维实数向量空间$R^m$中点的集合，其中$x_i,x_j\in X，x_i=(x_{1i},x_{2i},\cdots,x_{mi})^T$，$x_j=(x_{1j},x_{2j},\cdots,x_{mj})^T$，样本$x_i$与样本$x_j$的闵可夫斯基距离定义为</p>
+<script type="math/tex; mode=display">
+d_{ij}=\left(  \sum_{k=1}^m{\mid x_{ki}-x_{kj} \mid}^p \right)^{\frac{1}{p}}</script><p>这里$p\ge 1$。当$p=2$时称为欧式距离，即</p>
+<script type="math/tex; mode=display">
+d_{ij}=\left(  \sum_{k=1}^m{\mid x_{ki}-x_{kj} \mid}^2 \right)^{\frac{1}{2}}</script><p>当$p=1$时称为曼哈顿距离，即</p>
+<script type="math/tex; mode=display">
+d_{ij}=  \sum_{k=1}^m |x_{ki}-x_{kj} |</script><p>当$p=\infty$时称为切比雪夫距离，取各个坐标数值差的绝对值的最大值，即</p>
+<script type="math/tex; mode=display">
+d_{ij}= \mathop{max}_k|x_{ki}-x_{kj} |</script><p>接下来举个简单的例子把，假设$x_1=(1,2)，x_2=(5, 6)$</p>
+<p>那么闵可夫斯基距离为：$\sqrt[p]{(5-1)^p+(6-2)^p}$</p>
+<p>欧式距离为：$\sqrt[2]{(5-1)^p+(6-2)^2}=\sqrt[2]{32}$</p>
+<p>曼哈顿距离为：$|5-1| + |6-2| = 8$</p>
+<p>切比雪夫距离为：$max(|5-1|, |6-2|)=4$</p>
+<p><br/></p>
+<h4 id="2）马哈拉诺比斯距离（距离越大相似度越小，距离越小相似度越大）"><a href="#2）马哈拉诺比斯距离（距离越大相似度越小，距离越小相似度越大）" class="headerlink" title="2）马哈拉诺比斯距离（距离越大相似度越小，距离越小相似度越大）"></a>2）马哈拉诺比斯距离（距离越大相似度越小，距离越小相似度越大）</h4><p>给定一个样本集合X，$X={(x_{ij})}_{m\times n}$，其协方差矩阵记作S。样本$x_i$与样本$x_j$之间的马哈拉诺比斯距离$d_{ij}$定义为</p>
+<script type="math/tex; mode=display">
+d_{ij}=\left[  (x_i-x_j)^TS^{-1}(x_i-x_j) \right]^{\frac{1}{2}}</script><p>其中</p>
+<script type="math/tex; mode=display">
+x_i=(x_{1i},x_{2i},\cdots,x_{mi})^T~~~~x_j=(x_{1j},x_{2j},\cdots,x_{mj})^T</script><p>当S为单位矩阵时，即样本数据的各个分量相互独立且各个分量的方差为1时，上式提到的马氏距离$d_{ij}$也就是欧式距离了，所以马氏距离是欧式距离的推广。</p>
+<p>证明如下：</p>
+<p>当S为单位矩阵时，那么$S^{-1}$也是单位矩阵，即$S=S^{-1}$。假设$x_i=(1,2,3),x_j=(5,4,6)$则：</p>
+<script type="math/tex; mode=display">
+d_{ij}={\left[   
+\begin{bmatrix}
+1-5 \\
+2-4 \\
+3-6
+\end{bmatrix} ^T
+
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{bmatrix}
+
+\begin{bmatrix}
+1-5 \\
+2-4 \\
+3-6
+\end{bmatrix}
+\right] }^{\frac{1}{2}}\\
+=\sqrt[2]{(-4)^2+(-2)^2+(-3)^2}</script><p>上式最后得到的结果也就是欧式距离的结果了。</p>
+<p>现在来解释下什么叫做协方差矩阵：</p>
+<p><strong>方差和协方差的定义</strong>：</p>
+<p>在统计学中，<strong>方差</strong>是用来度量<strong>单个随机变量</strong>的<strong>离散程度</strong>，而协方差则一般用来刻画<strong>两个随机变量</strong>的<strong>相似程度</strong>，其中，<strong>方差</strong>的计算公式为</p>
+<p>$\sigma_x^2=\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar x)^2$</p>
+<p>其中，$n$表示样本量，符号$\bar x$表示观测样本的均值。</p>
+<p>在此基础上，<strong>协方差</strong>的计算公式被定义为</p>
+<p>$\sigma(x, y)=\frac{1}{n-1} \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)\left(y_{i}-\bar{y}\right)$</p>
+<p>在公式中，符号 $\bar{x}, \bar{y}$ 分别表示两个随机变量所对应的观测样本均值，据此, 我们发现：方差 $\sigma_{x}^{2}$ 可视作随机变量 $x$ 关于其自身的协方差 $\sigma(x, x)$。</p>
+<p><strong>从方差/协方差到协方差矩阵：</strong></p>
+<p>根据方差的定义, 给定 $d$ 个随机变量 $x_{k}, k=1,2, \ldots, d,$ 则这些随机变量的方差为<br>$\sigma\left(x_{k}, x_{k}\right)=\frac{1}{n-1} \sum_{i=1}^{n}\left(x_{k i}-\bar{x}_{k}\right)^{2}, k=1,2, \ldots, d$</p>
+<p>其中, 为方便书写, $\quad x_{k i}$ 表示随机变量 $x_{k}$ 中的第 $i$ 个观测样本, $\quad n$ 表示样本量，每个随机变量所对应的观测样本数量均为 $n$ 。</p>
+<p><br>对于这些随机变量，我们还可以根据协方差的定义，求出两两之间的协方差, 即</p>
+<script type="math/tex; mode=display">
+\sigma\left(x_{m}, x_{k}\right)=\frac{1}{n-1} \sum_{i=1}^{n}\left(x_{m i}-\bar{x}_{m}\right)\left(x_{k i}-\bar{x}_{k}\right)</script><p>因此, 协方差矩阵为</p>
+<script type="math/tex; mode=display">
+\Sigma=\left[\begin{array}{ccc}
+\sigma\left(x_{1}, x_{1}\right) & \cdots & \sigma\left(x_{1}, x_{d}\right) \\
+\vdots & \ddots & \vdots \\
+\sigma\left(x_{d}, x_{1}\right) & \cdots & \sigma\left(x_{d}, x_{d}\right)
+\end{array}\right] \in \mathbb{R}^{d \times d}</script><p>其中，对角线上的元素为各个随机变量的方差, 非良角线上的元素为两两随机变量之间的协方差, 根据协方差的定义，我们可以认定：矩阵 $\Sigma$ 为对称矩阵(symmetric matrix)，其大小为 $d \times d$。</p>
+<p><br></p>
+<h4 id="3）相关系数（相关系数的绝对值越接近于1，表示样本越相似；越接近于0，表示样本越不相似）"><a href="#3）相关系数（相关系数的绝对值越接近于1，表示样本越相似；越接近于0，表示样本越不相似）" class="headerlink" title="3）相关系数（相关系数的绝对值越接近于1，表示样本越相似；越接近于0，表示样本越不相似）"></a>3）相关系数（相关系数的绝对值越接近于1，表示样本越相似；越接近于0，表示样本越不相似）</h4><p>样本$x_i$与样本$x_j$之间的相关系数定义为</p>
+<script type="math/tex; mode=display">
+r_{i j}=\frac{\sum_{k=1}^{m}\left(x_{k i}-\bar{x}_{i}\right)\left(x_{k j}-\bar{x}_{j}\right)}{\left[\sum_{k=1}^{m}\left(x_{k i}-\bar{x}_{i}\right)^{2} \sum_{k=1}^{m}\left(x_{k j}-\bar{x}_{j}\right)^{2}\right]^{\frac{1}{2}}}</script><p>其中</p>
+<script type="math/tex; mode=display">
+\bar{x}_{i}=\frac{1}{m} \sum_{k=1}^{m} x_{k i}, \quad \bar{x}_{j}=\frac{1}{m} \sum_{k=1}^{m} x_{k j}</script><p><br></p>
+<h4 id="4）夹角余弦（夹角余弦越接近于1，表示样本越相似；越接近于0，表示样本越不相似）"><a href="#4）夹角余弦（夹角余弦越接近于1，表示样本越相似；越接近于0，表示样本越不相似）" class="headerlink" title="4）夹角余弦（夹角余弦越接近于1，表示样本越相似；越接近于0，表示样本越不相似）"></a>4）夹角余弦（夹角余弦越接近于1，表示样本越相似；越接近于0，表示样本越不相似）</h4><p>样本$x_i$与样本$x_j$之间的夹角余弦定义为</p>
+<script type="math/tex; mode=display">
+s_{i j}=\frac{\sum_{k=1}^{m} x_{k i} x_{k j}}{\left[\sum_{k=1}^{m} x_{k i}^{2} \sum_{k=1}^{m} x_{k j}^{2}\right]^{\frac{1}{2}}}</script><h3 id="类或簇"><a href="#类或簇" class="headerlink" title="类或簇"></a>类或簇</h3><p>类或簇的四个定义：</p>
+<p>1）设 $T$ 为给定的正牧, 若集合 G 中任意两个样本 $x_{i}, x_{j},$ 有</p>
+<script type="math/tex; mode=display">
+d_{i j} \leqslant T</script><p>则称G为一个类或簇。</p>
+<p>2）设 T 为给定的正牧，若对集合 G 的任意样本 $x_{i},$ 一定存在 G 中的另 个样本 $x_{j},$ 使得</p>
+<script type="math/tex; mode=display">
+d_{i j} \leqslant T</script><p>则称G为一个类或簇。</p>
+<p>3）设 $T$ 为给定的正数，若对集合 $G$ 中任意一个样本 $x_{i}, G$ 中的另一个 样本 $x_{j}$ 满足</p>
+<script type="math/tex; mode=display">
+\frac{1}{n_{G}-1} \sum_{x_{j} \in G} d_{i j} \leqslant T</script><p>$\text { 其中 } n_{G} \text { 为 } G \text { 中样本的个数, 则称 } G \text { 为一个类或籍。 }$</p>
+<p>4）设 T 和 V 为给定的两个正牧，如果集合 G 中任意两个样本 $x_{i}, x_{j}$ 的 距离 $d_{i j}$ 满足</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+\frac{1}{n_{G}\left(n_{G}-1\right)} \sum_{x_{i} \in G} \sum_{x_{j} \in G} d_{i j} \leqslant T \\
+d_{i j} \leqslant V
+\end{array}</script><p>则称 G 为一个类或籍。</p>
+<p>类的三个特征：</p>
+<p>1）类的均值 $\bar{x}_{G}$, 又称为类的中心</p>
+<script type="math/tex; mode=display">
+\bar{x}_{G}=\frac{1}{n_{G}} \sum_{i=1}^{n_{G}} x_{i}</script><p>式中 $n_{G}$ 是类 $G$ 的样本个数。</p>
+<p>2）类的直径 (diameter) $D_{G}$<br>类的直径 D_ 是类中任意两个样本之间的最大距离, 即</p>
+<script type="math/tex; mode=display">
+D_{G}=\max _{x_{i}, x_{j} \in G} d_{i j}</script><p>3）类的样本散布矩阵$A_G$与样本协方差矩阵$S_G$</p>
+<p>类的样本散布矩阵$A_G$为</p>
+<script type="math/tex; mode=display">
+A_{G}=\sum_{i=1}^{n_{G}}\left(x_{i}-\bar{x}_{G}\right)\left(x_{i}-\bar{x}_{G}\right)^{\mathrm{T}}</script><p>样本协方差矩阵 SG 为</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+S_{G} &=\frac{1}{m-1} A_{G} \\
+&=\frac{1}{m-1} \sum_{i=1}^{n_{C}}\left(x_{i}-\bar{x}_{G}\right)\left(x_{i}-\bar{x}_{G}\right)^{\mathrm{T}}
+\end{aligned}</script><p>其中 m 为样本的维数（样本属性的个数）。</p>
+<h3 id="类与类之间的距离"><a href="#类与类之间的距离" class="headerlink" title="类与类之间的距离"></a>类与类之间的距离</h3><p>设类 $G_{p}$ 包含 $n_{p}$ 个样本, $G_{q}$ 包含 $n_{q}$ 个样本, 分别用 $\bar{x}_{p}$ 和 $\bar{x}_{q}$ 表示 $G_{p}$ 和 $G_{q}$ 的 均值，即类的中心。</p>
+<p>1）最短距离或单连接</p>
+<p>定义类 $G_{p}$ 的样本与 $G_{q}$ 的样本之间的最短距离为两类之间的距离</p>
+<script type="math/tex; mode=display">
+D_{p q}=\min \left\{d_{i j} \mid x_{i} \in G_{p}, x_{j} \in G_{q}\right\}</script><p>2）最长距离或完全连接</p>
+<p>定义类 $G_{p}$ 的样本与 $G_{q}$ 的样本之间的最长距离为两类之间的距离</p>
+<script type="math/tex; mode=display">
+D_{p q}=\max \left\{d_{i j} \mid x_{i} \in G_{p}, x_{j} \in G_{q}\right\}</script><p>3）中心距离</p>
+<p>定义类 $G_{p}$ 与类 $G_{q}$ 的中心 $\bar{x}_{p}$ 与 $\bar{x}_{q}$ 之间的距离为两类之同的距离</p>
+<script type="math/tex; mode=display">
+D_{p q}=d_{x_{p} x_{q}}</script><p>（4）半均距隨<br>定义类 $G_{p}$ 与类 $G_{q}$ 任套两个样本之但距离的平均值为两类之间的距离</p>
+<script type="math/tex; mode=display">
+D_{p q}=\frac{1}{n_{p} n_{q}} \sum_{x_{i} \in G_{p}} \sum_{x_{j} \in G_{q}} d_{i j}</script><h2 id="聚类算法"><a href="#聚类算法" class="headerlink" title="聚类算法"></a>聚类算法</h2><h3 id="层次聚类"><a href="#层次聚类" class="headerlink" title="层次聚类"></a>层次聚类</h3><p>输入: $n$ 个样本组成的样本集合及样本之间的距离： 输出: 对样本集合的一个层次化聚类。</p>
+<p>（1）计算 n 个样本两两之间的欧氏距离 $\left\{d_{i j}\right\},$ 记作矩阵 $D=\left[d_{i j}\right]_{n \times n}$<br>（2）构造 n 个类，每个类只包含一个样本。<br>（3）合并类间距离最小的两个类，其中最短距离为类间距离，构建一个新类。<br>（4）计算新类与当前各类的距离。若类的个数为 1，终止计算, 否则回到步 (3)。</p>
+<p>可以看出聚合层次政类算法的复杂度是 $O\left(n^{3} m\right),$ 其中 $m$ 是样本的维数，n 是样本个数。</p>
+<h3 id="k均值聚类"><a href="#k均值聚类" class="headerlink" title="k均值聚类"></a>k均值聚类</h3><p>输入: $n$ 个样本的集合 X:</p>
+<p>输出: 样本集合的款类 C”。</p>
+<p>（1）初始化。令 $t=0,$ 随 机选择 $k$ 个样本点作为初始聚类中心 $m^{(0)}=$ $\left(m_{1}^{(0)}, \cdots, m_{l}^{(0)}, \cdots, m_{k}^{(0)}\right)$<br>（2）对样本进行麥类。对固定的类中心 $m^{(t)}=\left(m_{1}^{(t)}, \cdots, m_{l}^{(t)}, \cdots, m_{k}^{(t)}\right),$ 其中<br>$m_{l}^{(t)}$ 为类 $G_{l}$ 的中心，计算每个样本到类中心的距离，将每个样本指派到与其最近的 中心的类中，构成聚类结果 $C^{(t)}$<br>（3）计算新的类中心。对聚类结果 C $^{(t)},$ 计算当前各个类中的样本的均值，作为新<br>的类中心 $m^{(t+1)}=\left(m_{1}^{(t+1)}, \cdots, m_{l}^{(t+1)}, \cdots, m_{k}^{(t+1)}\right)$<br>（4）如果迭代收琉或符合停止条件，输出 $C^{*}=C^{(t)}$。否则， $\Leftrightarrow t=t+1,$ 返回步 (2)</p>
+<p>k 均值聚类算法的复杂度是 $O(m n k),$ 其中 $m$ 是样本维数，n 是样本个数，k 是类别个数。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 定义聚类数的节点</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClusterNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, vec, left=None, right=None, distance=<span class="number">-1</span>, id=None, count=<span class="number">1</span>)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :param vec: 保存两个数据聚类后形成新的中心</span></span><br><span class="line"><span class="string">        :param left: 左节点</span></span><br><span class="line"><span class="string">        :param right:  右节点</span></span><br><span class="line"><span class="string">        :param distance: 两个节点的距离</span></span><br><span class="line"><span class="string">        :param id: 用来标记哪些节点是计算过的</span></span><br><span class="line"><span class="string">        :param count: 这个节点的叶子节点个数</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.vec = vec</span><br><span class="line">        self.left = left</span><br><span class="line">        self.right = right</span><br><span class="line">        self.distance = distance</span><br><span class="line">        self.id = id</span><br><span class="line">        self.count = count</span><br><span class="line">        </span><br><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">euler_distance</span><span class="params">(point1: np.ndarray, point2: list)</span> -&gt; float:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    计算两点之间的欧拉距离，支持多维</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    distance = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> a, b <span class="keyword">in</span> zip(point1, point2):</span><br><span class="line">        distance += math.pow(a - b, <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">return</span> math.sqrt(distance)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 层次聚类（聚合法）</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hierarchical</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, k)</span>:</span></span><br><span class="line">        self.k = k</span><br><span class="line">        self.labels = <span class="literal">None</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        nodes = [ClusterNode(vec=v, id=i) <span class="keyword">for</span> i, v <span class="keyword">in</span> enumerate(x)]</span><br><span class="line">        distances = &#123;&#125;</span><br><span class="line">        point_num, feature_num = x.shape</span><br><span class="line">        self.labels = [<span class="number">-1</span>] * point_num</span><br><span class="line">        currentclustid = <span class="number">-1</span></span><br><span class="line">        <span class="keyword">while</span>(len(nodes)) &gt; self.k:</span><br><span class="line">            min_dist = math.inf</span><br><span class="line">            nodes_len = len(nodes)</span><br><span class="line">            closest_part = <span class="literal">None</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(nodes_len - <span class="number">1</span>):</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(i+<span class="number">1</span>, nodes_len):</span><br><span class="line">                    d_key = (nodes[i].id, nodes[j].id)</span><br><span class="line">                    <span class="keyword">if</span> d_key <span class="keyword">not</span> <span class="keyword">in</span> distances:</span><br><span class="line">                        distances[d_key] = euler_distance(nodes[i].vec, nodes[j].vec)</span><br><span class="line">                    d = distances[d_key]</span><br><span class="line">                    <span class="keyword">if</span> d &lt; min_dist:</span><br><span class="line">                        min_dist = d</span><br><span class="line">                        closest_part = (i, j)</span><br><span class="line">                        </span><br><span class="line">            part1, part2 = closest_part</span><br><span class="line">            node1, node2 = nodes[part1], nodes[part2]</span><br><span class="line">            new_vec = [ (node1.vec[i] * node1.count + node2.vec[i] * node2.count ) / (node1.count + node2.count)</span><br><span class="line">                        <span class="keyword">for</span> i <span class="keyword">in</span> range(feature_num)]</span><br><span class="line">            new_node = ClusterNode(vec=new_vec,</span><br><span class="line">                                   left=node1,</span><br><span class="line">                                   right=node2,</span><br><span class="line">                                   distance=min_dist,</span><br><span class="line">                                   id=currentclustid,</span><br><span class="line">                                   count=node1.count + node2.count)</span><br><span class="line">            currentclustid -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">del</span> nodes[part2], nodes[part1]</span><br><span class="line">            nodes.append(new_node)</span><br><span class="line">            </span><br><span class="line">        self.nodes = nodes</span><br><span class="line">        self.calc_label()</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">calc_label</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        调取聚类的结果</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">for</span> i, node <span class="keyword">in</span> enumerate(self.nodes):</span><br><span class="line">            <span class="comment"># 将节点的所有叶子节点都分类</span></span><br><span class="line">            self.leaf_traversal(node, i)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">leaf_traversal</span><span class="params">(self, node: ClusterNode, label)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        递归遍历叶子节点</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> node.left == <span class="literal">None</span> <span class="keyword">and</span> node.right == <span class="literal">None</span>:</span><br><span class="line">            self.labels[node.id] = label</span><br><span class="line">        <span class="keyword">if</span> node.left:</span><br><span class="line">            self.leaf_traversal(node.left, label)</span><br><span class="line">        <span class="keyword">if</span> node.right:</span><br><span class="line">            self.leaf_traversal(node.right, label)</span><br><span class="line">            </span><br><span class="line"><span class="comment"># kmeans</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyKmeans</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, k, n=<span class="number">20</span>)</span>:</span></span><br><span class="line">        self.k = k</span><br><span class="line">        self.n = n</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, x, centers=None)</span>:</span></span><br><span class="line">        <span class="comment"># 第一步，随机选择 K 个点, 或者指定</span></span><br><span class="line">        <span class="keyword">if</span> centers <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            idx = np.random.randint(low=<span class="number">0</span>, high=len(x), size=self.k)</span><br><span class="line">            centers = x[idx]</span><br><span class="line">        <span class="comment">#print(centers)</span></span><br><span class="line">        </span><br><span class="line">        inters = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> inters &lt; self.n:</span><br><span class="line">            <span class="comment">#print(inters)</span></span><br><span class="line">            <span class="comment">#print(centers)</span></span><br><span class="line">            points_set = &#123;key: [] <span class="keyword">for</span> key <span class="keyword">in</span> range(self.k)&#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 第二步，遍历所有点 P，将 P 放入最近的聚类中心的集合中</span></span><br><span class="line">            <span class="keyword">for</span> p <span class="keyword">in</span> x:</span><br><span class="line">                nearest_index = np.argmin(np.sum((centers - p) ** <span class="number">2</span>, axis=<span class="number">1</span>) ** <span class="number">0.5</span>)</span><br><span class="line">                points_set[nearest_index].append(p)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 第三步，遍历每一个点集，计算新的聚类中心</span></span><br><span class="line">            <span class="keyword">for</span> i_k <span class="keyword">in</span> range(self.k):</span><br><span class="line">                centers[i_k] = sum(points_set[i_k])/len(points_set[i_k])</span><br><span class="line">                </span><br><span class="line">            inters += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> points_set, centers</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>统计学习方法</category>
       </categories>
       <tags>
         <tag>统计学习方法</tag>
